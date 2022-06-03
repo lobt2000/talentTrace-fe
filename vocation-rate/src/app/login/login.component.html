@@ -1,0 +1,40 @@
+<main class="login-background">
+  <!-- <section class="top-circle"></section> -->
+  <section class="login-block">
+    <!-- <div class="tab-menu"> -->
+    <h2>
+        SIGN IN
+    </h2>
+    <ul class="nav nav-tabs">
+      <li class="nav-item" (click)="changeTab('user')">
+        <a  data-target="#sign-in-user"  class="nav-link" [class.active]="activeTab == 'user'" role="tab" data-toggle="tab" aria-controls="active" aria-expanded="true">
+          <span class="nav-title">
+            User
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" (click)="changeTab('company')">
+        <a data-target="#sign-in-company" class="nav-link" [class.active]="activeTab == 'company'" role="tab" data-toggle="tab" aria-controls="active" aria-expanded="true">
+          <span class="nav-title">
+            Company
+          </span>
+        </a>
+      </li>
+
+    </ul>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane" [ngClass]="{'show active': activeTab == 'user'}" id="sign-in-user">
+        <app-sign-in-user></app-sign-in-user>
+        <!-- <router-outlet></router-outlet> -->
+        
+      </div>
+      <div role="tabpanel" class="tab-pane" [ngClass]="{'show active': activeTab == 'company'}" id="sign-in-company">
+        <app-sign-in-company></app-sign-in-company>
+        <!-- <router-outlet></router-outlet> -->
+      </div>
+    </div>
+    <!-- </div> -->
+  </section>
+  <!-- <section class="bottom-circle"></section> -->
+</main>
