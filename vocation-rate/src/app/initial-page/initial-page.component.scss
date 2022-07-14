@@ -1,0 +1,37 @@
+@import "../../assets/style/mixins";
+
+.initial-container {
+  @include size(100%, 100vh);
+  background-color: black;
+  overflow-y: auto;
+
+  .initial-header {
+    @include size(100%, 80px);
+    position: sticky;
+    top: 0;
+    left: 0%;
+    background-color: #2350f5;
+    box-shadow: 0px 0px 10px 3px gray;
+    z-index: 2;
+
+    .additional-header {
+      position: absolute;
+      top: 71px;
+      left: -19px;
+      @include size(40%, 58px);
+      background-color: #2350f5;
+      border-radius: 0px 0px 53px 0px;
+      box-shadow: 5px 7px 10px -4px grey;
+      z-index: 3;
+    }
+
+    .initial-menu {
+      @include size (100%, 100%);
+      @include flex-box(row, nowrap, space-around, center);
+
+      .menu-lang {
+
+      }
+    }
+  }
+}

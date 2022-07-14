@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InitialPageComponent } from './initial-page.component';
 import { InitialPageRoutingModule } from './initial-page-routing.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { InitialPageRoutingModule } from './initial-page-routing.module';
     FormsModule,
     ReactiveFormsModule,
     InitialPageRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule,
+    SharedModule
   ],
   providers: [],
 })

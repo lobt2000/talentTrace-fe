@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { LoginService } from './service/login.service';
 
 @Component({
@@ -8,21 +9,23 @@ import { LoginService } from './service/login.service';
 })
 export class AppComponent implements OnInit {
   title = 'vocation-rate';
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private translateService: TranslateService) {
+    translateService.addLangs(['en', 'ua']);
+    const lang = +localStorage.getItem('langId');
+    translateService.setDefaultLang(lang == 1 ? 'ua' : 'en');
+   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.validateLogin();
   }
 
   validateLogin() {
-    this.loginService.validateLogin({
-      username: 'roy', password: '123'
-    }).subscribe(result => {
-      console.log('result is ', result);
-    }, error => {
-      console.log('error is ', error);
-    });
+    // this.loginService.validateLogin({
+    //   username: 'roy', password: '123'
+    // }).subscribe(result => {
+    //   console.log('result is ', result);
+    // }, error => {
+    //   console.log('error is ', error);
+    // });
   }
 }

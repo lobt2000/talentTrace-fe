@@ -1,0 +1,23 @@
+@import "../../../../assets/style/mixins";
+
+.toggle-button {
+  @include size(50px, 20px);
+  border-radius: 20px;
+  border: 1px solid white;
+  background-color: #2350f5;
+  @include flex-box(row, nowrap, flex-start, center);
+  transition: all 0.6s ease-in-out;
+  position: relative;
+
+  .right-toggle {
+    @include size(20px, 20px);
+    border-radius: 50%;
+    background-color: white;
+    border: unset;
+    cursor: pointer;
+    transition: all 0.6s ease-in-out;
+    position: absolute;
+    top: -4%;
+    left: 0px;
+  }
+}
