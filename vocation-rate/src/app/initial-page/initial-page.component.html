@@ -1,20 +1,26 @@
 <main class="initial-container">
   <header class="initial-header">
     <nav class="initial-menu">
-        <img src="" alt="">
-        <h1></h1>
-        <button (click)="goToLogin()">Sign Up or Sign In</button>
-        <div class="menu-lang">
-            <app-ui-toggle></app-ui-toggle>
-        </div>
-
-        <p>
-            <a href="">{{'Contact Us' | translate}}</a>
-        </p>
-
+      <img class="logo" src="../../assets/svg/google.svg" alt="">
+      <h1 class="title">Nazva</h1>
+      <p class="menu-information">
+        <a href="">{{'Contact Us' | translate}}</a>
+      </p>
+      <p class="menu-information">
+        <a href="">{{'About Us' | translate}}</a>
+      </p>
+      <p class="menu-information">
+        <a href="">{{'Our Product' | translate}}</a>
+      </p>
+      <button class="menu-buttons" (click)="goToLogin()">{{'Sign In' | translate}}</button>
+      <button class="menu-buttons" (click)="goToLogin()">{{'Sign Up' | translate}}</button>
+      <div class="menu-lang">
+        <p class="lang-text">{{'English' | translate}}</p>
+        <app-ui-toggle></app-ui-toggle>
+        <p class="lang-text">{{'Ukrainian' | translate}}</p>
+      </div>
     </nav>
     <div class="additional-header"></div>
   </header>
   <section></section>
-
 </main>

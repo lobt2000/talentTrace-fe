@@ -11,6 +11,8 @@ export class UiToggleComponent implements OnInit {
   constructor(private languageService: LanguageService) { }
 
   ngOnInit(): void {
+    console.log(this.languageService.currentLang);
+    this.isLanguageChange = 'en' === this.languageService.currentLang ? false : true;
   }
 
 
