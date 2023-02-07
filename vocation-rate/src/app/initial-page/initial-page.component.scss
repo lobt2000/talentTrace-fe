@@ -1,8 +1,9 @@
 @import "../../assets/style/mixins";
+@import "../../assets/style/variables";
 
 .initial-container {
   @include size(100%, 100vh);
-  background-color: black;
+  background-color: $backgroundColor;
   overflow-y: auto;
 
   .initial-header {
@@ -10,16 +11,17 @@
     position: sticky;
     top: 0;
     left: 0%;
-    background-color: #2350f5;
+    background-color: $headerColor;
     box-shadow: 0px 0px 10px 3px gray;
     z-index: 2;
+    color: $backgroundColor;
 
     .additional-header {
       position: absolute;
       top: 71px;
       left: -19px;
       @include size(40%, 58px);
-      background-color: #2350f5;
+      background-color: $headerColor;
       border-radius: 0px 0px 53px 0px;
       box-shadow: 5px 7px 10px -4px grey;
       z-index: 3;
@@ -33,21 +35,21 @@
       transition: all 0.3s ease-in-out;
 
       .title {
-        color: white;
+        color: $darkGreen;
       }
 
       .logo {
         @include size(40px, 40px);
-
+        border-radius: 10px
       }
 
       .menu-lang {
         @include flex-box(row, nowrap, space-between, center);
         @include size(initial, 50px);
         min-width: 100px;
-        font-size: 18px;
+        font-size: 19px;
         font-weight: 600;
-        color: white;
+        color: $darkGreen;
 
         .lang-text:first-child {
           margin-right: 10px;
@@ -66,14 +68,15 @@
 
         a {
           font-style: unset;
-          color: white;
-          font-size: 18px;
+          color: $darkGreen;
+          font-size: 19px;
           font-weight: 600;
           text-decoration: none;
           transition: all 0.3s ease-in-out;
 
           &:hover {
-            color: black
+            color: black;
+            font-size: 20px
           }
         }
       }
@@ -84,20 +87,46 @@
         padding: 10px;
         @include flex-box(row, nowrap, center, center);
         font-size: 18px;
-        color: white;
+        color: $darkGreen;
+
         border-radius: 10px;
-        border: 1px solid white;
+        border: 1px solid $darkGreen;
         background-color: transparent;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         font-weight: 600;
 
         &:hover {
-          background-color: white;
-          color: #2350f5;
-          border-color: #2350f5;
+          background-color: $darkGreen;
+          color: $headerColor;
+          border-color: $darkGreen;
         }
       }
+    }
+  }
+}
+
+.initial-content {
+  @include size(calc(100% - 20px), calc(100% - 20px));
+  margin: 10px;
+
+  .ourProduct-section {
+    @include size(100%, 100%);
+    @include flex-box(row, nowrap, space-around, center);
+
+    &__img {
+      width: 40%;
+      height: 60%;
+      border-radius: 10px;
+    }
+
+    &__text {
+      @include size(40%, 60%);
+      font-size: 18px;
+      font-weight: 600;
+      color: $headerColor;
+      text-align: center;
+      @include flex-box(row, nowrap, center, center)
     }
   }
 }
