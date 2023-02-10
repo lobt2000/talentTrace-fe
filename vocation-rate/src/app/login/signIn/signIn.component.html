@@ -1,11 +1,15 @@
-<div class="signIn-form">
+<div class="signIn-form" [formGroup]="form">
   <div class="email-block">
     <label for="">Email address</label>
-    <input type="text" placeholder="Email">
+    <input type="text" placeholder="Email" [formControlName]="'email'">
   </div>
   <div class="password-block">
     <label for="">Password</label>
-    <input type="text" placeholder="Password">
+    <input type="text" placeholder="Password" [formControlName]="'password'">
+  </div>
+  <div class="email-block" *ngIf="typeOfUser == 'user'">
+    <label for="">Company Email address</label>
+    <input type="text" placeholder="Company Email" [formControlName]="'companyEmail'">
   </div>
   <button class="signIn-button"> ENTER </button>
   <span class="reset-pass"></span>

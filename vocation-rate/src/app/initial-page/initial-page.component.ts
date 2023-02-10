@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonUrls } from '../shared/constansts/common.constants';
 
 @Component({
   selector: 'app-initial-page',
@@ -13,7 +14,11 @@ export class InitialPageComponent implements OnInit {
   }
 
   goToLogin() {
-    this.router.navigate(['/login'])
+    this.router.navigate([CommonUrls.Login])
+  }
+
+  goToRegistration() {
+    this.router.navigate([CommonUrls.Registration])
   }
 
 }

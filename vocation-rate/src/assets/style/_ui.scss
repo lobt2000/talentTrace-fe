@@ -1,0 +1,10 @@
+@import "./mixins";
+@import "./variables";
+
+.component-background {
+  @include size(100%, 100vh);
+  @include flex-box(row, wrap, center, center);
+  background-color: $backgroundColor;
+  position: relative;
+  overflow: hidden;
+}

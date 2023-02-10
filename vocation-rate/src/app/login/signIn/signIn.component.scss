@@ -2,7 +2,7 @@
 
 .signIn-form {
   @include size(100%, 100%);
-  @include flex-box(column, nowrap, space-between, center);
+  @include flex-box(column, nowrap, space-around, center);
 
   .email-block {
     @include size(100%, 100px);

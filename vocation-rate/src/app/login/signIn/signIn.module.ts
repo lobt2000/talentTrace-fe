@@ -1,25 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { LoginRoutingModule } from './login-routing.module';;
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login.component';
-import { SharedModule } from '../shared/shared.module';
+import { SignInComponent } from './signIn.component';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    SignInComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    LoginRoutingModule,
-    HttpClientModule,
-    SharedModule
+    HttpClientModule
+  ],
+  exports: [
+    SignInComponent
   ],
   providers: [],
 })
-export class LoginModule { }
+export class SignInModule { }

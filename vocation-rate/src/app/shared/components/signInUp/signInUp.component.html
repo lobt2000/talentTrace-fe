@@ -1,0 +1,40 @@
+<section class="login-block" [ngClass]="{'signUpFrom': !typeOfAction }">
+  <!-- <div class="tab-menu"> -->
+  <h2>
+    {{typeOfAction ? 'SIGN IN' : 'SIGN UP'}}
+  </h2>
+  <ul class="nav nav-tabs">
+    <li class="nav-item" (click)="changeTab('user')">
+      <a data-target="#sign-in-user" class="nav-link" [class.active]="activeTab == 'user'" role="tab" data-toggle="tab"
+        aria-controls="active" aria-expanded="true">
+        <span class="nav-title">
+          User
+        </span>
+      </a>
+    </li>
+    <li class="nav-item" (click)="changeTab('company')">
+      <a data-target="#sign-in-company" class="nav-link" [class.active]="activeTab == 'company'" role="tab"
+        data-toggle="tab" aria-controls="active" aria-expanded="true">
+        <span class="nav-title">
+          Company
+        </span>
+      </a>
+    </li>
+
+  </ul>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane" [ngClass]="{'show active': activeTab == 'user'}" id="sign-in-user">
+      <app-signIn [typeOfUser]="'user'" *ngIf="typeOfAction"></app-signIn>
+      <app-signUp [typeOfUser]="'user'" *ngIf="!typeOfAction"></app-signUp>
+      <!-- <router-outlet></router-outlet> -->
+
+    </div>
+    <div role="tabpanel" class="tab-pane" [ngClass]="{'show active': activeTab == 'company'}" id="sign-in-company">
+      <app-signIn [typeOfUser]="'company'" *ngIf="typeOfAction"></app-signIn>
+      <app-signUp [typeOfUser]="'company'" *ngIf="!typeOfAction"></app-signUp>
+      <!-- <router-outlet></router-outlet> -->
+    </div>
+  </div>
+  <!-- </div> -->
+</section>
