@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserType } from '../../shared/constansts/common.constants';
 
 @Component({
@@ -8,9 +8,9 @@ import { UserType } from '../../shared/constansts/common.constants';
   styleUrls: ['./signIn.component.scss']
 })
 export class SignInComponent implements OnInit {
-  form: FormGroup
+  form: UntypedFormGroup
   @Input() typeOfUser: string = UserType.User
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.buildForm();
