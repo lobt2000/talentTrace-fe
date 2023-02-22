@@ -1,8 +1,14 @@
 @import "../../../assets/style/mixins";
+@import "../../../assets/style/ui";
 
 .signIn-form {
   @include size(100%, 100%);
   @include flex-box(column, nowrap, space-around, center);
+
+  .user-stepper-container {
+    @include size(100%, 60%);
+    background-color: initial;
+  }
 
   .email-block {
     @include size(100%, 100px);

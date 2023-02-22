@@ -1,5 +1,6 @@
 @import "./mixins";
 @import "./variables";
+@import "./elements/stepper";
 
 .component-background {
   @include size(100%, 100vh);
@@ -7,4 +8,32 @@
   background-color: $backgroundColor;
   position: relative;
   overflow: hidden;
+}
+
+.default-input-error-message {
+  color: #d90000;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+
+.btn-blue {
+  border: 1px solid #2350f5;
+  &:hover {
+    background-color: #2350f5;
+    color: white;
+  }
+}
+
+.btn-grey {
+  border: 1px solid #706262;
+  &:hover {
+    background-color: #706262;
+    color: white;
+  }
+}
+
+.hide-password-button {
+  position: absolute;
+  right: 20px;
 }

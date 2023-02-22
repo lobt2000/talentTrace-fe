@@ -8,7 +8,14 @@ import { UserType } from '../../shared/constansts/common.constants';
   styleUrls: ['./signUp.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  form: UntypedFormGroup
+  form: UntypedFormGroup = this.fb.group({
+    email: this.fb.control('', [Validators.required, Validators.email]),
+    confPassword: this.fb.control('', []),
+    companyEmail: this.fb.control('', []),
+    password: this.fb.control('', [Validators.required])
+  })
+  hidePass: boolean = true;
+  hideConfirmPass: boolean = true;
   @Input() typeOfUser: string = UserType.User;
   constructor(private fb: UntypedFormBuilder) { }
 
@@ -17,12 +24,12 @@ export class SignUpComponent implements OnInit {
   }
 
   buildUserForm() {
-    this.form = this.fb.group({
-      email: this.fb.control('', [Validators.required]),
-      confPassword: this.fb.control('', []),
-      companyEmail: this.fb.control('', []),
-      password: this.fb.control('', [Validators.required])
-    })
+    // this.form = this.fb.group({
+    //   email: this.fb.control('', [Validators.required, Validators.email]),
+    //   confPassword: this.fb.control('', []),
+    //   companyEmail: this.fb.control('', []),
+    //   password: this.fb.control('', [Validators.required])
+    // })
   }
 
 }
