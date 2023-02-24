@@ -42,9 +42,13 @@
               [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
               <mat-icon style="color: white;">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
+            <!-- <div class="password-info">
+              <mat-icon>help</mat-icon>
+              <div class="password-info-layer"></div>
+            </div> -->
             <mat-error class="default-input-error-message"
-              *ngIf="form.get('password').hasError('password') && !form.get('password').hasError('required')">
-              Please enter a valid password
+              *ngIf="form.get('password').hasError('pattern') && !form.get('password').hasError('required')">
+              * Width 8-30, At least one: upper & lower letter, number, special sympol
             </mat-error>
             <mat-error class="default-input-error-message" *ngIf="form.get('password').hasError('required')">
               Password is <strong>required</strong>
@@ -59,7 +63,11 @@
               <mat-icon style="color: white;">{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <mat-error class="default-input-error-message"
-              *ngIf="form.get('confPassword').hasError('password') && !form.get('confPassword').hasError('required')">
+              *ngIf="form.get('confPassword').hasError('pattern') && !form.get('confPassword').hasError('required')">
+              * Width 8-30, At least one: upper & lower letter, number, special sympol
+            </mat-error>
+            <mat-error class="default-input-error-message"
+              *ngIf="form.get('confPassword').hasError('notmatch') && !form.get('confPassword').hasError('pattern') && !form.get('confPassword').hasError('required')">
               Please enter a valid confirm password
             </mat-error>
             <mat-error class="default-input-error-message" *ngIf="form.get('confPassword').hasError('required')">
@@ -77,8 +85,8 @@
         <p class="default-stepper-header">You are now done.</p>
         <div class="default-stepper-button-block">
           <button class="default-stepper-button" mat-button matStepperPrevious>Back</button>
-          <button class="default-stepper-button btn-grey"  mat-button (click)="stepper.reset()">Reset</button>
-          <button class="default-stepper-button btn-blue" mat-button>Sign Up</button>
+          <button class="default-stepper-button btn-grey" mat-button (click)="stepper.reset()">Reset</button>
+          <button class="default-stepper-button btn-blue" (click)="submitForm()" mat-button>Sign Up</button>
         </div>
       </mat-step>
     </mat-stepper>
@@ -159,8 +167,8 @@
         <p class="default-stepper-header">You are now done.</p>
         <div class="default-stepper-button-block">
           <button class="default-stepper-button" mat-button matStepperPrevious>Back</button>
-          <button class="default-stepper-button btn-grey"  mat-button (click)="stepper.reset()">Reset</button>
-          <button class="default-stepper-button btn-blue" mat-button>Sign Up</button>
+          <button class="default-stepper-button btn-grey" mat-button (click)="stepper.reset()">Reset</button>
+          <button class="default-stepper-button btn-blue" (click)="submitForm()" mat-button>Sign Up</button>
         </div>
       </mat-step>
     </mat-stepper>

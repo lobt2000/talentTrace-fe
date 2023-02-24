@@ -12,8 +12,9 @@
 
 .default-input-error-message {
   color: #d90000;
-  margin-top: 5px;
   font-size: 12px;
+  line-height: initial;
+  display: block;
 }
 
 
@@ -36,4 +37,5 @@
 .hide-password-button {
   position: absolute;
   right: 20px;
+  z-index: 3;
 }

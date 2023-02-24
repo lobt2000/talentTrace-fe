@@ -25,14 +25,20 @@
 
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane" [ngClass]="{'show active': activeTab == 'user'}" id="sign-in-user">
-      <app-signIn [typeOfUser]="'user'" *ngIf="typeOfAction"></app-signIn>
-      <app-signUp [typeOfUser]="'user'" *ngIf="!typeOfAction"></app-signUp>
+      <ng-container *ngIf="activeTab == 'user'">
+        <app-signIn [typeOfUser]="'user'" *ngIf="typeOfAction"></app-signIn>
+        <app-signUp [typeOfUser]="'user'" *ngIf="!typeOfAction"></app-signUp>
+      </ng-container>
+
       <!-- <router-outlet></router-outlet> -->
 
     </div>
     <div role="tabpanel" class="tab-pane" [ngClass]="{'show active': activeTab == 'company'}" id="sign-in-company">
-      <app-signIn [typeOfUser]="'company'" *ngIf="typeOfAction"></app-signIn>
-      <app-signUp [typeOfUser]="'company'" *ngIf="!typeOfAction"></app-signUp>
+      <ng-container *ngIf="activeTab == 'company'">
+        <app-signIn [typeOfUser]="'company'" *ngIf="typeOfAction"></app-signIn>
+        <app-signUp [typeOfUser]="'company'" (formValue)="onGetFormValue($event)" *ngIf="!typeOfAction"></app-signUp>
+      </ng-container>
+
       <!-- <router-outlet></router-outlet> -->
     </div>
   </div>
