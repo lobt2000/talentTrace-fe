@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-signInUp',
-  templateUrl: './signInUp.component.html',
-  styleUrls: ['./signInUp.component.scss']
+  selector: 'app-tab-container',
+  templateUrl: './tab-container.component.html',
+  styleUrls: ['./tab-container.component.scss']
 })
-export class SignInUpComponent implements OnInit {
+export class TabContainerComponent implements OnInit {
   activeTab: string = 'user';
-  @Input() typeOfAction: boolean = true;
+  @Input() typeOfAction: string = 'login';
   @Output() formValue: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   changeTab(type: string) {
@@ -21,5 +21,4 @@ export class SignInUpComponent implements OnInit {
   onGetFormValue(event) {
     this.formValue.emit(event);
   }
-
 }

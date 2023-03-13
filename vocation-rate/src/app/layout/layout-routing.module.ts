@@ -14,7 +14,11 @@ const routes: Routes = [
       },
       {
         path: 'registration',
-        loadChildren: () => import('../login/login.module').then((m) => m.LoginModule)
+        loadChildren: () => import('../registration/registration.module').then((m) => m.RegistrationModule)
+      },
+      {
+        path: 'forgot-password',
+        loadChildren: () => import('../forgot-password/forgot-password.module').then((m) => m.ForgotPasswordModule)
       },
       {
         path: 'home',

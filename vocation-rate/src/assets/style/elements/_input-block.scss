@@ -1,0 +1,54 @@
+@import "../mixins";
+@import "../variables";
+
+.default-formField {
+  @include size(60%, 40px);
+  position: relative;
+  margin: 20px 0px 30px;
+}
+
+
+.default-input {
+  @include size(calc(100% - 20px), 100%);
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font: inherit;
+  color: white;
+  background-color: transparent;
+  outline: 2px solid white;
+  margin-bottom: 5px;
+  position: inherit;
+  z-index: 3;
+}
+
+.default-label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transform: translate(10px, 10px);
+  transform-origin: left;
+  transition: all .25s;
+  color: white;
+  z-index: 1;
+}
+
+.default-input:focus+.default-label,
+.default-input:valid+.default-label {
+  transform: translate(0, -20px) scale(.8);
+  color: #d1c5fc;
+  font-size: 16px;
+}
+
+.default-input:is(:focus, :valid) {
+  outline-color: #d1c5fc;
+}
+
+
+.default-input-error-message {
+  color: #d90000;
+  font-size: 12px;
+  line-height: initial;
+  display: block;
+  align-self: flex-start;
+}

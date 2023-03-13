@@ -1,24 +1,9 @@
 @import "../mixins";
 @import "../variables";
 
-form {
-  @include flex-box(column, nowrap, initial, center)
-}
 
-.default-stepper-header {
-  align-self: flex-start;
-  // margin-left: 50px;
-  color: #e0e0e0;
-  font-size: 16px;
-  font-weight: bold;
-}
 
-.default-stepper-button-block {
-  @include size(100%, 60px);
-  @include flex-box(row, nowrap, space-around, center)
-}
-
-.default-stepper-button {
+.default-button {
   @include size(40%, 40px);
   border-radius: 10px;
   border: 1px solid white;
@@ -32,9 +17,40 @@ form {
   margin-left: 10px;
   margin-right: 10px;
   cursor: pointer;
+}
 
+
+.button-hover {
   &:hover {
     background-color: white;
     color: initial;
+  }
+}
+
+.btn-blue {
+  border: 1px solid #2350f5;
+
+  &:hover {
+    background-color: #2350f5;
+    color: white;
+  }
+}
+
+.btn-default-blue {
+  border: 1px solid #2350f5;
+  background-color: #2350f5;
+
+  &:hover {
+    background-color: transparent;
+    color: #2350f5;
+  }
+}
+
+.btn-grey {
+  border: 1px solid #706262;
+
+  &:hover {
+    background-color: #706262;
+    color: white;
   }
 }

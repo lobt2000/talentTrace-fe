@@ -73,6 +73,15 @@ $vocation-rate-theme: mat.define-light-theme((
 body {
   width: 100%;
   height: 100%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif!important;
+}
+
+.mat-body p, .mat-body-1 p, .mat-typography p {
+  margin: 0px;
+}
+
+.mat-h1, .mat-headline, .mat-typography h1 {
+  margin: 0px;
 }
 
 ::-webkit-scrollbar {

@@ -1,6 +1,7 @@
 @import "./mixins";
 @import "./variables";
 @import "./elements/stepper";
+@import "./elements/input-block";
 
 .component-background {
   @include size(100%, 100vh);
@@ -10,32 +11,26 @@
   overflow: hidden;
 }
 
-.default-input-error-message {
-  color: #d90000;
-  font-size: 12px;
-  line-height: initial;
-  display: block;
-}
-
-
-.btn-blue {
-  border: 1px solid #2350f5;
-  &:hover {
-    background-color: #2350f5;
-    color: white;
-  }
-}
-
-.btn-grey {
-  border: 1px solid #706262;
-  &:hover {
-    background-color: #706262;
-    color: white;
-  }
-}
-
 .hide-password-button {
   position: absolute;
   right: 20px;
   z-index: 3;
+}
+
+
+.login-block {
+  background-color: #302d2d;
+  border-radius: 25px;
+  z-index: 3;
+  @include size(500px, 720px);
+  @include flex-box(column, nowrap, center, center);
+  padding: 10px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-60 {
+  width: 60% !important;
 }

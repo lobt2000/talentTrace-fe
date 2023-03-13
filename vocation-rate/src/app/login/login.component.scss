@@ -1,1 +1,15 @@
 @import "../../assets/style/ui";
+@import "../../assets/style/mixins";
+@import "../../assets/style/variables";
+
+h2 {
+  height: 70px;
+  text-align: center;
+  line-height: 70px;
+  color: #e0e0e0;
+}
+
+.tab-container {
+  width: 100%;
+  height: calc(100% - 70px);
+}

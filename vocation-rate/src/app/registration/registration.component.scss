@@ -1,0 +1,24 @@
+@import "../../assets/style/ui";
+@import "../../assets/style/mixins";
+@import "../../assets/style/variables";
+
+.login-block {
+  background-color: #302d2d;
+  border-radius: 25px;
+  z-index: 3;
+  @include size(600px, 700px);
+  @include flex-box(column, nowrap, center, center);
+  padding: 10px;
+
+  h2 {
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    color: #e0e0e0;
+  }
+
+  .tab-container {
+    width: 100%;
+    height: calc(100% - 70px);
+  }
+}

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { UserType } from '../../shared/constansts/common.constants';
+import { UserType } from '../../constansts/common/common.constants';
 
 @Component({
   selector: 'app-signUp',

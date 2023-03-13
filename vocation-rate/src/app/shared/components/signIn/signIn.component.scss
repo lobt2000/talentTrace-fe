@@ -1,54 +1,43 @@
-@import "../../../assets/style/mixins";
-@import "../../../assets/style/ui";
+@import "../../../../assets/style/mixins";
+@import "../../../../assets/style/ui";
 
 .signIn-form {
   @include size(100%, 100%);
-  @include flex-box(column, nowrap, space-around, center);
+  @include flex-box(column, nowrap, space-between, center);
 
-  .user-stepper-container {
-    @include size(100%, 60%);
-    background-color: initial;
+  .form-container {
+    width: calc(100% - 40px);
+    @include flex-box(column, unset, center, center);
+    padding: 0% 20px;
   }
 
-  .email-block {
-    @include size(100%, 100px);
-    @include flex-box(column, unset, space-around, center);
+  .form-block {
+    @include size(100%, 95px);
+    @include flex-box(column, unset, flex-start, center);
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
 
     label {
       align-self: flex-start;
-      margin-left: 50px;
       color: #e0e0e0;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
+      margin-bottom: 10px
     }
 
     input {
-      @include size(80%, 50px);
+      @include size(100%, 45px);
       border-radius: 10px;
       border: unset;
       padding-left: 10px;
       font-size: 16px;
-    }
-  }
-
-  .password-block {
-    @include size(100%, 100px);
-    @include flex-box(column, initial, space-around, center);
-
-    label {
-      align-self: flex-start;
-      margin-left: 50px;
-      color: #e0e0e0;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    input {
-      @include size(80%, 50px);
-      border-radius: 10px;
-      border: unset;
-      padding-left: 10px;
-      font-size: 16px;
+      background-color: transparent;
+      color: white;
+      outline: 2px solid white;
+      margin-bottom: 5px;
     }
   }
 
@@ -59,6 +48,19 @@
     background: #2350f5;
     color: #e0e0e0;
     font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .forget-password {
+    padding: 0px 20px;
+    width: calc(100% - 40px);
+    text-align: end;
+    color: #2350f5;
+    cursor: pointer;
+
+    &:hover {
+      color: #e0e0e0;
+    }
   }
 
   .cross-line-block {
@@ -78,7 +80,7 @@
   }
 
   .another-login-block {
-    @include size(80%, 100px);
+    @include size(80%, 80px);
     @include flex-box(initial, initial, space-around, center);
 
     .another-login-button {

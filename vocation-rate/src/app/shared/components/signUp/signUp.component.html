@@ -4,9 +4,9 @@
       <mat-step [stepControl]="form">
         <form [formGroup]="form">
           <ng-template matStepLabel><span class="default-stepper-header">Fill out your email</span></ng-template>
-          <mat-form-field class="default-stepper-formField" appearance="fill">
-            <input class="default-stepper-input" matInput [formControlName]="'email'" required>
-            <mat-label class="default-stepper-label">Email</mat-label>
+          <mat-form-field class="default-formField" appearance="fill">
+            <input class="default-input" matInput [formControlName]="'email'" required>
+            <mat-label class="default-label">Email</mat-label>
             <mat-error class="default-input-error-message"
               *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
               Please enter a valid email address
@@ -15,9 +15,9 @@
               Email is <strong>required</strong>
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="default-stepper-formField" appearance="fill">
-            <input class="default-stepper-input" matInput [formControlName]="'companyEmail'" required>
-            <mat-label class="default-stepper-label">Company Email</mat-label>
+          <mat-form-field class="default-formField" appearance="fill">
+            <input class="default-input" matInput [formControlName]="'companyEmail'" required>
+            <mat-label class="default-label">Company Email</mat-label>
             <mat-error class="default-input-error-message"
               *ngIf="form.get('companyEmail').hasError('companyEmail') && !form.get('companyEmail').hasError('required')">
               Please enter a valid email address
@@ -34,10 +34,10 @@
       <mat-step [stepControl]="form">
         <form [formGroup]="form">
           <ng-template matStepLabel><span class="default-stepper-header">Fill out your password</span></ng-template>
-          <mat-form-field class="default-stepper-formField" appearance="fill">
-            <input class="default-stepper-input" matInput [formControlName]="'password'" required
+          <mat-form-field class="default-formField" appearance="fill">
+            <input class="default-input" matInput [formControlName]="'password'" required
               [type]="hidePass ? 'password' : 'text'">
-            <mat-label class="default-stepper-label">Password</mat-label>
+            <mat-label class="default-label">Password</mat-label>
             <button class="hide-password-button" mat-icon-button matSuffix (click)="hidePass = !hidePass"
               [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
               <mat-icon style="color: white;">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -54,10 +54,10 @@
               Password is <strong>required</strong>
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="default-stepper-formField" appearance="fill">
-            <input class="default-stepper-input" matInput [formControlName]="'confPassword'" required
+          <mat-form-field class="default-formField" appearance="fill">
+            <input class="default-input" matInput [formControlName]="'confPassword'" required
               [type]="hideConfirmPass ? 'password' : 'text'">
-            <mat-label class="default-stepper-label">Confirm Password</mat-label>
+            <mat-label class="default-label">Confirm Password</mat-label>
             <button class="hide-password-button" mat-icon-button matSuffix (click)="hideConfirmPass = !hideConfirmPass"
               [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPass">
               <mat-icon style="color: white;">{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -105,9 +105,9 @@
       <mat-step [stepControl]="form">
         <form [formGroup]="form">
           <ng-template matStepLabel><span class="default-stepper-header">Fill out your email</span></ng-template>
-          <mat-form-field class="default-stepper-formField" appearance="fill">
-            <input class="default-stepper-input" matInput [formControlName]="'email'" required>
-            <mat-label class="default-stepper-label">Email</mat-label>
+          <mat-form-field class="default-formField" appearance="fill">
+            <input class="default-input" matInput [formControlName]="'email'" required>
+            <mat-label class="default-label">Email</mat-label>
             <mat-error class="default-input-error-message"
               *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
               Please enter a valid email address
@@ -124,10 +124,10 @@
       <mat-step [stepControl]="form">
         <form [formGroup]="form">
           <ng-template matStepLabel><span class="default-stepper-header">Fill out your password</span></ng-template>
-          <mat-form-field class="default-stepper-formField" appearance="fill">
-            <input class="default-stepper-input" matInput [formControlName]="'password'" required
+          <mat-form-field class="default-formField" appearance="fill">
+            <input class="default-input" matInput [formControlName]="'password'" required
               [type]="hidePass ? 'password' : 'text'">
-            <mat-label class="default-stepper-label">Password</mat-label>
+            <mat-label class="default-label">Password</mat-label>
             <button class="hide-password-button" mat-icon-button matSuffix (click)="hidePass = !hidePass"
               [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
               <mat-icon style="color: white;">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -140,10 +140,10 @@
               Password is <strong>required</strong>
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="default-stepper-formField" appearance="fill">
-            <input class="default-stepper-input" matInput [formControlName]="'confPassword'" required
+          <mat-form-field class="default-formField" appearance="fill">
+            <input class="default-input" matInput [formControlName]="'confPassword'" required
               [type]="hideConfirmPass ? 'password' : 'text'">
-            <mat-label class="default-stepper-label">Confirm Password</mat-label>
+            <mat-label class="default-label">Confirm Password</mat-label>
             <button class="hide-password-button" mat-icon-button matSuffix (click)="hideConfirmPass = !hideConfirmPass"
               [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPass">
               <mat-icon style="color: white;">{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>

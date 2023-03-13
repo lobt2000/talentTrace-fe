@@ -5,14 +5,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UiToggleComponent } from './components/ui-toggle/ui-toggle.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { SignInUpComponent } from './components/signInUp/signInUp.component';
-import { SignInModule } from '../login/signIn/signIn.module';
-import { SignUpModule } from '../login/signUp/signUp.module';
+import { TabContainerComponent } from './components/tab-container/tab-container.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from "@angular/material/button";
+import { SignUpComponent } from './components/signUp/signUp.component';
+import { SignInComponent } from './components/signIn/signIn.component';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
     UiToggleComponent,
-    SignInUpComponent
+    TabContainerComponent,
+    SignUpComponent,
+    SignInComponent
   ],
   imports: [
     CommonModule,
@@ -20,12 +27,14 @@ import { SignUpModule } from '../login/signUp/signUp.module';
     ReactiveFormsModule,
     HttpClientModule,
     TranslateModule,
-    SignInModule,
-    SignUpModule
+    MatStepperModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule
   ],
   exports: [
     UiToggleComponent,
-    SignInUpComponent
+    TabContainerComponent
   ]
 })
 export class SharedModule { }

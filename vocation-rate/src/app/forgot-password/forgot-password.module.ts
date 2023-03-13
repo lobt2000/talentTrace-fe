@@ -4,21 +4,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SignInComponent } from './signIn.component';
+import { SharedModule } from '../shared/shared.module';
+import { ForgotPasswordComponent } from './forgot-password.component';
+import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
 
 @NgModule({
   declarations: [
-    SignInComponent
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-  ],
-  exports: [
-    SignInComponent
+    ForgotPasswordRoutingModule,
+    HttpClientModule,
+    SharedModule
   ],
   providers: [],
 })
-export class SignInModule { }
+export class ForgotPasswordModule { }

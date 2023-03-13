@@ -1,3 +1,11 @@
 <main class="component-background">
-  <app-signInUp (formValue)="login($event)" [typeOfAction]="typeOfAction"></app-signInUp>
+  <section class="login-block">
+    <h2>
+      SIGN IN
+    </h2>
+
+    <app-tab-container class="tab-container" [typeOfAction]="'login'"
+      (formValue)="login($event)">
+    </app-tab-container>
+  </section>
 </main>

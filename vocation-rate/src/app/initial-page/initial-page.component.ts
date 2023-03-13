@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonUrls } from '../shared/constansts/common.constants';
+import { CommonUrls } from '../shared/constansts/common/common.constants';
 
 @Component({
   selector: 'app-initial-page',

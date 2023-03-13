@@ -1,3 +1,9 @@
-<p>
-  registration works!
-</p>
+<main class="component-background">
+  <section class="login-block">
+    <h2>
+      SIGN UP
+    </h2>
+    <app-tab-container class="tab-container" [typeOfAction]="'registration'" (formValue)="registration($event)">
+    </app-tab-container>
+  </section>
+</main>
