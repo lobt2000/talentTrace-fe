@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
-
+import { AuthGuard } from '../shared/guards/auth.guard';
+import { IsCompanyGuard } from '../shared/guards/is-company.guard';
+import { CommonUrls } from '../shared/constansts/common/common.constants';
 
 const routes: Routes = [
   {
@@ -10,30 +12,46 @@ const routes: Routes = [
     children: [
       {
         path: 'login',
-        loadChildren: () => import('../login/login.module').then((m) => m.LoginModule)
+        loadChildren: () =>
+          import('../login/login.module').then((m) => m.LoginModule),
       },
       {
         path: 'registration',
-        loadChildren: () => import('../registration/registration.module').then((m) => m.RegistrationModule)
+        loadChildren: () =>
+          import('../registration/registration.module').then(
+            (m) => m.RegistrationModule
+          ),
       },
       {
         path: 'forgot-password',
-        loadChildren: () => import('../forgot-password/forgot-password.module').then((m) => m.ForgotPasswordModule)
+        loadChildren: () =>
+          import('../forgot-password/forgot-password.module').then(
+            (m) => m.ForgotPasswordModule
+          ),
       },
       {
         path: 'home',
-        loadChildren: () => import('../initial-page/initial-page.module').then((m) => m.InitialPageModule)
+        loadChildren: () =>
+          import('../initial-page/initial-page.module').then(
+            (m) => m.InitialPageModule
+          ),
       },
       {
-        path: "**",
+        path: CommonUrls.Company,
+        loadChildren: () =>
+          import('./company/company.module').then((m) => m.CompanyModule),
+        canActivate: [AuthGuard, IsCompanyGuard],
+      },
+      {
+        path: '**',
         redirectTo: 'home',
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {}

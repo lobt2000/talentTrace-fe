@@ -3,19 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LayoutRoutingModule } from './layout-routing.module';
-import { LayoutComponent } from './layout.component';
-import { CompanyComponent } from './company/company.component';
+import { CompanyRoutingModule } from './company-routing.module';
 
 @NgModule({
-  declarations: [LayoutComponent, CompanyComponent],
+  declarations: [],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    LayoutRoutingModule,
     HttpClientModule,
+    CompanyRoutingModule,
   ],
   providers: [],
 })
-export class LayoutModule {}
+export class CompanyModule {}

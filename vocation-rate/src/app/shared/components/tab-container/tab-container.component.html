@@ -33,7 +33,8 @@
     <ng-container *ngIf="activeTab == 'company'">
       <ng-container [ngSwitch]="typeOfAction">
         <app-signIn [typeOfUser]="'company'" *ngSwitchCase="'login'"></app-signIn>
-        <app-signUp [typeOfUser]="'company'" (formValue)="login($event)" *ngSwitchCase="'registration'"></app-signUp>
+        <app-signUp [typeOfUser]="'company'" (formValue)="onGetFormValue($event)"
+          *ngSwitchCase="'registration'"></app-signUp>
       </ng-container>
     </ng-container>
   </div>

@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonUrls } from '../shared/constansts/common/common.constants';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
-  constructor() { }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   registration(event) {
-
+    localStorage.setItem('userType', 'company');
+    this.router.navigate([CommonUrls.Company]);
   }
 }
