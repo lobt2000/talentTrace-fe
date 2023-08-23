@@ -28,8 +28,11 @@ export class SignUpComponent implements OnInit {
 
   buildUserForm() {
     this.form = this.fb.group({
-      email: this.fb.control('', [Validators.required, Validators.email]),
-      confPassword: this.fb.control('', [
+      email: this.fb.control('sdfs@sdfsdf.com', [
+        Validators.required,
+        Validators.email,
+      ]),
+      confPassword: this.fb.control('adasA231@dasdas', [
         Validators.required,
         this.confirmPassValidator(),
         Validators.pattern(
@@ -42,7 +45,7 @@ export class SignUpComponent implements OnInit {
           Validators.email,
         ]),
       }),
-      password: this.fb.control('', [
+      password: this.fb.control('adasA231@dasdas', [
         Validators.required,
         Validators.pattern(
           '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&|?\\/<>~""\'\';:*?])[A-Za-z\\d#$@!%&|?\\/<>~""\'\';:*?]{8,30}$'

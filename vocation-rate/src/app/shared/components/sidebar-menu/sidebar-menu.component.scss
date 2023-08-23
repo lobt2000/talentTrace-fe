@@ -1,0 +1,49 @@
+@import "../../../../assets/style/ui";
+
+.sidebar-container {
+  background-color: $headerColor;
+  @include size(100%, 100%);
+  padding: 20px;
+  position: relative;
+}
+
+.project-info {
+  @include size(100%, 55px);
+  z-index: 3;
+
+  &.pt-4 {
+    @include size(100%, 70px);
+    border-top: 1px solid saddlebrown;
+  }
+
+  h3 {
+    letter-spacing: 1.5px;
+  }
+}
+
+.back-col {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  background-color: #dec39a;
+  @include size(80px, 100%);
+  z-index: 1;
+}
+
+.item-icon {
+  @include size(40px, 40px);
+  border-radius: 100%;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0px 3px 6px 0 rgba(0, 0, 0, 0.22);
+  outline: 1px solid white;
+}
+
+.sidebar-content {
+  @include size(100%, 100%);
+  padding-top: 100px;
+  position: relative;
+  z-index: 3;
+
+  .sidebar-item {
+    @include size(100%, 55px);
+  }
+}

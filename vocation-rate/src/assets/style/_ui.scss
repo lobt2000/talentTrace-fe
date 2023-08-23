@@ -17,7 +17,6 @@
   z-index: 3;
 }
 
-
 .login-block {
   background-color: #302d2d;
   border-radius: 25px;
@@ -33,4 +32,18 @@
 
 .w-60 {
   width: 60% !important;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.sidebar-menu {
+  @include size(300px, 100%);
+}
+
+h3 {
+  margin: 0;
+  font-weight: bolder;
+  font-size: 20px;
 }

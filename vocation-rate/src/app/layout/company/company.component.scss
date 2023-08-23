@@ -1,0 +1,6 @@
+@import "../../../assets/style/ui";
+
+.company-container {
+  @include size(100%, 100vh);
+  background-color: $backgroundColor;
+}

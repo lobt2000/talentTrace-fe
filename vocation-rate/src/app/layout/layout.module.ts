@@ -5,10 +5,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
-import { CompanyComponent } from './company/company.component';
 
 @NgModule({
-  declarations: [LayoutComponent, CompanyComponent],
+  declarations: [LayoutComponent],
   imports: [
     CommonModule,
     FormsModule,
