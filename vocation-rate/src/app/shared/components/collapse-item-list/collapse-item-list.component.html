@@ -1,0 +1,28 @@
+<div class="w-100 collapse-container">
+    <div class="header d-flex align-items-center justify-content-between">
+        <div class="title">{{ title | translate }}</div>
+        <div class="count">{{ itemsList.length }}</div>
+    </div>
+    <div class="items-list">
+        <div class="item d-flex align-items-center justify-content-between" *ngFor="let item of itemsList">
+            <div *ngIf="showContent(item, 'icon')">
+                <img [src]="item.icon" alt="">
+            </div>
+            <div class="text-info d-flex justify-content-center col">
+                <div class="item-name" *ngIf="showContent(item, 'name')">{{item.name}}</div>
+                <div>
+                    <span *ngIf="showContent(item, 'employment')">{{item.employment}} </span>
+                    <span *ngIf="showContent(item, 'city')">{{item.city}}</span>
+                </div>
+                <div class="items-icons d-flex" *ngIf="showContent(item, 'candidates')">
+                    <img *ngFor="let candidate of item.candidates" class="item-icon" [src]="candidate" alt="">
+
+                </div>
+
+            </div>
+            <div class="options">
+                <div class="active" *ngIf="showContent(item, 'active')"></div>
+            </div>
+        </div>
+    </div>
+</div>

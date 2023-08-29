@@ -1,0 +1,31 @@
+@import "../../../../assets/style/ui";
+
+.dashboard-container {
+  @include size(100%, 100%);
+}
+
+.vacancy-header {
+  @include size(100%, 70px);
+  background-color: #fdb75a;
+  padding: 0 20px;
+}
+
+.dashboard-content {
+  @include size(100%, calc(100% - 70px));
+  padding: 20px;
+
+  .vacancies-list {
+    @include size(40%, 100%);
+  }
+
+  .dashboard-two-lists {
+    @include size(40%, 100%);
+    .candidates-list {
+      @include size(100%, 49%);
+    }
+
+    .conversation-list {
+      @include size(100%, 49%);
+    }
+  }
+}

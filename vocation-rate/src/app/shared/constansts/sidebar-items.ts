@@ -2,9 +2,9 @@ export const SidebarItemsUser = [];
 
 export const SidebarItemsCompany = [
   {
-    name: '',
+    name: 'Vacancy dashboard',
     icon: 'icon-edit',
-    link: '/company/staff-members',
+    link: '/company/vacancy-dashboard',
     image: '',
   },
   {

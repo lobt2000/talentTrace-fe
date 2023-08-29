@@ -4,3 +4,7 @@
   @include size(100%, 100vh);
   background-color: $backgroundColor;
 }
+
+.main-container {
+  @include size(calc(100% - 300px), 100%);
+}

@@ -1,0 +1,81 @@
+@import "../../../../assets/style/ui";
+
+.collapse-container {
+  @include size(100%, 100%);
+  background-color: #e7e7e7;
+  border-radius: 20px;
+  padding-bottom: 20px;
+
+  .header {
+    @include size(100%, 70px);
+    border-bottom: 1px solid;
+    padding: 20px;
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .count {
+      background-color: #fdb75a;
+      @include size(25px, 25px);
+      border-radius: 100%;
+      text-align: center;
+      line-height: 25px;
+      color: white;
+    }
+  }
+
+  .items-list {
+    padding: 20px;
+    @include size(100%, calc(100% - 70px));
+    overflow-y: auto;
+    .item {
+      @include size(100%, initial);
+      min-height: 95px;
+      background-color: white;
+      border: 1px solid gray;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      padding: 10px;
+      margin-bottom: 10px;
+
+      &:hover {
+        color: white !important;
+        background-color: #17a2b8 !important;
+        .text-info {
+          color: white !important;
+        }
+      }
+
+      .text-info {
+        padding-left: 10px;
+        @include size(auto, 100%);
+        .item-name {
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        .items-icons {
+          padding: 0px 10px;
+          .item-icon {
+            @include size(25px, 25px);
+            border-radius: 25px;
+            border: 1px solid;
+            margin-left: -10px;
+          }
+        }
+      }
+
+      .options {
+        @include size(30px, 100%);
+        min-height: 95px;
+        .active {
+          @include size(15px, 15px);
+          border-radius: 15px;
+          background-color: greenyellow;
+          margin: 20px auto;
+        }
+      }
+    }
+  }
+}
