@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { SignUpComponent } from './components/signUp/signUp.component';
 import { SignInComponent } from './components/signIn/signIn.component';
 import { RouterModule } from '@angular/router';
+import { UiPageComponent } from './components/ui-page/ui-page.component';
+import { UiBreadcrumbsComponent } from './components/ui-breadcrumbs/ui-breadcrumbs.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { RouterModule } from '@angular/router';
     TabContainerComponent,
     SignUpComponent,
     SignInComponent,
+    UiPageComponent,
+    UiBreadcrumbsComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +35,6 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     RouterModule,
   ],
-  exports: [UiToggleComponent, TabContainerComponent],
+  exports: [UiToggleComponent, TabContainerComponent, UiPageComponent],
 })
 export class SharedModule {}

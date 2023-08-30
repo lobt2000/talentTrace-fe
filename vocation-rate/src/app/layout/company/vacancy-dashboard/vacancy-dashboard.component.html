@@ -1,17 +1,10 @@
-<div class="dashboard-container">
-    <header class="vacancy-header d-flex align-items-center">
-        <h3>Vacancy Dashboard</h3>
-        <div class="additional-info">
-            <div class="candidates-for-approval">
-
-            </div>
-        </div>
-    </header>
-    <div class="dashboard-content d-flex justify-content-around align-items-center">
+<app-ui-page>
+    <ng-container pageName>{{ 'Vacancy Dashboard' | translate }}</ng-container>
+    <ng-container pageContent>
         <div class="vacancies-list">
             <app-collapse-item-list [title]="'My position'" [itemsList]="vacancy_list"></app-collapse-item-list>
         </div>
-        <div class="d-flex col justify-content-between dashboard-two-lists">
+        <div class="d-flex colDir justify-content-between dashboard-two-lists">
             <div class="candidates-list">
                 <app-collapse-item-list [title]="'My candidates'" [itemsList]="vacancy_list"></app-collapse-item-list>
             </div>
@@ -19,6 +12,6 @@
                 <app-collapse-item-list [title]="'My conversation'" [itemsList]="vacancy_list"></app-collapse-item-list>
             </div>
         </div>
-    </div>
+    </ng-container>
 
-</div>
+</app-ui-page>

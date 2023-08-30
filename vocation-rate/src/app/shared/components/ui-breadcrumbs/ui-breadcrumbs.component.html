@@ -1,0 +1,6 @@
+<div class="ui-breadcrumbs" *ngIf="breadcrumbs">
+    <div class="item-breadcrumb" *ngFor="let breadcrumb of breadcrumbs; let i = index;"
+        (click)="onBreadcrumb(breadcrumb, i)">
+        {{breadcrumb.label | translate}}
+    </div>
+</div>

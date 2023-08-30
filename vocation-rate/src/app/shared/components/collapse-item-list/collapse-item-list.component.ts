@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CollapseItemListComponent implements OnInit {
   @Input() title: string = '';
+  @Input() noItems: string = 'items';
   @Input() itemsList: any[] = [];
 
   constructor() {}

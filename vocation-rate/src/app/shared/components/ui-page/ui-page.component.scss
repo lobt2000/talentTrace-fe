@@ -1,0 +1,16 @@
+@import "../../../../assets/style/ui";
+
+.page-container {
+  @include size(100%, 100%);
+}
+
+.header {
+  @include size(100%, 70px);
+  background-color: #fdb75a;
+  padding: 0 20px;
+}
+
+.page-content {
+  @include size(100%, calc(100% - 70px));
+  padding: 20px;
+}

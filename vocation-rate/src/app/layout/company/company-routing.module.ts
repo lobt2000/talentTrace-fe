@@ -21,6 +21,14 @@ const routes: Routes = [
           ),
 
       },
+      {
+        path: 'manager-department-dashboard',
+        loadChildren: () =>
+          import('./manager-department-dashboard/manager-department-dashboard.module').then(
+            (m) => m.ManagerDepartmentDashboardModule
+          ),
+
+      },
     ],
   },
 ];
