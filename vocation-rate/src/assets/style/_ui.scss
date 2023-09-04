@@ -47,3 +47,8 @@ h3 {
   font-weight: bolder;
   font-size: 20px;
 }
+
+.page-content {
+  @include size(100%, calc(100% - 110px));
+  padding: 20px;
+}

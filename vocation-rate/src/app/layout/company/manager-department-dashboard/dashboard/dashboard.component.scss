@@ -1,0 +1,38 @@
+@import "../../../../../assets/style/ui";
+
+.managers-list {
+  @include size(48%, 100%);
+}
+
+.managers-adding-conteiner {
+  @include size(48%, 100%);
+  .header {
+    @include size(100%, 70px);
+    background-color: #fdb75a;
+    padding: 0 20px;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    @include size(100%, auto);
+    max-height: calc(100% - 200px);
+    font-size: 16px;
+    text-align: justify;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    background-color: #17a2b8;
+  }
+
+  .actions {
+    @include size(100%, 70px);
+    background-color: #fdb75a;
+    padding: 0 20px;
+    margin-top: 10px;
+
+    button {
+      @include size(40%, 70%);
+      border-radius: 10px;
+    }
+  }
+}

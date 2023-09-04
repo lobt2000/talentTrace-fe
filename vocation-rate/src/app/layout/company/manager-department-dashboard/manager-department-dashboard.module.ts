@@ -7,9 +7,19 @@ import { ManagerDepartmentDashboardComponent } from './manager-department-dashbo
 import { ManagerDepartmentDashboardRoutingModule } from './manager-department-dashboard.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddManagersComponent } from './add-managers/add-managers.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
-  declarations: [ManagerDepartmentDashboardComponent],
+  declarations: [
+    ManagerDepartmentDashboardComponent,
+    AddManagersComponent,
+    DashboardComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -19,6 +29,10 @@ import { TranslateModule } from '@ngx-translate/core';
     CollapseItemListModule,
     SharedModule,
     TranslateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatStepperModule,
   ],
   providers: [],
 })

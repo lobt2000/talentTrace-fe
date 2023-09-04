@@ -8,9 +8,10 @@
             </div>
         </div>
     </header>
+    <div class="breadcrumb-conteiner">
+        <app-ui-breadcrumbs *ngIf="withBreadcrimbs" [breadcrumbs]="breadcrumbs$ | async"></app-ui-breadcrumbs>
+    </div>
     <div class="page-content d-flex justify-content-between align-items-center">
-        <app-ui-breadcrumbs [breadcrumbs]="breadcrumbs$ | async"></app-ui-breadcrumbs>
         <ng-content select="[pageContent]"></ng-content>
-
     </div>
 </div>

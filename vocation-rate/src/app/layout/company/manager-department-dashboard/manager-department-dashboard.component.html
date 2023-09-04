@@ -1,14 +1,7 @@
-<app-ui-page>
+<app-ui-page [defaultBreadcrumb]="defaultBreadcrumb">
     <ng-container pageName>{{ 'Managers Department Dashboard' | translate }}</ng-container>
     <ng-container pageContent>
-        <div class="managers-list">
-            <app-collapse-item-list [title]="'Managers staff'" [itemsList]="managers_list"></app-collapse-item-list>
-        </div>
-        <div class="">
-            <div class="">
-                
-            </div>
-        </div>
+        <router-outlet></router-outlet>
     </ng-container>
 
 </app-ui-page>

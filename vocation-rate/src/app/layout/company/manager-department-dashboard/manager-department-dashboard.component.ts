@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
 
 @Component({
   selector: 'app-manager-department-dashboard',
@@ -6,13 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manager-department-dashboard.component.scss'],
 })
 export class ManagerDepartmentDashboardComponent implements OnInit {
-  managers_list: any[] = [
-    {
-      name: 'Middle Front-End Angular Developer',
-      icon: 'assets/img/dev-company-logo.jpeg',
-      active: true,
-    },
-  ];
+  defaultBreadcrumb = {
+    label: 'Dashboard',
+    value: 'dashboard',
+    link: '/company/manager-department-dashboard',
+  };
+
   constructor() {}
 
   ngOnInit(): void {}
