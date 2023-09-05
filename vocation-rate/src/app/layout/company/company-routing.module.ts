@@ -19,15 +19,20 @@ const routes: Routes = [
           import('./vacancy-dashboard/vancancy-dashboard.module').then(
             (m) => m.VacancyDashboardModule
           ),
-
       },
       {
-        path: 'manager-department-dashboard',
+        path: 'manager-department',
         loadChildren: () =>
-          import('./manager-department-dashboard/manager-department-dashboard.module').then(
-            (m) => m.ManagerDepartmentDashboardModule
+          import('./manager-department/manager-department.module').then(
+            (m) => m.ManagerDepartmentModule
           ),
-
+      },
+      {
+        path: 'company-members',
+        loadChildren: () =>
+          import('./staff-department/staff-department.module').then(
+            (m) => m.StaffDepartmentModule
+          ),
       },
     ],
   },

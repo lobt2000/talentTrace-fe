@@ -10,7 +10,13 @@ export const SidebarItemsCompany = [
   {
     name: 'Managers',
     icon: 'icon-settings',
-    link: '/company/manager-department-dashboard',
+    link: '/company/manager-department',
+    image: '',
+  },
+  {
+    name: 'Company members',
+    icon: 'icon-settings',
+    link: '/company/company-members',
     image: '',
   },
 ];

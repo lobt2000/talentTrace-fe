@@ -52,3 +52,89 @@ h3 {
   @include size(100%, calc(100% - 110px));
   padding: 20px;
 }
+
+.scroll-block {
+  margin: 0 auto;
+  overflow-y: auto;
+  max-height: calc(100% - 375px);
+  transition: 150ms;
+  overflow-x: hidden;
+  width: 90%;
+}
+
+.ui-default-table {
+  margin: 10px 0;
+  font-family: "atlas-aaa";
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  td,
+  th {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+
+    // &:first-child {
+    border-right: 3px solid #213134;
+    // }
+  }
+  thead {
+    th {
+      background: #738ff7;
+      color: #fff;
+    }
+  }
+  tbody {
+    td {
+      background: #f7f9ff;
+      transition: all 0.4s;
+      font-weight: bold;
+    }
+  }
+
+  &.table-sort {
+    th {
+      min-height: 24px;
+      cursor: pointer;
+
+      .icon-dropdown-caret {
+        font-size: 7px;
+        &.up {
+          transform: rotate(180deg);
+        }
+      }
+      .icon-dropdown-caret,
+      .material-icons {
+        &.active {
+          color: #000;
+        }
+      }
+    }
+  }
+  .wrap-icon {
+    display: inline-flex;
+    align-items: center;
+    min-height: 16px;
+    position: relative;
+    padding-right: 20px;
+
+    .sort {
+      position: absolute;
+      right: 0;
+    }
+  }
+  .icon-col {
+    width: 50px;
+  }
+
+  .default-link {
+    text-decoration: underline !important;
+
+    &:hover {
+      color: #738ff7 !important;
+    }
+  }
+
+  .material-icons:after {
+    content: attr(data-icon);
+  }
+}

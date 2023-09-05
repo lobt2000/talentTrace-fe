@@ -30,14 +30,14 @@ export class DashboardComponent implements OnInit {
     this.breadcrumbsService.addBreadcrumbs({
       label: item.name,
       value: item,
-      link: `/company/manager-department-dashboard/${item.name}`,
+      link: `/company/manager-department/${item.name}`,
     });
   }
 
   addManagers() {
     this.router.navigate([
       CommonUrls.Company,
-      'manager-department-dashboard',
+      'manager-department',
       'add-managers',
     ]);
   }

@@ -1,0 +1,48 @@
+<div class="page-content d-flex justify-content-between align-items-center">
+    <div class="managers-list">
+        <app-collapse-item-list [title]="'Company members'" [itemsList]="managers_list"
+            (goToItem)="onGoToItem($event)"></app-collapse-item-list>
+    </div>
+    <div class="managers-adding-conteiner d-flex justify-content-center align-items-center colDir">
+        <div class="header d-flex align-items-center">
+            <h3>Add company members</h3>
+        </div>
+        <div class="description">
+            <p class="mb-3">
+                Welcome to the Company Members Department Dashboard! Adding a new manager to your team is now easier than
+                ever.
+            </p>
+            <p class="mb-3">You have two convenient options to choose from:</p>
+
+            <p class="mb-3">1. Add Manually:</p>
+
+            <p class="pl-3 mb-3">
+                Adding a new manager manually allows you to enter their details directly into our system. Follow
+                these simple steps:
+
+                Click on the "Add Manager Manually" button.
+                Fill in the required fields.
+                Once you've entered the information, click the "Add" button.
+                The new manager will be instantly added to your team and sended an approval letter to their email.
+            </p>
+
+            <p class="mb-3">2. Upload a File:</p>
+
+
+            <p class="pl-3 mb-3">
+                Got a list of new managers ready in a file? No problem! Our system supports uploads.
+                Here's how:
+
+                Click on the "Upload File" button.
+                Choose the file containing the manager details. Supported formats include Json and Excel.
+                Read the description which field
+                Click the "Confirm" button, and our system will add all the new managers to your team.</p>
+        </div>
+
+        <div class="actions d-flex align-items-center justify-content-around">
+            <button class="create-manually" (click)="addMembers()">Add manualy</button>
+            <button class="create-uploading">Add by uploading</button>
+        </div>
+
+    </div>
+</div>

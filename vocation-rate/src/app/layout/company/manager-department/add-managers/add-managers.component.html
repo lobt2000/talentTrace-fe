@@ -92,14 +92,13 @@
                 <mat-step>
                     <ng-template matStepLabel>Parsed data</ng-template>
                     <div class="managers-table">
-
+                        <app-ui-dashboard-table [columns]="columns" [rows]="parsedDataArray"></app-ui-dashboard-table>
                     </div>
 
                     <div class="default-stepper-button-block">
                         <button class="default-stepper-button" mat-button matStepperPrevious>Back</button>
                         <button class="default-stepper-button btn-grey" mat-button>Reset</button>
-                        <button class="default-stepper-button btn-blue" mat-button>Sign
-                            Up</button>
+                        <button class="default-stepper-button btn-blue" mat-button>Save</button>
                     </div>
                 </mat-step>
             </mat-stepper>
