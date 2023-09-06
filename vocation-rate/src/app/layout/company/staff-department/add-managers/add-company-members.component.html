@@ -10,13 +10,14 @@
                 <mat-step class="d-flex align-items-center">
                     <ng-template matStepLabel>Instruction & Uploading</ng-template>
                     <div class="d-flex align-items-center justify-content-between">
-                        <div class="uploading-info-conteiner d-flex justify-content-center align-items-center colDir">
-                            <div class="header d-flex align-items-center">
-                                <h3>Instruction</h3>
-                            </div>
-                            <div class="description">
+                        <app-ui-instruction class="instruction">
+                            <ng-container headerName>
+                                Instruction
+                            </ng-container>
+                            <ng-container decriptionText>
                                 <p class="mb-3">
-                                    Welcome to the Manager Department Dashboard! Adding a new manager to your team is
+                                    Welcome to the Manager Department Dashboard! Adding a new manager to your team
+                                    is
                                     now
                                     easier
                                     than
@@ -27,14 +28,16 @@
                                 <p class="mb-3">1. Add Manually:</p>
 
                                 <p class="pl-3 mb-3">
-                                    Adding a new manager manually allows you to enter their details directly into our
+                                    Adding a new manager manually allows you to enter their details directly into
+                                    our
                                     system. Follow
                                     these simple steps:
 
                                     Click on the "Add Manager Manually" button.
                                     Fill in the required fields.
                                     Once you've entered the information, click the "Add" button.
-                                    The new manager will be instantly added to your team and sended an approval letter
+                                    The new manager will be instantly added to your team and sended an approval
+                                    letter
                                     to
                                     their
                                     email.
@@ -44,18 +47,21 @@
 
 
                                 <p class="pl-3 mb-3">
-                                    Got a list of new managers ready in a file? No problem! Our system supports uploads.
+                                    Got a list of new managers ready in a file? No problem! Our system supports
+                                    uploads.
                                     Here's how:
 
                                     Click on the "Upload File" button.
-                                    Choose the file containing the manager details. Supported formats include Json and
+                                    Choose the file containing the manager details. Supported formats include Json
+                                    and
                                     Excel.
                                     Read the description which field
                                     Click the "Confirm" button, and our system will add all the new managers to your
                                     team.
                                 </p>
-                            </div>
-                        </div>
+                            </ng-container>
+
+                        </app-ui-instruction>
                         <div class="uploading-file d-flex colDir align-items-center justify-content-around">
                             <mat-icon>cloud_upload</mat-icon>
 
@@ -79,16 +85,6 @@
                         <button class="default-stepper-button btn-blue" mat-button matStepperNext>Next</button>
                     </div>
                 </mat-step>
-
-                <!-- <mat-step>
-                    <ng-template matStepLabel>Upload the file</ng-template>
-
-
-                    <div class="default-stepper-button-block">
-                        <button class="default-stepper-button" mat-button matStepperPrevious>Back</button>
-                        <button class="default-stepper-button btn-blue" mat-button matStepperNext>Next</button>
-                    </div>
-                </mat-step> -->
                 <mat-step>
                     <ng-template matStepLabel>Parsed data</ng-template>
                     <div class="managers-table">
@@ -106,12 +102,6 @@
 
         </ng-container>
     </div>
-
-    <!-- <div class="actions d-flex align-items-center justify-content-around">
-        <button>Save</button>
-        <button>Revert</button>
-        <button>Cancel</button>
-    </div> -->
 </div>
 
 

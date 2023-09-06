@@ -3,11 +3,11 @@
         <app-collapse-item-list [title]="'Managers staff'" [itemsList]="managers_list"
             (goToItem)="onGoToItem($event)"></app-collapse-item-list>
     </div>
-    <div class="managers-adding-conteiner d-flex justify-content-center align-items-center colDir">
-        <div class="header d-flex align-items-center">
-            <h3>Add manager</h3>
-        </div>
-        <div class="description">
+    <app-ui-instruction class="instruction" [withButtons]="true">
+        <ng-container headerName>
+            Add manager
+        </ng-container>
+        <ng-container decriptionText>
             <p class="mb-3">
                 Welcome to the Manager Department Dashboard! Adding a new manager to your team is now easier than
                 ever.
@@ -37,12 +37,14 @@
                 Choose the file containing the manager details. Supported formats include Json and Excel.
                 Read the description which field
                 Click the "Confirm" button, and our system will add all the new managers to your team.</p>
-        </div>
+        </ng-container>
 
-        <div class="actions d-flex align-items-center justify-content-around">
-            <button class="create-manually" (click)="addManagers()">Add manualy</button>
-            <button class="create-uploading">Add by uploading</button>
-        </div>
+        <ng-container buttons>
+            <button class="create-manually" (click)="addManagers('manually')">Add manualy</button>
+            <button class="create-uploading" (click)="addManagers('uploading')">Add by uploading</button>
+        </ng-container>
 
-    </div>
+
+
+    </app-ui-instruction>
 </div>

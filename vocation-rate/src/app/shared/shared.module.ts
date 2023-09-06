@@ -14,6 +14,7 @@ import { SignInComponent } from './components/signIn/signIn.component';
 import { RouterModule } from '@angular/router';
 import { UiPageComponent } from './components/ui-page/ui-page.component';
 import { UiBreadcrumbsComponent } from './components/ui-breadcrumbs/ui-breadcrumbs.component';
+import { UiInstructionComponent } from './components/ui-instruction/ui-instruction.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { UiBreadcrumbsComponent } from './components/ui-breadcrumbs/ui-breadcrum
     SignInComponent,
     UiPageComponent,
     UiBreadcrumbsComponent,
+    UiInstructionComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,6 @@ import { UiBreadcrumbsComponent } from './components/ui-breadcrumbs/ui-breadcrum
     MatButtonModule,
     RouterModule,
   ],
-  exports: [UiToggleComponent, TabContainerComponent, UiPageComponent],
+  exports: [UiToggleComponent, TabContainerComponent, UiPageComponent, UiInstructionComponent],
 })
 export class SharedModule {}

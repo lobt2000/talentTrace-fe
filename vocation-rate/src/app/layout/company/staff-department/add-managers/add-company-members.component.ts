@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { ColumnModel } from 'src/app/shared/models/column.model';
 
@@ -41,12 +42,21 @@ export class AddCompanyMembersComponent implements OnInit {
       createDate: '12.01.2001',
     },
   ];
-  constructor(private breadcrumbsService: BreadcrumbsService) {}
+  constructor(
+    private breadcrumbsService: BreadcrumbsService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-    });
+    this.creationType = this.route.snapshot.queryParams['type'];
+    console.log(this.creationType, 'manually');
+    
+    if ((this.creationType == 'manually')) {
+      this.form = new FormGroup({
+        email: new FormControl('', [Validators.required, Validators.email]),
+      });
+    }
+
     this.breadcrumbsService.addBreadcrumbs({
       label: 'Creation',
       value: 'creation',

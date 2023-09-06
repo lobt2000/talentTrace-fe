@@ -7,6 +7,9 @@ import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  host: {
+    class: 'w-100',
+  },
 })
 export class DashboardComponent implements OnInit {
   managers_list: any[] = [
@@ -34,11 +37,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  addManagers() {
-    this.router.navigate([
-      CommonUrls.Company,
-      'manager-department',
-      'add-managers',
-    ]);
+  addManagers(type: string) {
+    this.router.navigate(
+      [CommonUrls.Company, 'manager-department', 'add-managers'],
+      { queryParams: { type } }
+    );
   }
 }

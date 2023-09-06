@@ -1,7 +1,6 @@
 @import "./mixins";
 @import "./variables";
-@import "./elements/stepper";
-@import "./elements/input-block";
+@import "./elements/element_imports";
 
 .component-background {
   @include size(100%, 100vh);
@@ -137,4 +136,8 @@ h3 {
   .material-icons:after {
     content: attr(data-icon);
   }
+}
+
+.instruction {
+  @include size(48%, 100%);
 }

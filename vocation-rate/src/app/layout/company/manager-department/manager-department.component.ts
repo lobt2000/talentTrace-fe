@@ -9,7 +9,7 @@ export class ManagerDepartmentComponent implements OnInit {
   defaultBreadcrumb = {
     label: 'Dashboard',
     value: 'dashboard',
-    link: '/company/manager-department-dashboard',
+    link: '/company/manager-department',
   };
 
   constructor() {}

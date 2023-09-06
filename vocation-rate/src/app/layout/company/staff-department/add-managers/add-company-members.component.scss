@@ -24,85 +24,6 @@
     // background-color: antiquewhite;
   }
 
-  .uploading-info-conteiner {
-    @include size(48%, 100%);
-    .header {
-      @include size(100%, 70px);
-      background-color: #fdb75a;
-      padding: 0 20px;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      @include size(100%, auto);
-      max-height: calc(100%);
-      font-size: 16px;
-      text-align: justify;
-      font-weight: bold;
-      color: white;
-      padding: 10px;
-      background-color: #17a2b8;
-    }
-  }
-
-  .uploading-file {
-    @include size(48%, 100%);
-    background-color: azure;
-    border: 5px dashed gray;
-    border-radius: 20px;
-    padding: 20px;
-    position: relative;
-    mat-icon {
-      color: #00dee6;
-      font-size: 100px;
-      text-align: center;
-      @include size(100%, 70px);
-    }
-
-    .title {
-      @include size(100%, auto);
-      text-align: center;
-      font-size: 25px;
-      font-weight: bold;
-    }
-
-    .upload-immitation {
-      @include size(100%, 70px);
-      .upload-button {
-        @include size(200px, 50px);
-        border-radius: 10px;
-        border: 1px solid #00dee6;
-        color: #00dee6;
-        background-color: transparent;
-        font-weight: bold;
-        font-size: 18px;
-        transition: all 0.3s ease-in-out;
-        cursor: pointer;
-
-        &:hover {
-          background-color: #00dee6;
-          color: white;
-        }
-
-        &:focus {
-          // border: unset;
-          outline: unset;
-        }
-      }
-    }
-
-    input[type="file"] {
-      position: absolute;
-      opacity: 0;
-      @include size(100%, 100%);
-      top: 0;
-      left: 0;
-    }
-  }
-
-  .form {
-  }
-
   .actions {
     @include size(100%, 70px);
     padding: 0 20px;
@@ -114,9 +35,6 @@
       @include size(20%, 70%);
       border-radius: 10px;
     }
-  }
-
-  .default-stepper-button {
   }
 
   .managers-table {

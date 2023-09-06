@@ -34,11 +34,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  addMembers() {
-    this.router.navigate([
-      CommonUrls.Company,
-      'company-members',
-      'add-members',
-    ]);
+  addMembers(type: string) {
+    this.router.navigate(
+      [CommonUrls.Company, 'company-members', 'add-members'],
+      { queryParams: { type } }
+    );
   }
 }
