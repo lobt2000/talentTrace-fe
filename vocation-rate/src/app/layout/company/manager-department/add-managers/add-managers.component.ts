@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { PermissionsModalComponent } from 'src/app/shared/components/modals/permissions-modal/permissions-modal.component';
 import { ColumnModel } from 'src/app/shared/models/column.model';
 
 @Component({
@@ -51,15 +53,21 @@ export class AddManagersComponent implements OnInit {
   ];
   constructor(
     private breadcrumbsService: BreadcrumbsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _dialog: MatDialog,
+    private dialogRef: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.creationType = this.route.snapshot.queryParams['type'];
 
-    if ((this.creationType == 'manually')) {
+    if (this.creationType == 'manually') {
       this.form = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
+        firstName: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
+        position: new FormControl('', [Validators.required]),
+        permissions: new FormControl('', [Validators.required]),
       });
     }
 
@@ -67,5 +75,26 @@ export class AddManagersComponent implements OnInit {
       label: 'Creation',
       value: 'creation',
     });
+  }
+
+  openPermissionsModal() {
+    this.dialogRef.closeAll();
+    this._dialog
+      .open(PermissionsModalComponent, {
+        width: '552.7px',
+        height: '225px',
+        data: {
+          btnNext: true,
+          type: 'leaveMission',
+          btnAccept: 'Okey',
+          btnCancel: 'Cancel',
+        },
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        // if (res == 'exit') {
+          // this.onClose();
+        // }
+      });
   }
 }

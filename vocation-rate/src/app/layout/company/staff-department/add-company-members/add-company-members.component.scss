@@ -40,6 +40,12 @@
   .managers-table {
     @include size(100%, 100%);
   }
+
+  .form {
+    @include size(100%, 100%);
+  }
+  
+  
 }
 
 ::ng-deep {

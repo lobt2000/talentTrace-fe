@@ -106,18 +106,14 @@
 
 
 <ng-template #manually>
-    <form class="form" [formGroup]="form">
-        <div class="row w-100">
+    <form class="form align-items-center justify-content-center" [formGroup]="form">
+        <div class="row w-100 align-items-center justify-content-center">
             <div class="col-4">
                 <div class="default-formField w-100" appearance="fill">
                     <input class="default-input" matInput [formControlName]="'email'" required>
                     <label class="default-label">First name</label>
-                    <div class="default-input-error-message"
-                        *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
-                        Please enter a valid email address
-                    </div>
-                    <div class="default-input-error-message" *ngIf="form.get('email').hasError('required')">
-                        Email is <strong>required</strong>
+                    <div class="default-input-error-message" *ngIf="form.get('firstName').hasError('required')">
+                        First name is <strong>required</strong>
                     </div>
                 </div>
             </div>
@@ -125,18 +121,14 @@
                 <div class="default-formField w-100" appearance="fill">
                     <input class="default-input" matInput [formControlName]="'email'" required>
                     <label class="default-label">Last name</label>
-                    <div class="default-input-error-message"
-                        *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
-                        Please enter a valid email address
-                    </div>
-                    <div class="default-input-error-message" *ngIf="form.get('email').hasError('required')">
-                        Email is <strong>required</strong>
+                    <div class="default-input-error-message" *ngIf="form.get('lastName').hasError('required')">
+                        Last name is <strong>required</strong>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row w-100">
+        <div class="row w-100 align-items-center justify-content-center">
             <div class="col-4">
                 <div class="default-formField w-100" appearance="fill">
                     <input class="default-input" matInput [formControlName]="'email'" required>
@@ -152,29 +144,18 @@
             </div>
             <div class="col-4">
                 <div class="default-formField w-100" appearance="fill">
-                    <input class="default-input" matInput [formControlName]="'email'" required>
-                    <label class="default-label">Email</label>
-                    <div class="default-input-error-message"
-                        *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
-                        Please enter a valid email address
-                    </div>
+                    <input class="default-input" matInput [formControlName]="'position'" required>
+                    <label class="default-label">Position</label>
                     <div class="default-input-error-message" *ngIf="form.get('email').hasError('required')">
-                        Email is <strong>required</strong>
+                        Position is <strong>required</strong>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-2">
-            <div class="default-formField" appearance="fill">
-                <input class="default-input" matInput [formControlName]="'email'" required>
-                <label class="default-label">Email</label>
-                <div class="default-input-error-message"
-                    *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
-                    Please enter a valid email address
-                </div>
-                <div class="default-input-error-message" *ngIf="form.get('email').hasError('required')">
-                    Email is <strong>required</strong>
-                </div>
+        <div class="row w-100 align-items-center justify-content-center mt-100 position-relative">
+            <button class="default-stepper-button btn-blue">Permissions</button>
+            <div class="default-input-error-message position-absolute bottom--20" *ngIf="form.get('permissions').hasError('required')">
+                Permissions is <strong>required</strong>
             </div>
         </div>
     </form>

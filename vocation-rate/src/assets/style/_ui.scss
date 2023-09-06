@@ -141,3 +141,21 @@ h3 {
 .instruction {
   @include size(48%, 100%);
 }
+
+$rangeOfNumber: ();
+
+@for $i from -100 through 100 {
+  $rangeOfNumber: append($rangeOfNumber, $i);
+}
+
+@each $bottom in $rangeOfNumber {
+  .bottom-#{$bottom} {
+    bottom: #{$bottom}px !important;
+  }
+}
+
+@each $margin in $rangeOfNumber {
+  .mt-#{$margin} {
+    margin-top: #{$margin}px !important;
+  }
+}

@@ -12,7 +12,7 @@ import { UiDashboardTableModule } from 'src/app/shared/components/base-table/ui-
 import { CollapseItemListModule } from 'src/app/shared/components/collapse-item-list/collapse-item-list.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StaffDepartmentRoutes } from './staff-department.routing';
-import { AddCompanyMembersComponent } from './add-managers/add-company-members.component';
+import { AddCompanyMembersComponent } from './add-company-members/add-company-members.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({

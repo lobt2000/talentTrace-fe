@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 import { UiPageComponent } from './components/ui-page/ui-page.component';
 import { UiBreadcrumbsComponent } from './components/ui-breadcrumbs/ui-breadcrumbs.component';
 import { UiInstructionComponent } from './components/ui-instruction/ui-instruction.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PermissionsModalComponent } from './components/modals/permissions-modal/permissions-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { UiInstructionComponent } from './components/ui-instruction/ui-instructi
     UiPageComponent,
     UiBreadcrumbsComponent,
     UiInstructionComponent,
+    PermissionsModalComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +39,7 @@ import { UiInstructionComponent } from './components/ui-instruction/ui-instructi
     MatIconModule,
     MatButtonModule,
     RouterModule,
+    MatDialogModule
   ],
   exports: [UiToggleComponent, TabContainerComponent, UiPageComponent, UiInstructionComponent],
 })

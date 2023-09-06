@@ -50,10 +50,14 @@ export class AddCompanyMembersComponent implements OnInit {
   ngOnInit(): void {
     this.creationType = this.route.snapshot.queryParams['type'];
     console.log(this.creationType, 'manually');
-    
-    if ((this.creationType == 'manually')) {
+
+    if (this.creationType == 'manually') {
       this.form = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
+        firstName: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
+        position: new FormControl('', [Validators.required]),
+        permissions: new FormControl('', [Validators.required]),
       });
     }
 
