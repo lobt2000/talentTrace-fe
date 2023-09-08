@@ -17,6 +17,7 @@ import { UiBreadcrumbsComponent } from './components/ui-breadcrumbs/ui-breadcrum
 import { UiInstructionComponent } from './components/ui-instruction/ui-instruction.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PermissionsModalComponent } from './components/modals/permissions-modal/permissions-modal.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,14 @@ import { PermissionsModalComponent } from './components/modals/permissions-modal
     MatIconModule,
     MatButtonModule,
     RouterModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule,
   ],
-  exports: [UiToggleComponent, TabContainerComponent, UiPageComponent, UiInstructionComponent],
+  exports: [
+    UiToggleComponent,
+    TabContainerComponent,
+    UiPageComponent,
+    UiInstructionComponent,
+  ],
 })
 export class SharedModule {}

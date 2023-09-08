@@ -69,6 +69,8 @@ export class AddManagersComponent implements OnInit {
         position: new FormControl('', [Validators.required]),
         permissions: new FormControl('', [Validators.required]),
       });
+
+      this.openPermissionsModal();
     }
 
     this.breadcrumbsService.addBreadcrumbs({
@@ -81,19 +83,19 @@ export class AddManagersComponent implements OnInit {
     this.dialogRef.closeAll();
     this._dialog
       .open(PermissionsModalComponent, {
-        width: '552.7px',
-        height: '225px',
+        width: '60vw',
+        height: '600px',
+        position: {
+          left: 'calc(50% - 20vw)',
+        },
         data: {
-          btnNext: true,
-          type: 'leaveMission',
-          btnAccept: 'Okey',
-          btnCancel: 'Cancel',
+          permissions: [],
         },
       })
       .afterClosed()
       .subscribe((res) => {
         // if (res == 'exit') {
-          // this.onClose();
+        // this.onClose();
         // }
       });
   }

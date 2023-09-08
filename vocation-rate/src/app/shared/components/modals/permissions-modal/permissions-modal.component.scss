@@ -1,0 +1,77 @@
+@import "../../../../../assets/style/ui";
+
+.header {
+  @include size(100%, 50px);
+  margin-bottom: 20px;
+}
+
+.permissions-block {
+  @include size(49%, auto);
+  max-height: calc(100% - 70px);
+  border: 1px solid gray;
+
+  .main-permission {
+    @include size(100%, 70px);
+    border-bottom: 1px solid gray;
+    margin-bottom: 10px;
+
+    p {
+      @include size(calc(100% - 70px), 100%);
+      text-align: center;
+      line-height: 70px;
+    }
+
+    .permission-checkbox {
+      @include size(70px, 100%);
+      border-left: 1px solid gray;
+
+      .mat-checkbox-layout {
+        margin: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+      }
+    }
+  }
+
+  .additional-permission-container {
+    @include size(100%, calc(100% - 70px));
+    overflow-y: auto;
+  }
+
+  .additional-permission {
+    @include size(80%, 70px);
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+
+    p {
+      @include size(calc(100% - 70px), 100%);
+      text-align: center;
+      line-height: 70px;
+    }
+
+    .permission-checkbox {
+      @include size(70px, 100%);
+      border-left: 1px solid gray;
+
+      .mat-checkbox-layout {
+        margin: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+      }
+    }
+  }
+}
+
+.permission-container {
+  @include size(100%, calc(100% - 50px));
+}
+
+::ng-deep {
+  .permission-checkbox {
+    .mat-checkbox-layout {
+      margin: 0 !important;
+      margin-bottom: 0 !important;
+      padding: 0 !important;
+    }
+  }
+}

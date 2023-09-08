@@ -154,8 +154,32 @@ $rangeOfNumber: ();
   }
 }
 
+@each $top in $rangeOfNumber {
+  .top-#{$top} {
+    top: #{$top}px !important;
+  }
+}
+
+@each $right in $rangeOfNumber {
+  .right-#{$right} {
+    right: #{$right}px !important;
+  }
+}
+
+@each $left in $rangeOfNumber {
+  .left-#{$left} {
+    left: #{$left}px !important;
+  }
+}
+
 @each $margin in $rangeOfNumber {
   .mt-#{$margin} {
     margin-top: #{$margin}px !important;
+  }
+}
+
+@each $fontSize in $rangeOfNumber {
+  .font-size-#{$fontSize} {
+    font-size: #{$fontSize}px !important;
   }
 }

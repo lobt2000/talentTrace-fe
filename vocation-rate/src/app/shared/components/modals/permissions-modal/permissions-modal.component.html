@@ -1,2 +1,58 @@
-<p >permissions-modal works!</p>
-<button (click)="onClose()"> sdadadsa</button>
+<div class="w-100 h-100">
+    <div class="header d-flex align-items-center justify-content-center position-relative">
+        <h3>Permission mode</h3>
+        <div class="position-absolute right-0 top-0"><mat-icon (click)="onClose()">close</mat-icon></div>
+    </div>
+
+    <div class="permission-container d-flex justify-content-between" [formGroup]="permissionForm">
+
+        <div class="permissions-block" [formGroupName]="'vacancies'">
+            <div class="main-permission d-flex align-items-center justify-content-between">
+
+                <p>Vacancies Department</p>
+                <mat-checkbox class="permission-checkbox d-flex align-items-center justify-content-center"
+                    [formControlName]="'isAll'" [indeterminate]="someComplete('vacancies')">
+                </mat-checkbox>
+            </div>
+
+            <div class="additional-permission-container d-flex align-items-end colDir"
+                *ngIf="someComplete('vacancies') || isAllChecked('vacancies')">
+                <ng-container [formArrayName]="'subpermission'"
+                    *ngFor="let item of vacanciesFromSubPermissionArray.controls; let i = index;">
+                    <div class="additional-permission d-flex align-items-center justify-content-between"
+                        [formGroupName]="i">
+                        <p>{{item.value.name}}</p>
+                        <mat-checkbox class="permission-checkbox d-flex align-items-center justify-content-center"
+                            [formControlName]="'checked'">
+                        </mat-checkbox>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="permissions-block" [formGroupName]="'members'">
+            <div class="main-permission d-flex align-items-center justify-content-between">
+
+                <p>Company Members Department</p>
+                <mat-checkbox class="permission-checkbox d-flex align-items-center justify-content-center"
+                    [formControlName]="'isAll'" [indeterminate]="someComplete('members')">
+                </mat-checkbox>
+            </div>
+
+            <div class="additional-permission-container d-flex align-items-end colDir"
+                *ngIf="someComplete('members') || isAllChecked('members')">
+                <ng-container [formArrayName]="'subpermission'"
+                    *ngFor="let item of membersFromSubPermissionArray.controls; let i = index;">
+                    <div class="additional-permission d-flex align-items-center justify-content-between"
+                        [formGroupName]="i">
+                        <p>{{item.value.name}}</p>
+                        <mat-checkbox class="permission-checkbox d-flex align-items-center justify-content-center"
+                            [formControlName]="'checked'">
+                        </mat-checkbox>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+
+</div>
