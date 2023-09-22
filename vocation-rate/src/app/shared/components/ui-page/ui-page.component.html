@@ -1,0 +1,17 @@
+<div class="page-container">
+    <header class="header d-flex align-items-center">
+        <h3>
+            <ng-content select="[pageName]"></ng-content>
+        </h3>
+        <div class="additional-info">
+            <div class="candidates-for-approval">
+            </div>
+        </div>
+    </header>
+    <div class="breadcrumb-conteiner">
+        <app-ui-breadcrumbs *ngIf="withBreadcrimbs" [breadcrumbs]="breadcrumbs$ | async"></app-ui-breadcrumbs>
+    </div>
+    <div class="page-content d-flex justify-content-between align-items-center">
+        <ng-content select="[pageContent]"></ng-content>
+    </div>
+</div>

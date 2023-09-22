@@ -1,0 +1,11 @@
+@import "../../../../../assets/style/ui";
+
+.managers-list {
+  @include size(48%, 100%);
+}
+
+button {
+  @include size(40%, 70%);
+  border-radius: 10px;
+  cursor: pointer;
+}

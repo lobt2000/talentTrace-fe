@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 
 @Component({
   selector: 'app-vacancy-dashboard',
@@ -151,7 +152,21 @@ export class VacancyDashboardComponent implements OnInit {
       ],
     },
   ];
-  constructor() {}
+  defaultBreadcrumb = {
+    label: 'Dashboard',
+    value: 'dashboard',
+    link: '/company/vacancy-dashboard',
+  };
+
+  constructor(private breadcrumbsService: BreadcrumbsService) {}
 
   ngOnInit(): void {}
+
+  onGoToItem(item) {
+    this.breadcrumbsService.addBreadcrumbs({
+      label: item.name,
+      value: item,
+      link: `/companyvacancy-dashboard/${item.name}`,
+    });
+  }
 }

@@ -1,0 +1,97 @@
+@import "../../../../../assets/style/ui";
+
+.header {
+  @include size(100%, 50px);
+  margin-bottom: 20px;
+}
+
+.permissions-block {
+  @include size(100%, auto);
+  max-height: calc(100% - 70px);
+  transition: all 0.3s ease-in-out;
+
+  .main-permission {
+    @include size(100%, 70px);
+    border: 1px solid gray;
+    background-color: #1f222a;
+    color: white;
+    padding-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    p {
+      @include size(calc(100% - 70px), 100%);
+      text-align: center;
+      line-height: 70px;
+    }
+
+    .mat-icon {
+      transition: all 0.3s ease-in-out;
+    }
+
+    &.active {
+      .mat-icon {
+        transform: rotate(180deg);
+      }
+    }
+
+    .permission-checkbox {
+      @include size(70px, 100%);
+      border-left: 1px solid white;
+
+      .mat-checkbox-layout {
+        margin: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+      }
+    }
+  }
+
+  .additional-permission-container {
+    @include size(100%, calc(100% - 70px));
+    flex-wrap: wrap;
+  }
+
+  .additional-permission {
+    @include size(50%, 70px);
+    border: 1px solid gray;
+
+    p {
+      @include size(calc(100% - 70px), 100%);
+      text-align: center;
+      line-height: 70px;
+    }
+
+    .permission-checkbox {
+      @include size(70px, 100%);
+      border-left: 1px solid gray;
+
+      .mat-checkbox-layout {
+        margin: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+      }
+    }
+  }
+}
+
+.permission-container {
+  @include size(100%, calc(100% - 50px));
+}
+
+::ng-deep {
+  .permission-checkbox {
+    .mat-checkbox-layout {
+      margin: 0 !important;
+      margin-bottom: 0 !important;
+      padding: 0 !important;
+
+      .mat-checkbox-frame {
+        border-color: white !important;
+      }
+    }
+    &.additional .mat-checkbox-layout .mat-checkbox-frame {
+      border-color: black !important;
+    }
+  }
+}

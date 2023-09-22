@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VacancyDashboardComponent } from './vacancy-dashboard.component';
 import { VacancyDashboardRoutingModule } from './vacancy-dasboard.routing';
 import { CollapseItemListModule } from 'src/app/shared/components/collapse-item-list/collapse-item-list.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [VacancyDashboardComponent],
@@ -15,7 +17,9 @@ import { CollapseItemListModule } from 'src/app/shared/components/collapse-item-
     ReactiveFormsModule,
     HttpClientModule,
     VacancyDashboardRoutingModule,
-    CollapseItemListModule
+    CollapseItemListModule,
+    SharedModule,
+    TranslateModule
   ],
   providers: [],
 })

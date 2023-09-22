@@ -1,0 +1,148 @@
+<div class="w-100 h-100">
+    <div class="header d-flex align-items-center justify-content-center position-relative">
+        <h3>Permission mode</h3>
+        <div class="position-absolute right-0 top-0 cursor-pointer"><mat-icon
+                (click)="closeModalWithValue()">close</mat-icon></div>
+    </div>
+
+    <div class="permission-container d-flex colDir" [formGroup]="permissionForm">
+
+        <div class="permissions-block" [formGroupName]="'vacancies'">
+            <div class="main-permission d-flex align-items-center justify-content-between"
+                (click)="toggleBlockPermission('vacancies', $event)" [class.active]="isOpen.vacancies">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+                <p>Vacancies Department</p>
+                <mat-checkbox class="permission-checkbox d-flex align-items-center justify-content-center"
+                    [formControlName]="'isAll'" [color]="'primary'" [indeterminate]="someComplete('vacancies')">
+                </mat-checkbox>
+            </div>
+
+            <div class="additional-permission-container d-flex align-items-end" *ngIf="isOpen.vacancies">
+                <ng-container [formArrayName]="'subpermission'"
+                    *ngFor="let item of vacanciesFromSubPermissionArray.controls; let i = index;">
+                    <div class="additional-permission d-flex align-items-center justify-content-between"
+                        [formGroupName]="i">
+                        <ng-container [ngSwitch]="item.value.type">
+                            <ng-container *ngSwitchCase="'checkbox'">
+                                <p>{{item.value.name}}</p>
+                                <mat-checkbox
+                                    class="permission-checkbox additional d-flex align-items-center justify-content-center"
+                                    [formControlName]="'checked'" [color]="'primary'">
+                                </mat-checkbox>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'select'">
+                                <mat-form-field class="w-100 h-70 ml-3 mr-3">
+                                    <mat-label>{{item.value.name}}</mat-label>
+                                    <mat-select [formControlName]="'selectValue'">
+                                        <mat-option *ngFor="let option of item.value.options" [value]="option.name">
+                                            {{option.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="item['controls'].selectValue.invalid">
+                                        {{ 'Field is required' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'multiple-select'">
+
+                                <mat-form-field class="w-100 h-70 ml-3 mr-3">
+                                    <mat-label>{{item.value.name}}</mat-label>
+                                    <mat-select [formControlName]="'selectValue'" multiple>
+                                        <mat-select-trigger>
+                                            {{item.value.selectValue?.[0] || ''}}
+                                            <span *ngIf="(item['controls'].selectValue.value?.length || 0) > 1"
+                                                class="example-additional-selection">
+                                                (+{{(item['controls'].selectValue.value?.length || 0) -
+                                                1}} {{item['controls'].selectValue.value?.length === 2
+                                                ?
+                                                'other' : 'others'}})
+                                            </span>
+                                        </mat-select-trigger>
+                                        <mat-option *ngFor="let option of item.value.options"
+                                            [value]="option.name">{{option.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="item['controls'].selectValue.invalid">
+                                        {{ 'Field is required' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngSwitchDefault></ng-container>
+
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="permissions-block" [formGroupName]="'members'">
+            <div class="main-permission d-flex align-items-center justify-content-between"
+                (click)="toggleBlockPermission('members', $event)" [class.active]="isOpen.members">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+                <p>Company Members Department</p>
+                <mat-checkbox class="permission-checkbox d-flex align-items-center justify-content-center"
+                    [color]="'primary'" [formControlName]="'isAll'" [indeterminate]="someComplete('members')">
+                </mat-checkbox>
+            </div>
+
+            <div class="additional-permission-container d-flex align-items-end" *ngIf="isOpen.members">
+                <ng-container [formArrayName]="'subpermission'"
+                    *ngFor="let item of membersFromSubPermissionArray.controls; let i = index;">
+                    <div class="additional-permission d-flex align-items-center justify-content-between"
+                        [formGroupName]="i">
+
+                        <ng-container [ngSwitch]="item.value.type">
+                            <ng-container *ngSwitchCase="'checkbox'">
+                                <p>{{item.value.name}}</p>
+                                <mat-checkbox
+                                    class="permission-checkbox additional d-flex align-items-center justify-content-center"
+                                    [formControlName]="'checked'" [color]="'primary'">
+                                </mat-checkbox>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'select'">
+                                <mat-form-field class="w-100 h-70 ml-3 mr-3">
+                                    <mat-label>{{item.value.name}}</mat-label>
+                                    <mat-select [formControlName]="'selectValue'">
+                                        <mat-option *ngFor="let option of item.value.options" [value]="option.name">
+                                            {{option.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="item['controls'].selectValue.invalid">
+                                        {{ 'Field is required' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'multiple-select'">
+
+                                <mat-form-field class="w-100 h-70 ml-3 mr-3">
+                                    <mat-label>{{item.value.name}}</mat-label>
+                                    <mat-select [formControlName]="'selectValue'" multiple>
+                                        <mat-select-trigger>
+                                            {{item.value.selectValue?.[0] || ''}}
+                                            <span *ngIf="(item['controls'].selectValue.value?.length || 0) > 1"
+                                                class="example-additional-selection">
+                                                (+{{(item['controls'].selectValue.value?.length || 0) -
+                                                1}} {{item['controls'].selectValue.value?.length === 2
+                                                ?
+                                                'other' : 'others'}})
+                                            </span>
+                                        </mat-select-trigger>
+                                        <mat-option *ngFor="let option of item.value.options"
+                                            [value]="option.name">{{option.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="item['controls'].selectValue.invalid">
+                                        {{ 'Field is required' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </ng-container>
+
+                            <ng-container *ngSwitchDefault></ng-container>
+
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+
+</div>

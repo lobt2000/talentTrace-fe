@@ -47,6 +47,11 @@
         }
       }
 
+      .item-icon {
+        @include size(50px, 50px);
+        border-radius: 30px;
+      }
+
       .text-info {
         padding-left: 10px;
         @include size(auto, 100%);

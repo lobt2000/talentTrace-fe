@@ -1,0 +1,18 @@
+@import "../../../../assets/style/ui";
+
+.page-container {
+  @include size(100%, 100%);
+}
+
+.header {
+  @include size(100%, 70px);
+  background-color: #fdb75a;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.breadcrumb-conteiner {
+  @include size(100%, 40px);
+  margin-top: 25px;
+  margin-bottom: -20px;
+}

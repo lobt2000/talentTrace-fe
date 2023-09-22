@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-collapse-item-list',
@@ -7,7 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CollapseItemListComponent implements OnInit {
   @Input() title: string = '';
+  @Input() noItems: string = 'items';
   @Input() itemsList: any[] = [];
+  @Output() goToItem: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
@@ -16,4 +18,8 @@ export class CollapseItemListComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  onGoToItem(item) {
+    this.goToItem.emit(item);
+  }
 }

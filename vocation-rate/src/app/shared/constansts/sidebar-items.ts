@@ -8,9 +8,15 @@ export const SidebarItemsCompany = [
     image: '',
   },
   {
-    name: 'Settings',
+    name: 'Managers',
     icon: 'icon-settings',
-    link: '/company/settings',
+    link: '/company/manager-department',
+    image: '',
+  },
+  {
+    name: 'Company members',
+    icon: 'icon-settings',
+    link: '/company/company-members',
     image: '',
   },
 ];

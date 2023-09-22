@@ -1,0 +1,61 @@
+<div class="page-content">
+    <div class="header d-flex align-items-center justify-content-between">
+        <h3>{{ defaultQueryParams.actionType === 'creation' ? 'Creation Form' : 'Editing Form' | translate}}</h3>
+    </div>
+
+
+    <div class="creation-form d-flex justify-content-around">
+        <form class="form align-items-center justify-content-center" [formGroup]="form">
+            <div class="row w-100 align-items-center justify-content-center">
+                <div class="col-4">
+                    <div class="default-formField w-100" appearance="fill">
+                        <input class="default-input" matInput [formControlName]="'email'" required>
+                        <label class="default-label">{{'First name' | translate}}</label>
+                        <div class="default-input-error-message" *ngIf="form.get('firstName').hasError('required')">
+                            First name is <strong>required</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="default-formField w-100" appearance="fill">
+                        <input class="default-input" matInput [formControlName]="'email'" required>
+                        <label class="default-label">{{'Last name' | translate}}</label>
+                        <div class="default-input-error-message" *ngIf="form.get('lastName').hasError('required')">
+                            Last name is <strong>required</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row w-100 align-items-center justify-content-center">
+                <div class="col-4">
+                    <div class="default-formField w-100" appearance="fill">
+                        <input class="default-input" matInput [formControlName]="'email'" required>
+                        <label class="default-label">{{'Email' | translate}}</label>
+                        <div class="default-input-error-message"
+                            *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
+                            {{'Please enter a valid email address' | translate}}
+                        </div>
+                        <div class="default-input-error-message" *ngIf="form.get('email').hasError('required')">
+                            Email is <strong>required</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="default-formField w-100" appearance="fill">
+                        <input class="default-input" matInput [formControlName]="'position'" required>
+                        <label class="default-label">{{'Position' | translate}}</label>
+                        <div class="default-input-error-message" *ngIf="form.get('email').hasError('required')">
+                            Position is <strong>required</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row w-100 position-relative mt-100 d-flex align-items-center justify-content-center">
+                <button class=" default-stepper-button btn-default-green">
+                    {{'Save' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

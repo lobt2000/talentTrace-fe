@@ -1,8 +1,6 @@
 @import "../mixins";
 @import "../variables";
 
-
-
 .default-button {
   @include size(40%, 40px);
   border-radius: 10px;
@@ -18,7 +16,6 @@
   margin-right: 10px;
   cursor: pointer;
 }
-
 
 .button-hover {
   &:hover {
@@ -51,6 +48,26 @@
 
   &:hover {
     background-color: #706262;
+    color: white;
+  }
+}
+
+.btn-green {
+  border: 1px solid green;
+
+  &:hover {
+    background-color: green;
+    color: white;
+  }
+}
+
+.btn-default-green {
+  border: 1px solid green;
+  background-color: green;
+  color: white;
+
+  &:hover {
+    background-color: transparent;
     color: white;
   }
 }

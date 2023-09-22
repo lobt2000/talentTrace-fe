@@ -1,0 +1,66 @@
+@import "../../../../../assets/style/ui";
+
+.page-content {
+  @include size(calc(100vw - 350px), calc(100vh - 150px));
+  border-radius: 30px;
+  padding: 10px;
+
+  .header {
+    @include size(100%, 70px);
+    color: white;
+  }
+
+  .creation-form {
+    @include size(100%, calc(100% - 70px));
+    margin-top: 10px;
+  }
+
+  .creation-form-stepper {
+    @include size(100%, 75vh);
+    background-color: transparent;
+  }
+
+  .actions {
+    @include size(100%, 70px);
+    padding: 0 20px;
+    margin-top: 10px;
+    border-radius: 0px 0px 30px 30px;
+
+    button {
+      @include size(20%, 70%);
+      border-radius: 10px;
+    }
+  }
+
+  .managers-table {
+    @include size(100%, 100%);
+  }
+
+  .form {
+    @include size(100%, 100%);
+  }
+}
+
+.default-input {
+  padding: 0;
+  padding-left: 10px;
+}
+
+::ng-deep {
+  .mat-stepper-horizontal-line {
+    border-top-color: white !important;
+  }
+
+  .mat-step-text-label {
+    color: white !important;
+  }
+
+  .mat-horizontal-stepper-content {
+    @include flex-box(column, nowrap, space-around, center);
+    @include size(100%, 100%);
+  }
+
+  .mat-horizontal-content-container {
+    @include size(100%, calc(100% - 75px));
+  }
+}

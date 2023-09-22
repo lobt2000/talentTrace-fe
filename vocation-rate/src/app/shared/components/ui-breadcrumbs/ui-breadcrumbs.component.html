@@ -1,0 +1,8 @@
+<div class="ui-breadcrumbs d-flex align-items-center" *ngIf="breadcrumbs">
+    <div class="item-breadcrumb" *ngFor="let breadcrumb of breadcrumbs; let i = index;"
+        (click)="onBreadcrumb(breadcrumb, i)">
+        <div class="background-breadcrumbs d-flex align-items-center justify-content-center">
+            {{breadcrumb.label | translate}}
+        </div>
+    </div>
+</div>

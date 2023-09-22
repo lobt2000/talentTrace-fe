@@ -4,11 +4,10 @@
         <div class="count">{{ itemsList.length }}</div>
     </div>
     <div class="items-list">
-        <div class="item d-flex align-items-center justify-content-between" *ngFor="let item of itemsList">
-            <div *ngIf="showContent(item, 'icon')">
-                <img [src]="item.icon" alt="">
-            </div>
-            <div class="text-info d-flex justify-content-center col">
+        <div class="item d-flex align-items-center justify-content-between" *ngFor="let item of itemsList"
+            (click)="onGoToItem(item)">
+            <img *ngIf="showContent(item, 'icon')" [src]="item.icon" class="item-icon" alt="">
+            <div class="text-info d-flex justify-content-center colDir">
                 <div class="item-name" *ngIf="showContent(item, 'name')">{{item.name}}</div>
                 <div>
                     <span *ngIf="showContent(item, 'employment')">{{item.employment}} </span>
@@ -24,5 +23,9 @@
                 <div class="active" *ngIf="showContent(item, 'active')"></div>
             </div>
         </div>
+    </div>
+
+    <div *ngIf="!itemsList.length">
+        {{ 'You have no {{noItems}} yet' | translate }}
     </div>
 </div>
