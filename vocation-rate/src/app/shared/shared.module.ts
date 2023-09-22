@@ -18,6 +18,8 @@ import { UiInstructionComponent } from './components/ui-instruction/ui-instructi
 import { MatDialogModule } from '@angular/material/dialog';
 import { PermissionsModalComponent } from './components/modals/permissions-modal/permissions-modal.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     RouterModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   exports: [
     UiToggleComponent,

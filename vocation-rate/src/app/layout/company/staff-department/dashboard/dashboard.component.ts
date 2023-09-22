@@ -30,14 +30,19 @@ export class DashboardComponent implements OnInit {
     this.breadcrumbsService.addBreadcrumbs({
       label: item.name,
       value: item,
-      link: `/company/company-members/${item.name}`,
+      link: `/company/company-members`,
     });
+
+    this.router.navigate(
+      [CommonUrls.Company, 'company-members', 'add-manually'],
+      { queryParams: { actionType: 'editing', id: 1 } }
+    );
   }
 
   addMembers(type: string) {
     this.router.navigate(
-      [CommonUrls.Company, 'company-members', 'add-members'],
-      { queryParams: { type } }
+      [CommonUrls.Company, 'company-members', `add-${type}`],
+      { queryParams: { actionType: 'creation' } }
     );
   }
 }

@@ -1,0 +1,89 @@
+<div class="page-content">
+    <div class="header d-flex align-items-center ">
+        <h3>{{'Creation Form' | translate}}</h3>
+    </div>
+
+
+    <div class="creation-form d-flex justify-content-around">
+        <mat-stepper class="creation-form-stepper" orientation="horizontal" #stepper>
+            <mat-step class="d-flex align-items-center">
+                <ng-template matStepLabel>Instruction & Uploading</ng-template>
+                <div class="d-flex align-items-center justify-content-between">
+                    <app-ui-instruction class="instruction">
+                        <ng-container headerName>
+                            {{'Instruction' | translate}}
+                        </ng-container>
+                        <ng-container decriptionText>
+                            <p class="mb-3">
+                                {{'Welcome to the Manager Department Dashboard! Adding a new manager to your team
+                                is now easier than ever.' | translate}}
+                            </p>
+                            <p class="mb-3">{{'You have two convenient options to choose from:' | translate}}</p>
+
+                            <p class="mb-3">{{'1. Add Manually:' | translate}}</p>
+
+                            <p class="pl-3 mb-3">
+                                {{"Adding a new manager manually allows you to enter their details directly into our
+                                system. Follow
+                                these simple steps: Click on the 'Add Manager Manually' button. Fill in the required
+                                fields. Once you've
+                                entered the information, click the 'Add' button. The new manager will be instantly
+                                added to your team
+                                and sended an approval letter to their email." | translate}}
+                            </p>
+
+                            <p class="mb-3">{{'2. Upload a File:' | translate}}</p>
+
+
+                            <p class="pl-3 mb-3">
+                                {{"Got a list of new managers ready in a file? No problem! Our system supports
+                                uploads. Here's how:
+                                Click on the 'Upload File' button. Choose the file containing the manager details.
+                                Supported formats
+                                include Json and Excel. Read the description which field Click the 'Confirm' button,
+                                and our system will
+                                add all the new managers to your team." | translate}}</p>
+                        </ng-container>
+
+                    </app-ui-instruction>
+
+                    <div class="uploading-file d-flex colDir align-items-center justify-content-around">
+                        <mat-icon>cloud_upload</mat-icon>
+
+                        <div class="title">
+                            <p>{{'Please firstly read the Instruction!!!' | translate}}</p>
+                            <p>{{'Drag file to upload' | translate}}</p>
+                            <p>{{'or' | translate}}</p>
+                        </div>
+                        <input type="file">
+                        <div class="upload-immitation d-flex align-items-center justify-content-center">
+                            <button class=" upload-button">{{'Browse the file' | translate}}</button>
+                        </div>
+
+                        <div class="uploading-conditions">
+                            <p class="size"></p>
+                            <p class="types"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="default-stepper-button-block">
+                    <button class="default-stepper-button btn-blue" mat-button matStepperNext>{{'Next' |
+                        translate}}</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>{{'Parsed data' | translate}}</ng-template>
+                <div class="managers-table">
+                    <app-ui-dashboard-table [columns]="columns" [rows]="parsedDataArray"></app-ui-dashboard-table>
+                </div>
+
+                <div class="default-stepper-button-block">
+                    <button class="default-stepper-button" mat-button matStepperPrevious>{{'Back' |
+                        translate}}</button>
+                    <button class="default-stepper-button btn-grey" mat-button>{{'Reset' | translate}}</button>
+                    <button class="default-stepper-button btn-blue" mat-button>{{'Save' | translate}}</button>
+                </div>
+            </mat-step>
+        </mat-stepper>
+    </div>
+</div>

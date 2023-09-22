@@ -7,4 +7,5 @@
 button {
   @include size(40%, 70%);
   border-radius: 10px;
+  cursor: pointer;
 }

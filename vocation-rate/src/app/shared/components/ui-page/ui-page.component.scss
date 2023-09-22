@@ -12,5 +12,7 @@
 }
 
 .breadcrumb-conteiner {
-  @include size(100%, 30px);
+  @include size(100%, 40px);
+  margin-top: 25px;
+  margin-bottom: -20px;
 }

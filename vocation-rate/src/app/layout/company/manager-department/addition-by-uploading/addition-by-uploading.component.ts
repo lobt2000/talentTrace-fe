@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { PermissionService } from 'src/app/service/permission.service';
 import { PermissionsModalComponent } from 'src/app/shared/components/modals/permissions-modal/permissions-modal.component';
 import { ColumnModel } from 'src/app/shared/models/column.model';
 
 @Component({
-  selector: 'app-add-managers',
-  templateUrl: './add-managers.component.html',
-  styleUrls: ['./add-managers.component.scss'],
+  selector: 'app-addition-by-uploading',
+  templateUrl: './addition-by-uploading.component.html',
+  styleUrls: ['./addition-by-uploading.component.scss'],
 })
-export class AddManagersComponent implements OnInit {
-  form: FormGroup;
-  creationType: string = 'uploading';
+export class AdditionByUploadingComponent implements OnInit {
   columns: ColumnModel[] = [
     {
       value: 1,
@@ -48,38 +46,41 @@ export class AddManagersComponent implements OnInit {
       email: 'helowor@emai.com',
       position: 'hr manager',
       createDate: '12.01.2001',
-      permission: [],
+      permission: {},
+      id: 1,
     },
   ];
+  defaultQueryParams = {
+    actionType: 'creation',
+    creationType: 'uploading',
+    id: null,
+  };
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private route: ActivatedRoute,
+    private permissionService: PermissionService,
     private _dialog: MatDialog,
     private dialogRef: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.creationType = this.route.snapshot.queryParams['type'];
-
-    if (this.creationType == 'manually') {
-      this.form = new FormGroup({
-        email: new FormControl('', [Validators.required, Validators.email]),
-        firstName: new FormControl('', [Validators.required]),
-        lastName: new FormControl('', [Validators.required]),
-        position: new FormControl('', [Validators.required]),
-        permissions: new FormControl('', [Validators.required]),
-      });
-
-      this.openPermissionsModal();
-    }
+    this.defaultQueryParams = {
+      actionType: this.route.snapshot.queryParams['actionType'] || 'creation',
+      creationType: this.route.snapshot.queryParams['type'],
+      id: this.route.snapshot.queryParams['id'],
+    };
 
     this.breadcrumbsService.addBreadcrumbs({
-      label: 'Creation',
-      value: 'creation',
+      label:
+        this.defaultQueryParams.actionType.charAt(0).toUpperCase() +
+        this.defaultQueryParams.actionType.slice(1),
+      value: this.defaultQueryParams.actionType,
     });
   }
 
-  openPermissionsModal() {
+  openPermissionsModal(elem) {
+    console.log(elem);
+
     this.dialogRef.closeAll();
     this._dialog
       .open(PermissionsModalComponent, {
@@ -89,14 +90,17 @@ export class AddManagersComponent implements OnInit {
           left: 'calc(50% - 20vw)',
         },
         data: {
-          permissions: [],
+          permissions: elem.permission,
         },
       })
       .afterClosed()
       .subscribe((res) => {
-        // if (res == 'exit') {
-        // this.onClose();
-        // }
+        const permissions = this.permissionService.getCorrectPermissions(res);
+        this.parsedDataArray.find(
+          (manager) => manager.id === elem.id
+        ).permission = Object.values(permissions).length
+          ? permissions
+          : elem.permission;
       });
   }
 }

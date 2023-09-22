@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseTableComponent } from '../base-table.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ColumnModel } from 'src/app/shared/models/column.model';
@@ -16,6 +16,7 @@ export class UiDashboardTableComponent
   customSort = { column: 'lastDueDate', order: true };
   @Input() columns: ColumnModel[];
   @Input() rows: any[];
+  @Output() goToPermissions: EventEmitter<any> = new EventEmitter();
   constructor(private translate: TranslateService) {
     super(translate);
   }
@@ -34,5 +35,9 @@ export class UiDashboardTableComponent
       }
     }
     return arrow;
+  }
+
+  onGoToPermissions(item) {
+    this.goToPermissions.emit(item)
   }
 }

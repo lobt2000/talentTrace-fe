@@ -6,14 +6,18 @@
 }
 
 .permissions-block {
-  @include size(49%, auto);
+  @include size(100%, auto);
   max-height: calc(100% - 70px);
-  border: 1px solid gray;
+  transition: all 0.3s ease-in-out;
 
   .main-permission {
     @include size(100%, 70px);
-    border-bottom: 1px solid gray;
-    margin-bottom: 10px;
+    border: 1px solid gray;
+    background-color: #1f222a;
+    color: white;
+    padding-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 
     p {
       @include size(calc(100% - 70px), 100%);
@@ -21,9 +25,19 @@
       line-height: 70px;
     }
 
+    .mat-icon {
+      transition: all 0.3s ease-in-out;
+    }
+
+    &.active {
+      .mat-icon {
+        transform: rotate(180deg);
+      }
+    }
+
     .permission-checkbox {
       @include size(70px, 100%);
-      border-left: 1px solid gray;
+      border-left: 1px solid white;
 
       .mat-checkbox-layout {
         margin: 0 !important;
@@ -35,13 +49,12 @@
 
   .additional-permission-container {
     @include size(100%, calc(100% - 70px));
-    overflow-y: auto;
+    flex-wrap: wrap;
   }
 
   .additional-permission {
-    @include size(80%, 70px);
-    border-left: 1px solid gray;
-    border-bottom: 1px solid gray;
+    @include size(50%, 70px);
+    border: 1px solid gray;
 
     p {
       @include size(calc(100% - 70px), 100%);
@@ -72,6 +85,13 @@
       margin: 0 !important;
       margin-bottom: 0 !important;
       padding: 0 !important;
+
+      .mat-checkbox-frame {
+        border-color: white !important;
+      }
+    }
+    &.additional .mat-checkbox-layout .mat-checkbox-frame {
+      border-color: black !important;
     }
   }
 }

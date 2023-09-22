@@ -24,7 +24,7 @@
                 {{ row.createDate | date: 'dd.MM.yyyy' }}
               </td>
               <td *ngSwitchCase="'permission'">
-                <button class="btn btn-secondary">
+                <button class="btn btn-secondary" (click)="onGoToPermissions(row)">
                   {{'permission' | translate}}
                 </button>
               </td>

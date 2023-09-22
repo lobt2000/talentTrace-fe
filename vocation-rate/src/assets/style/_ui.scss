@@ -143,6 +143,7 @@ h3 {
 }
 
 $rangeOfNumber: ();
+$cursors: ("pointer");
 
 @for $i from -100 through 100 {
   $rangeOfNumber: append($rangeOfNumber, $i);
@@ -181,5 +182,10 @@ $rangeOfNumber: ();
 @each $fontSize in $rangeOfNumber {
   .font-size-#{$fontSize} {
     font-size: #{$fontSize}px !important;
+  }
+}
+@each $cursor in $cursors {
+  .cursor-#{$cursor} {
+    cursor: pointer;
   }
 }

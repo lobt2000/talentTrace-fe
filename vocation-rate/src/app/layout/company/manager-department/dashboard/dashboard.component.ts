@@ -33,14 +33,19 @@ export class DashboardComponent implements OnInit {
     this.breadcrumbsService.addBreadcrumbs({
       label: item.name,
       value: item,
-      link: `/company/manager-department/${item.name}`,
+      link: `/company/manager-department`,
     });
+
+    this.router.navigate(
+      [CommonUrls.Company, 'manager-department', 'add-manually'],
+      { queryParams: { actionType: 'editing', id: 1 } }
+    );
   }
 
   addManagers(type: string) {
     this.router.navigate(
-      [CommonUrls.Company, 'manager-department', 'add-managers'],
-      { queryParams: { type } }
+      [CommonUrls.Company, 'manager-department', `add-${type}`],
+      { queryParams: { actionType: 'creation' } }
     );
   }
 }

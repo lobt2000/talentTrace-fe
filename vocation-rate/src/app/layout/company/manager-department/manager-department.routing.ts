@@ -1,8 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ManagerDepartmentComponent } from './manager-department.component';
-import { AddManagersComponent } from './add-managers/add-managers.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ManuallAdditionComponent } from './manuall-addition/manuall-addition.component';
+import { AdditionByUploadingComponent } from './addition-by-uploading/addition-by-uploading.component';
 
 const routes: Routes = [
   {
@@ -10,8 +11,13 @@ const routes: Routes = [
     component: ManagerDepartmentComponent,
     children: [
       {
-        path: 'add-managers',
-        component: AddManagersComponent,
+        path: 'add-manually',
+        component: ManuallAdditionComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'add-uploading',
+        component: AdditionByUploadingComponent,
         pathMatch: 'full',
       },
       {

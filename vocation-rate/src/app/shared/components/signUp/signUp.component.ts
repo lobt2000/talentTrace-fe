@@ -15,7 +15,8 @@ import { UserType } from '../../constansts/user-type.model';
   styleUrls: ['./signUp.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  form: UntypedFormGroup;
+  formEmail: UntypedFormGroup;
+  formPassword: UntypedFormGroup;
   hidePass: boolean = true;
   hideConfirmPass: boolean = true;
   @Input() typeOfUser: string = UserType.User;
@@ -27,17 +28,10 @@ export class SignUpComponent implements OnInit {
   }
 
   buildUserForm() {
-    this.form = this.fb.group({
+    this.formEmail = this.fb.group({
       email: this.fb.control('sdfs@sdfsdf.com', [
         Validators.required,
         Validators.email,
-      ]),
-      confPassword: this.fb.control('adasA231@dasdas', [
-        Validators.required,
-        this.confirmPassValidator(),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&|?\\/<>~""\'\';:*?])[A-Za-z\\d#$@!%&|?\\/<>~""\'\';:*?]{8,30}$'
-        ),
       ]),
       ...(this.typeOfUser == 'user' && {
         companyEmail: this.fb.control('', [
@@ -45,6 +39,16 @@ export class SignUpComponent implements OnInit {
           Validators.email,
         ]),
       }),
+    });
+    this.formPassword = this.fb.group({
+      confPassword: this.fb.control('adasA231@dasdas', [
+        Validators.required,
+        this.confirmPassValidator(),
+        Validators.pattern(
+          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&|?\\/<>~""\'\';:*?])[A-Za-z\\d#$@!%&|?\\/<>~""\'\';:*?]{8,30}$'
+        ),
+      ]),
+
       password: this.fb.control('adasA231@dasdas', [
         Validators.required,
         Validators.pattern(
@@ -56,14 +60,17 @@ export class SignUpComponent implements OnInit {
 
   confirmPassValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null =>
-      this.form?.value?.password !== control.value
+      this.formPassword?.value?.password !== control.value
         ? { notmatch: 'This value should be the same as password' }
         : null;
   }
 
   submitForm() {
-    if (this.form.valid) {
-      this.formValue.emit(this.form.getRawValue());
+    if (this.formPassword.valid && this.formEmail.valid) {
+      this.formValue.emit({
+        ...this.formEmail.getRawValue(),
+        ...this.formPassword.getRawValue(),
+      });
     }
   }
 }

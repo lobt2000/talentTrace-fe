@@ -12,7 +12,7 @@ export class BaseModalComponent {
     public dialogRef: MatDialogRef<BaseModalComponent>
   ) {}
 
-  onClose() {
-    this.dialogRef.close();
+  onClose(value?) {
+    this.dialogRef.close(value);
   }
 }
