@@ -71,3 +71,23 @@
     color: white;
   }
 }
+
+.btn-red {
+  border: 1px solid red;
+  color: white;
+
+  &:hover {
+    background-color: red;
+    color: white;
+  }
+}
+.btn-default-red {
+  border: 1px solid red;
+  background-color: red;
+  color: white;
+
+  &:hover {
+    background-color: transparent;
+    color: white;
+  }
+}

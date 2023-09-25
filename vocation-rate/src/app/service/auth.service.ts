@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getToken(userData) {
     this.http
@@ -26,5 +27,10 @@ export class AuthService {
       username: user.username,
       password: user.password,
     });
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['home']);
   }
 }

@@ -52,9 +52,11 @@
                 </div>
             </div>
 
-            <div class="row w-100 position-relative mt-100 d-flex align-items-center justify-content-center">
+            <div class="row w-100 position-relative mt-100 d-flex align-items-center justify-content-around">
                 <button class=" default-stepper-button btn-default-green">
                     {{'Save' | translate}}</button>
+                <button *ngIf="defaultQueryParams.actionType !== 'creation'" class=" default-stepper-button btn-default-red">
+                    {{'Delete' | translate}}</button>
             </div>
         </form>
     </div>
