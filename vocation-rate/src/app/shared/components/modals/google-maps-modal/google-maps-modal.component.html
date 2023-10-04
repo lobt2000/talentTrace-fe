@@ -1,0 +1,30 @@
+<div class="w-100 h-100">
+    <div class="w-100 d-flex align-items-center justify-content-center position-relative">
+        <h3>Permission mode</h3>
+        <div class="position-absolute right-0 top-0 cursor-pointer" (click)="onClose()">
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group">
+            <input type="text" id="pac-input" name="address" class="form-control" [(ngModel)]="address"
+                (keydown.enter)="$event.preventDefault()" minlength="3" maxlength="100" autocorrect="off"
+                autocapitalize="off" spellcheck="off" #search #addressControl="ngModel" required />
+        </div>
+
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+        </agm-map>
+
+        <h5>Address: {{address}}</h5>
+        <div>Latitude: {{latitude}}</div>
+        <div>Longitude: {{longitude}}</div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+            (click)="onClose()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="closeModal(true)">Save Location</button>
+    </div>
+</div>

@@ -16,6 +16,20 @@ export class AppComponent implements OnInit {
     translateService.addLangs(['en', 'ua']);
     const lang = +localStorage.getItem('langId');
     translateService.setDefaultLang(lang == 1 ? 'ua' : 'en');
+
+    // const loader = new Loader({
+    //   apiKey: "AIzaSyD95W0lvAu6jV03YXxotXvBKI7EXC3VOPk",
+    //   version: "weekly",
+    //   libraries: ["places"]
+    // });
+    
+    // loader.load().then(async () => {
+    //   const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+    //   map = new Map(document.getElementById("map") as HTMLElement, {
+    //     center: { lat: -34.397, lng: 150.644 },
+    //     zoom: 8,
+    //   });
+    // });
   }
 
   ngOnInit(): void {

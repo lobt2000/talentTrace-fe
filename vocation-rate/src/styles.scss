@@ -102,3 +102,17 @@ body {
   border: 3px solid transparent;
   /* creates padding around scroll thumb */
 }
+
+
+.mat-custom-tooltip {
+  border-radius: 3px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  background-color: rgba(11, 15, 55, 0.9);
+  padding: 10px 15px !important;
+  // font-family: "atlas-aaa";
+  font-size: 14px;
+  line-height: 1.14;
+
+  color: #ffffff;
+  // margin: 0 0 15px 15px !important;
+}

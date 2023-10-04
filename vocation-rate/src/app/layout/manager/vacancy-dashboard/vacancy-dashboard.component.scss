@@ -1,0 +1,16 @@
+@import "../../../../assets/style/ui";
+
+.vacancies-list {
+  @include size(40%, 100%);
+}
+
+.dashboard-two-lists {
+  @include size(59%, 100%);
+  .candidates-list {
+    @include size(100%, 49%);
+  }
+
+  .conversation-list {
+    @include size(100%, 49%);
+  }
+}

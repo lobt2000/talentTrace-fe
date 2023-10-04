@@ -1,5 +1,14 @@
 export const SidebarItemsUser = [];
 
+export const SidebarItemsManager = [
+  {
+    name: 'Vacancy dashboard',
+    icon: 'icon-edit',
+    link: '/manager/vacancy-dashboard',
+    image: '',
+  },
+];
+
 export const SidebarItemsCompany = [
   {
     name: 'Vacancy dashboard',

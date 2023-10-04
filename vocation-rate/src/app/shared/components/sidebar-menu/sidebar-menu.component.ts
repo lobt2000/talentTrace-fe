@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserType } from '../../constansts/user-type.model';
 import {
   SidebarItemsCompany,
+  SidebarItemsManager,
   SidebarItemsUser,
 } from '../../constansts/sidebar-items';
 
@@ -15,8 +16,8 @@ export class SidebarMenuComponent implements OnInit {
   constructor() {}
 
   get sidebarItems() {
-    if (this.userType == UserType.User) {
-      return SidebarItemsUser;
+    if (this.userType == UserType.Manager) {
+      return SidebarItemsManager;
     }
     return SidebarItemsCompany;
   }

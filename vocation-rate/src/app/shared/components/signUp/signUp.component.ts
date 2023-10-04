@@ -34,7 +34,7 @@ export class SignUpComponent implements OnInit {
         Validators.email,
       ]),
       ...(this.typeOfUser == 'user' && {
-        companyEmail: this.fb.control('', [
+        companyEmail: this.fb.control('adasA231@dasdas', [
           Validators.required,
           Validators.email,
         ]),
