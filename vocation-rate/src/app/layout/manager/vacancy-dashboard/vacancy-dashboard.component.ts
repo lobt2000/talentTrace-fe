@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { IOptions } from 'src/app/shared/interfaces/options.interface';
 
 @Component({
   selector: 'app-vacancy-dashboard',
@@ -158,6 +159,33 @@ export class VacancyDashboardComponent implements OnInit {
     value: 'dashboard',
     link: '/manager/vacancy-dashboard',
   };
+
+  vacanciesOptions: Array<IOptions> = [
+    {
+      type: 'create',
+      name: 'Create a vacancy',
+      icon: {
+        name: 'add_circle_outline',
+        color: 'green',
+      },
+    },
+    {
+      type: 'add',
+      name: 'Add a candidate',
+      icon: {
+        name: 'group_add',
+        color: 'green',
+      },
+    },
+    {
+      type: 'delete',
+      name: 'Delete a vacancy',
+      icon: {
+        name: 'delete',
+        color: 'red',
+      },
+    },
+  ];
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,

@@ -1,7 +1,11 @@
 <div class="w-100 collapse-container">
     <div class="header d-flex align-items-center justify-content-between">
         <div class="title">{{ title | translate }}</div>
-        <div class="count">{{ itemsList.length }}</div>
+        <div class="d-flex align-items-center">
+            <div class="count">{{ itemsList.length }}</div>
+            <app-more-options *ngIf="moreOptions && moreOptions.length" [optionsList]="moreOptions"></app-more-options>
+        </div>
+
     </div>
     <div class="items-list">
         <div class="item d-flex align-items-center justify-content-between" *ngFor="let item of itemsList"
