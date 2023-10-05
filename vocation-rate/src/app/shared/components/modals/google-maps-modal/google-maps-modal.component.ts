@@ -71,22 +71,7 @@ export class GoogleMapsModalComponent
     });
   }
 
-  // loadScript(): void {
-  //   const script = document.getElementById('googleMaps') as HTMLScriptElement;
-  //   if (script) {
-  //     script.src =
-  //       'https://maps.googleapis.com/maps/api/js?key=AIzaSyD95W0lvAu6jV03YXxotXvBKI7EXC3VOPk&libraries=places';
-  //   } else {
-  //     const google = document.createElement('script');
-  //     google.type = 'text/javascript';
-  //     google.id = 'googleMaps';
-  //     google.setAttribute(
-  //       'src',
-  //       'https://maps.googleapis.com/maps/api/js?key=AIzaSyD95W0lvAu6jV03YXxotXvBKI7EXC3VOPk&libraries=places'
-  //     );
-  //     document.getElementsByTagName('head')[0].appendChild(google);
-  //   }
-  // }
+  
 
   // Get Current Location Coordinates
   private setCurrentLocation() {
