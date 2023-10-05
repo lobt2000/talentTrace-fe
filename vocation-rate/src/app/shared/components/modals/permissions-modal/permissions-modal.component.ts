@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { BaseModalComponent } from '../base-modal.component';
 import { TranslateService } from '@ngx-translate/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, map, merge } from 'rxjs';
 import { permissionsObjects } from 'src/app/shared/constansts/permissions';
