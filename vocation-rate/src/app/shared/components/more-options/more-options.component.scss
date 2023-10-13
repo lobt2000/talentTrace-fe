@@ -1,0 +1,58 @@
+@import "../../../../assets/style/ui";
+
+.action {
+  @include size(50px, 100%);
+
+  button {
+    outline: unset;
+    background-color: transparent;
+    border-radius: 100%;
+    transition: all 0.6s ease-in-out;
+    border: 1px solid transparent;
+
+    &:focus {
+      border: 1px solid gray;
+    }
+
+    &:hover {
+      mat-icon {
+        color: #17a2b8;
+      }
+    }
+  }
+}
+
+.options-container {
+  left: 100%;
+  top: 0%;
+  @include size(fit-content, fit-content);
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  z-index: 1;
+  &::before {
+    content: "";
+    top: 0;
+    left: 0;
+    @include size(15px, 15px);
+    transform: rotate(45deg);
+    border-radius: 1px;
+    position: absolute;
+    content: "";
+    top: 6%;
+    left: -3%;
+    background-color: white;
+    z-index: -1;
+  }
+  .option-block {
+    white-space: nowrap;
+    @include size(100%, fit-content);
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+    &:hover {
+      background-color: rgba(209, 209, 209, 0.479);
+    }
+  }
+}

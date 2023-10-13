@@ -6,7 +6,7 @@
   border-radius: 10px;
   border: 1px solid white;
   background-color: transparent;
-  color: white;
+  color: white !important;
   transition: all 0.25s;
   line-height: 40px;
   margin-top: 20px;
@@ -19,75 +19,75 @@
 
 .button-hover {
   &:hover {
-    background-color: white;
+    background-color: white !important;
     color: initial;
   }
 }
 
 .btn-blue {
-  border: 1px solid #2350f5;
+  border: 1px solid #2350f5 !important;
 
   &:hover {
-    background-color: #2350f5;
-    color: white;
+    background-color: #2350f5 !important;
+    color: white !important;
   }
 }
 
 .btn-default-blue {
-  border: 1px solid #2350f5;
-  background-color: #2350f5;
+  border: 1px solid #2350f5 !important;
+  background-color: #2350f5 !important;
 
   &:hover {
-    background-color: transparent;
-    color: #2350f5;
+    background-color: transparent !important;
+    color: #2350f5 !important;
   }
 }
 
 .btn-grey {
-  border: 1px solid #706262;
+  border: 1px solid #706262 !important;
 
   &:hover {
-    background-color: #706262;
-    color: white;
+    background-color: #706262 !important;
+    color: white !important;
   }
 }
 
 .btn-green {
-  border: 1px solid green;
+  border: 1px solid green !important;
 
   &:hover {
-    background-color: green;
-    color: white;
+    background-color: green !important;
+    color: white !important;
   }
 }
 
 .btn-default-green {
-  border: 1px solid green;
-  background-color: green;
-  color: white;
+  border: 1px solid green !important;
+  background-color: green !important;
+  color: white !important;
 
   &:hover {
-    background-color: transparent;
-    color: white;
+    background-color: transparent !important;
+    color: white !important;
   }
 }
 
 .btn-red {
-  border: 1px solid red;
-  color: white;
+  border: 1px solid red !important;
+  color: white !important;
 
   &:hover {
-    background-color: red;
-    color: white;
+    background-color: red !important;
+    color: white !important;
   }
 }
 .btn-default-red {
-  border: 1px solid red;
-  background-color: red;
-  color: white;
+  border: 1px solid red !important;
+  background-color: red !important;
+  color: white !important;
 
   &:hover {
-    background-color: transparent;
-    color: white;
+    background-color: transparent !important;
+    color: white !important;
   }
 }

@@ -81,17 +81,62 @@
 
 ::ng-deep {
   .permission-checkbox {
-    .mat-checkbox-layout {
-      margin: 0 !important;
-      margin-bottom: 0 !important;
-      padding: 0 !important;
-
-      .mat-checkbox-frame {
-        border-color: white !important;
-      }
+    .mdc-checkbox
+      .mdc-checkbox__native-control:enabled:not(:checked):not(
+        :indeterminate
+      ):not([data-indeterminate="true"])
+      ~ .mdc-checkbox__background {
+      border-color: white !important;
     }
-    &.additional .mat-checkbox-layout .mat-checkbox-frame {
+    &.additional
+      .mdc-checkbox
+      .mdc-checkbox__native-control:enabled:not(:checked):not(
+        :indeterminate
+      ):not([data-indeterminate="true"])
+      ~ .mdc-checkbox__background {
       border-color: black !important;
     }
   }
+
+  .mat-mdc-form-field {
+    display: block !important;
+    font-size: 15px !important;
+
+    .mat-mdc-text-field-wrapper {
+      height: 80%;
+      padding: 0 3px !important;
+    }
+
+    .mat-mdc-form-field-flex {
+      height: 100%;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+    }
+  }
+
+  // .mat-mdc-form-field-error {
+  //   display: none !important;
+  // }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    min-height: auto !important;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    font-size: 12px !important;
+  }
+
+  // .mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper {
+  //   transform: unset !important;
+  // }
 }

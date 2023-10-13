@@ -9,6 +9,7 @@ export class CollapseItemListComponent implements OnInit {
   @Input() title: string = '';
   @Input() noItems: string = 'items';
   @Input() itemsList: any[] = [];
+  @Input() moreOptions: Array<any> = [];
   @Output() goToItem: EventEmitter<any> = new EventEmitter();
 
   constructor() {}

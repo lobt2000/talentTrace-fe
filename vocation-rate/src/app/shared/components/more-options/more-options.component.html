@@ -1,0 +1,21 @@
+<div class="action position-relative d-flex align-items-center justify-content-center ml-2" (click)="isOptions=true"
+    (clickOutside)="isOptions=false">
+    <button class="d-flex align-items-center justify-content-center p-1 cursor-pointer">
+        <mat-icon>
+            more_vert
+        </mat-icon>
+    </button>
+
+    <div class="options-container position-absolute" @enterLeaveTrigger *ngIf="isOptions">
+        <div class="option-block d-flex align-items-center justify-content-between font-size-15 font-w-bold cursor-pointer"
+            *ngFor=" let option of optionsList" (click)="triggerAction(option)">
+            <mat-icon [style.color]="option.icon.color">
+                {{option.icon.name}}
+            </mat-icon>
+            <div class="ml-3">
+                {{option.name}}
+            </div>
+        </div>
+
+    </div>
+</div>

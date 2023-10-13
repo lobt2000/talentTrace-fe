@@ -1,0 +1,480 @@
+@import "../../../../../assets/style/ui";
+
+::ng-deep {
+  .mdc-tab__text-label {
+    width: 100%;
+    color: white !important;
+  }
+
+  .mat-mdc-tab-nav-bar,
+  .mat-mdc-tab-header {
+    // 1px solid #fdb75a
+    border-bottom: 1px solid #3f585d;
+  }
+
+  .mdc-tab-indicator
+    .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
+    border-color: #fdb75a !important;
+  }
+}
+
+.tab-container {
+  @include size(100%, 100%);
+  padding: 20px;
+  transition: all ease-in-out 0.3s;
+
+  .candidates-header {
+    @include size(100%, 40px);
+    background-color: #fdb75a;
+    margin-bottom: 20px;
+    padding: 0px 20px;
+    .count {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .candidates-body {
+    @include size(100%, calc(100vh - 300px));
+    overflow-y: auto;
+    // max-height: ;
+    .candidate {
+      @include size(100%, 70px);
+      background-color: #efeff1;
+      margin-bottom: 10px;
+      padding: 0px 20px;
+      border-radius: 5px;
+      transition: all ease-in-out 0.3s;
+      &:hover {
+        background-color: #d3ddff;
+      }
+      .item-icon {
+        @include size(50px, 50px);
+        border-radius: 30px;
+      }
+
+      .item-name {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      //   .action {
+      //     button {
+      //       padding: 5px;
+      //       color: #f25454;
+      //       background-color: transparent;
+      //       outline: unset;
+      //       border: 1px solid #f25454;
+      //       border-radius: 10px;
+      //     }
+      //   }
+    }
+  }
+
+  &:has(.job-main-info) {
+    overflow-y: auto;
+    @include size(100%, calc(100vh - 220px));
+  }
+
+  .job-main-info {
+    @include size(60%, fit-content);
+    min-height: 40%;
+    background-color: #3f585d;
+    border-radius: 5px;
+    padding: 30px;
+    transition: all ease-in-out 0.3s;
+
+    .job-header {
+      @include size(100%, 300px);
+      color: #fdb75a;
+
+      .header-img {
+        margin-top: 10px;
+        @include size(100%, calc(100% - 40px));
+        border-radius: 10px;
+        background-image: url("../../../../../assets/img/vacation-header-background.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .change-image {
+          @include size(120px, 40px);
+          bottom: 5%;
+          right: 5%;
+          border-radius: 25px;
+          color: #6a918f;
+          font-weight: bold;
+          font-size: 16px;
+          border: 1px solid #6a918f;
+          justify-content: space-evenly;
+          &-input {
+            position: absolute;
+            opacity: 0;
+            @include size(100%, 100%);
+            top: 0;
+            left: 0;
+          }
+        }
+      }
+    }
+
+    .job-title {
+      @include size(100%, 100px);
+      color: #fdb75a;
+
+      .title {
+        @include size(100%, 50px);
+        &-input {
+          @include size(100%, 100%);
+          padding-left: 10px;
+          padding-right: 150px;
+          border-radius: 5px;
+          background-color: #f3f6f9;
+          border: unset;
+
+          &:focus {
+            outline: 3px solid #fdb75a;
+          }
+
+          &:disabled {
+            background-color: #e0e0e0;
+          }
+        }
+
+        &-edit {
+          @include size(120px, 60%);
+          color: #6a918f;
+          right: 30px;
+          top: 22%;
+          justify-content: space-evenly;
+          background-color: transparent;
+          border: 1px solid #6a918f;
+          border-radius: 10px;
+          transition: all ease-in-out 0.3s;
+
+          &:hover {
+            background-color: #6a918f;
+            color: #fdb75a;
+          }
+
+          mat-icon {
+            @include size(16px, 16px);
+            font-size: 15px;
+          }
+        }
+      }
+    }
+
+    .job-description {
+      @include size(100%, fit-content);
+      color: #fdb75a;
+
+      .description-text {
+        @include size(100%, auto);
+        min-height: 100px;
+        display: none;
+      }
+
+      .visible {
+        display: block;
+      }
+
+      .isEmpty {
+        border: 1px solid #f3f6f9;
+      }
+    }
+  }
+
+  .short-info {
+    @include size(38%, fit-content);
+    min-height: 20%;
+    background-color: #3f585d;
+    border-radius: 5px;
+    padding: 30px;
+
+    .short-info-edit {
+      @include size(45px, 35px);
+      color: #fdb75a;
+      justify-content: space-evenly;
+      background-color: transparent;
+      border: 1px solid #fdb75a;
+      border-radius: 10px;
+      animation: 0.5s ease-in-out;
+      transition: all ease-in-out 0.3s;
+
+      .save {
+        @include size(20px, 20px);
+        font-size: 20px;
+        font-weight: bolder;
+        animation-name: iconSaveChangeAnimation;
+      }
+
+      .edit {
+        @include size(12px, 12px);
+        font-size: 12px;
+        font-weight: lighter;
+        animation-name: iconEditChangeAnimation;
+      }
+
+      .save-style {
+        font-weight: bold;
+      }
+
+      &:hover {
+        background-color: #6a918f;
+        // color: #6a918f;
+      }
+      &:focus {
+        outline: none;
+      }
+
+      mat-icon {
+        @include size(16px, 16px);
+        font-size: 15px;
+        animation: 0.5s ease-in-out;
+      }
+    }
+
+    .info {
+      margin-bottom: 20px;
+      p:first-child {
+        color: #17a2b8;
+        &:not(:has(mat-icon)) {
+          margin-bottom: 10px;
+        }
+      }
+      p:has(mat-icon) {
+        height: 30px;
+        @include flex-box(row, nowrap, flex-start, center);
+        mat-icon {
+          margin-right: 5px;
+          margin-left: -5px;
+        }
+      }
+
+      .hiring-manager {
+        @include size(100%, 30px);
+        img {
+          @include size(30px, 30px);
+          border-radius: 30px;
+          margin-right: 10px;
+          outline: 1px solid white;
+        }
+      }
+
+      .editFormInput {
+        border-radius: 5px;
+        background-color: #f3f6f9;
+        border: unset;
+        @include size(100%, 50px);
+        padding-left: 10px;
+
+        &:focus {
+          outline: 3px solid #fdb75a;
+        }
+
+        &:disabled {
+          border: unset !important;
+          outline: unset;
+          color: white !important;
+          background-color: transparent !important;
+          padding-left: 2px;
+          border-bottom: 1px dotted black;
+        }
+        &:disabled::placeholder {
+          color: transparent;
+        }
+      }
+
+      .edit-info {
+        border-radius: 5px;
+        border: unset;
+        transition: all 0.3s ease-in-out;
+        @include size(100%, 50px);
+
+        input {
+          @include size(100%, 100%);
+          font-size: 16px;
+          // padding-left: 10px;
+          &:disabled {
+            color: white !important;
+            padding-left: 0;
+          }
+        }
+
+        &:focus {
+          outline: 3px solid #fdb75a;
+        }
+
+        & .mat-form-field-disabled {
+          border: unset;
+          outline: unset;
+          color: white;
+          background-color: transparent;
+        }
+      }
+
+      .salary-control {
+        transition: all ease-in-out 0.3s;
+        .edit-info {
+          @include size(20%, 50px);
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  dl,
+  ol,
+  ul {
+    margin-left: 20px;
+  }
+  .ck-editor__editable_inline {
+    min-height: 500px;
+    color: black;
+    padding: 20px;
+  }
+
+  .edit-info {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding: 0 !important;
+      border-top: unset !important;
+      height: 50px;
+      min-height: unset !important;
+      position: relative;
+    }
+
+    .mat-date-range-input-container {
+      height: 100%;
+
+      .mat-date-range-input-wrapper {
+        @include size(80px, 100%);
+      }
+    }
+
+    mat-datepicker-toggle > button:focus {
+      outline: unset !important;
+    }
+
+    .mat-date-range-input-separator {
+      padding-right: 10px;
+    }
+
+    &.mat-form-field-disabled {
+      border: unset !important;
+      outline: unset;
+      color: white !important;
+      background-color: transparent !important;
+      mat-datepicker-toggle {
+        display: none;
+      }
+
+      .mat-date-range-input-separator {
+        color: white !important;
+      }
+    }
+
+    .mat-mdc-select-trigger {
+      height: 100%;
+      .mat-mdc-select-value {
+        line-height: 40px;
+        padding-left: 10px;
+        font-size: 16px;
+      }
+    }
+
+    .mat-mdc-select-disabled {
+      .mat-mdc-select-value {
+        padding-left: 0px;
+        color: white;
+      }
+      .mat-mdc-select-arrow-wrapper {
+        opacity: 0;
+      }
+    }
+
+    .mdc-text-field--filled {
+      transition: all 0.3s ease-in-out;
+      &.mdc-text-field--disabled {
+        padding-left: 0px !important;
+        background-color: transparent !important;
+      }
+    }
+
+    .mat-mdc-select-multiple {
+      .mat-mdc-select-value {
+        padding-left: 0px;
+        line-height: 50px;
+        // margin-top: 10px;
+      }
+
+      .mat-mdc-select-arrow-wrapper {
+        transform: translateY(0px) !important;
+      }
+    }
+  }
+
+  .salary-control {
+    .edit-info.mat-form-field-disabled {
+      width: 10% !important;
+    }
+
+    .mat-mdc-select-value {
+      opacity: 0;
+    }
+    .mat-mdc-form-field-underline {
+      opacity: 0;
+    }
+  }
+
+  .salary-control:has(.edit-info.mat-form-field-disabled) {
+    margin-left: -10px;
+  }
+}
+
+::ng-deep {
+  .currency-option {
+    mat-icon {
+      margin-right: 0px !important;
+      font-size: 21px;
+      font-weight: bold;
+    }
+  }
+}
+
+@keyframes buttonChangeAnimation {
+  0% {
+    color: #fdb75a;
+    border: 1px solid #fdb75a;
+  }
+
+  100% {
+    color: #5afd83;
+    border: 1px solid #5afd83;
+  }
+}
+
+@keyframes iconSaveChangeAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes iconEditChangeAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-90deg);
+  }
+}

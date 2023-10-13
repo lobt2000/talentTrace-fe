@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { IsCompanyGuard } from '../shared/guards/is-company.guard';
 import { CommonUrls } from '../shared/constansts/common/common.constants';
+import { IsManagerGuard } from '../shared/guards/is-manager.guard';
 
 const routes: Routes = [
   {
@@ -41,6 +42,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./company/company.module').then((m) => m.CompanyModule),
         canActivate: [AuthGuard, IsCompanyGuard],
+      },
+      {
+        path: CommonUrls.Manager,
+        loadChildren: () =>
+          import('./manager/manager.module').then((m) => m.ManagerModule),
+        canActivate: [AuthGuard, IsManagerGuard],
       },
       {
         path: '**',

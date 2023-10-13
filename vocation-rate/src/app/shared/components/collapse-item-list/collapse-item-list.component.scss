@@ -3,7 +3,7 @@
 .collapse-container {
   @include size(100%, 100%);
   background-color: #e7e7e7;
-  border-radius: 20px;
+  border-radius: 5px;
   padding-bottom: 20px;
 
   .header {
@@ -33,7 +33,7 @@
       min-height: 95px;
       background-color: white;
       border: 1px solid gray;
-      border-radius: 10px;
+      border-radius: 5px;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
       padding: 10px;

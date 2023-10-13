@@ -257,7 +257,6 @@ export class PermissionsModalComponent
   updatePermission() {
     const dataPermissions = this.data.permissions;
     for (const prop in dataPermissions) {
-
       this.getSubpermissionArray(prop)['controls'].forEach((control) => {
         const availablePermission = dataPermissions[prop].find(
           (el) => el.name === control.value.name
