@@ -7,8 +7,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgmCoreModule } from '@agm/core';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+
 function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(
     http,
@@ -31,11 +30,11 @@ function createTranslateLoader(http: HttpClient) {
       },
     }),
     BrowserAnimationsModule,
-    AgmCoreModule.forRoot({
-      apiKey: "AIzaSyD95W0lvAu6jV03YXxotXvBKI7EXC3VOPk",
-      libraries: ['places']
-    }),
-    GooglePlaceModule
+    // AgmCoreModule.forRoot({
+    //   apiKey: "AIzaSyD95W0lvAu6jV03YXxotXvBKI7EXC3VOPk",
+    //   libraries: ["places"]
+    // }),
+    // GooglePlaceModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

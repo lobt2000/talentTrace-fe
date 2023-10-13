@@ -71,8 +71,6 @@ export class GoogleMapsModalComponent
     });
   }
 
-  
-
   // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {

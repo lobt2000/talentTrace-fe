@@ -1,20 +1,20 @@
 @import "../../../../../assets/style/ui";
 
 ::ng-deep {
-  .mat-tab-label {
+  .mdc-tab__text-label {
     width: 100%;
-    color: white;
+    color: white !important;
   }
 
-  .mat-tab-nav-bar,
-  .mat-tab-header {
+  .mat-mdc-tab-nav-bar,
+  .mat-mdc-tab-header {
     // 1px solid #fdb75a
     border-bottom: 1px solid #3f585d;
   }
 
-  .mat-tab-group.mat-primary .mat-ink-bar,
-  .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-    background-color: #fdb75a;
+  .mdc-tab-indicator
+    .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
+    border-color: #fdb75a !important;
   }
 }
 
@@ -193,22 +193,45 @@
     padding: 30px;
 
     .short-info-edit {
-      @include size(120px, 40px);
+      @include size(45px, 35px);
       color: #fdb75a;
       justify-content: space-evenly;
       background-color: transparent;
       border: 1px solid #fdb75a;
       border-radius: 10px;
+      animation: 0.5s ease-in-out;
       transition: all ease-in-out 0.3s;
+
+      .save {
+        @include size(20px, 20px);
+        font-size: 20px;
+        font-weight: bolder;
+        animation-name: iconSaveChangeAnimation;
+      }
+
+      .edit {
+        @include size(12px, 12px);
+        font-size: 12px;
+        font-weight: lighter;
+        animation-name: iconEditChangeAnimation;
+      }
+
+      .save-style {
+        font-weight: bold;
+      }
 
       &:hover {
         background-color: #6a918f;
         // color: #6a918f;
       }
+      &:focus {
+        outline: none;
+      }
 
       mat-icon {
         @include size(16px, 16px);
         font-size: 15px;
+        animation: 0.5s ease-in-out;
       }
     }
 
@@ -243,7 +266,7 @@
         border-radius: 5px;
         background-color: #f3f6f9;
         border: unset;
-        @include size(100%, 40px);
+        @include size(100%, 50px);
         padding-left: 10px;
 
         &:focus {
@@ -265,14 +288,14 @@
 
       .edit-info {
         border-radius: 5px;
-        background-color: #f3f6f9;
         border: unset;
-        @include size(100%, 40px);
+        transition: all 0.3s ease-in-out;
+        @include size(100%, 50px);
 
         input {
           @include size(100%, 100%);
           font-size: 16px;
-          padding-left: 10px;
+          // padding-left: 10px;
           &:disabled {
             color: white !important;
             padding-left: 0;
@@ -289,18 +312,12 @@
           color: white;
           background-color: transparent;
         }
-
-        mat-datepicker-toggle {
-          right: 10px;
-          top: -1px;
-          color: #6a918f;
-        }
       }
 
       .salary-control {
         transition: all ease-in-out 0.3s;
         .edit-info {
-          @include size(20%, 40px);
+          @include size(20%, 50px);
         }
       }
     }
@@ -318,24 +335,34 @@
     color: black;
     padding: 20px;
   }
+
   .edit-info {
-    .mat-form-field-infix {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+
+    .mat-mdc-form-field-infix {
       padding: 0 !important;
       border-top: unset !important;
-      height: 40px;
+      height: 50px;
+      min-height: unset !important;
       position: relative;
     }
 
     .mat-date-range-input-container {
       height: 100%;
 
-      .mat-date-range-input-start-wrapper {
+      .mat-date-range-input-wrapper {
         @include size(80px, 100%);
       }
     }
 
     mat-datepicker-toggle > button:focus {
       outline: unset !important;
+    }
+
+    .mat-date-range-input-separator {
+      padding-right: 10px;
     }
 
     &.mat-form-field-disabled {
@@ -349,26 +376,45 @@
 
       .mat-date-range-input-separator {
         color: white !important;
-        padding-right: 15px;
       }
     }
 
-    .mat-select-trigger {
+    .mat-mdc-select-trigger {
       height: 100%;
-      .mat-select-value {
+      .mat-mdc-select-value {
         line-height: 40px;
         padding-left: 10px;
         font-size: 16px;
       }
     }
 
-    .mat-select-disabled {
-      .mat-select-value {
+    .mat-mdc-select-disabled {
+      .mat-mdc-select-value {
         padding-left: 0px;
         color: white;
       }
-      .mat-select-arrow-wrapper {
+      .mat-mdc-select-arrow-wrapper {
         opacity: 0;
+      }
+    }
+
+    .mdc-text-field--filled {
+      transition: all 0.3s ease-in-out;
+      &.mdc-text-field--disabled {
+        padding-left: 0px !important;
+        background-color: transparent !important;
+      }
+    }
+
+    .mat-mdc-select-multiple {
+      .mat-mdc-select-value {
+        padding-left: 0px;
+        line-height: 50px;
+        // margin-top: 10px;
+      }
+
+      .mat-mdc-select-arrow-wrapper {
+        transform: translateY(0px) !important;
       }
     }
   }
@@ -378,10 +424,10 @@
       width: 10% !important;
     }
 
-    .mat-select-value {
+    .mat-mdc-select-value {
       opacity: 0;
     }
-    .mat-form-field-underline {
+    .mat-mdc-form-field-underline {
       opacity: 0;
     }
   }
@@ -398,5 +444,37 @@
       font-size: 21px;
       font-weight: bold;
     }
+  }
+}
+
+@keyframes buttonChangeAnimation {
+  0% {
+    color: #fdb75a;
+    border: 1px solid #fdb75a;
+  }
+
+  100% {
+    color: #5afd83;
+    border: 1px solid #5afd83;
+  }
+}
+
+@keyframes iconSaveChangeAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes iconEditChangeAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-90deg);
   }
 }

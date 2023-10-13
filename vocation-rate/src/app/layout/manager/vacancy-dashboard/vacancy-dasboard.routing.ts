@@ -10,7 +10,10 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: VacancyDetailsComponent,
+    loadChildren: () =>
+      import('./vacancy-details/vancancy-dashboard.module').then(
+        (m) => m.VacancyDetailsModule
+      ),
   },
 ];
 

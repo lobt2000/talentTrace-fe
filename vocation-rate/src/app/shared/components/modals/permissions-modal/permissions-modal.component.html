@@ -31,22 +31,22 @@
                                 </mat-checkbox>
                             </ng-container>
                             <ng-container *ngSwitchCase="'select'">
-                                <mat-form-field class="w-100 h-70 ml-3 mr-3">
+                                <mat-form-field class="w-100 h-80 ml-3 mr-3">
                                     <mat-label>{{item.value.name}}</mat-label>
                                     <mat-select [formControlName]="'selectValue'">
                                         <mat-option *ngFor="let option of item.value.options" [value]="option.name">
                                             {{option.name}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="item['controls'].selectValue.invalid">
+                                    <!-- <mat-error *ngIf="item['controls'].selectValue.invalid">
                                         {{ 'Field is required' | translate }}
-                                    </mat-error>
+                                    </mat-error> -->
                                 </mat-form-field>
                             </ng-container>
 
                             <ng-container *ngSwitchCase="'multiple-select'">
 
-                                <mat-form-field class="w-100 h-70 ml-3 mr-3">
+                                <mat-form-field class="w-100 h-80 ml-3 mr-3">
                                     <mat-label>{{item.value.name}}</mat-label>
                                     <mat-select [formControlName]="'selectValue'" multiple>
                                         <mat-select-trigger>
@@ -62,9 +62,9 @@
                                         <mat-option *ngFor="let option of item.value.options"
                                             [value]="option.name">{{option.name}}</mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="item['controls'].selectValue.invalid">
+                                    <!-- <mat-error *ngIf="item['controls'].selectValue.invalid">
                                         {{ 'Field is required' | translate }}
-                                    </mat-error>
+                                    </mat-error> -->
                                 </mat-form-field>
                             </ng-container>
                             <ng-container *ngSwitchDefault></ng-container>
@@ -99,21 +99,21 @@
                                 </mat-checkbox>
                             </ng-container>
                             <ng-container *ngSwitchCase="'select'">
-                                <mat-form-field class="w-100 h-70 ml-3 mr-3">
+                                <mat-form-field class="w-100 h-80 ml-3 mr-3">
                                     <mat-label>{{item.value.name}}</mat-label>
                                     <mat-select [formControlName]="'selectValue'">
                                         <mat-option *ngFor="let option of item.value.options" [value]="option.name">
                                             {{option.name}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="item['controls'].selectValue.invalid">
+                                    <!-- <mat-error *ngIf="item['controls'].selectValue.invalid">
                                         {{ 'Field is required' | translate }}
-                                    </mat-error>
+                                    </mat-error> -->
                                 </mat-form-field>
                             </ng-container>
                             <ng-container *ngSwitchCase="'multiple-select'">
 
-                                <mat-form-field class="w-100 h-70 ml-3 mr-3">
+                                <mat-form-field class="w-100 h-80 ml-3 mr-3">
                                     <mat-label>{{item.value.name}}</mat-label>
                                     <mat-select [formControlName]="'selectValue'" multiple>
                                         <mat-select-trigger>
@@ -129,9 +129,9 @@
                                         <mat-option *ngFor="let option of item.value.options"
                                             [value]="option.name">{{option.name}}</mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="item['controls'].selectValue.invalid">
+                                    <!-- <mat-error *ngIf="item['controls'].selectValue.invalid">
                                         {{ 'Field is required' | translate }}
-                                    </mat-error>
+                                    </mat-error> -->
                                 </mat-form-field>
                             </ng-container>
 

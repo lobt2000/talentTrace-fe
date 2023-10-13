@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,11 @@ import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { GoogleMapsModalComponent } from 'src/app/shared/components/modals/google-maps-modal/google-maps-modal.component';
 import { IBreadcrumb } from 'src/app/shared/constansts/ui-breadcrumbs.interface';
 // import { ClickOutsideDirective } from 'shared/directives/click-outside.directive';
+import {
+  keySkills,
+  getSkillsArray,
+  Skills,
+} from 'src/app/shared/constansts/vacation.constants';
 
 @Component({
   selector: 'app-vacancy-details',
@@ -14,16 +19,16 @@ import { IBreadcrumb } from 'src/app/shared/constansts/ui-breadcrumbs.interface'
   styleUrls: ['./vacancy-details.component.scss'],
 })
 export class VacancyDetailsComponent implements OnInit {
+  @Input() id = '';
   editor = ClassicEditor;
   editorData = '';
   editMode: boolean = false;
+  editModeShortInfo: string;
   defaultBreadcrumb: IBreadcrumb = {
     label: 'Dashboard',
     value: 'dashboard',
     link: '/manager/vacancy-dashboard',
   };
-
-  name: string;
   isCreation: boolean;
   currVacancy = {
     name: 'Middle Front-End Angular Developer',
@@ -90,16 +95,20 @@ export class VacancyDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.name = this.route.snapshot.params['id'];
-    console.log(this.route.snapshot.params['id'], this.editorData.length);
-    this.isCreation = this.name == 'Creation';
+    console.log(this.skills);
+    console.log(this.route.snapshot.params['id'], this.id);
+    this.isCreation = this.id == 'Creation';
 
     this.breadcrumbsService.addBreadcrumbs({
-      label: this.name,
-      value: this.name,
-      link: `/manager/vacancy-dashboard/${this.name}`,
+      label: this.id,
+      value: this.id,
+      link: `/manager/vacancy-dashboard/${this.id}`,
     });
 
+    this.buildShortInfoForm();
+  }
+
+  buildShortInfoForm() {
     this.form = this.fb.group({
       range: this.fb.group({
         start: this.fb.control(<Date | null>null),
@@ -113,14 +122,19 @@ export class VacancyDetailsComponent implements OnInit {
         value: this.fb.control('', [Validators.required]),
       }),
       location: this.fb.control('', [Validators.required]),
+      skill: this.fb.control('', [Validators.required]),
     });
+
+    if (this.isCreation) {
+      this.form.enable();
+    }
   }
 
   onGoToItem(item) {
     this.breadcrumbsService.addBreadcrumbs({
       label: item.name,
       value: item,
-      link: `/manager/vacancy-dashboard/${this.name}/${item.name}`,
+      link: `/manager/vacancy-dashboard/${this.id}/${item.name}`,
     });
 
     this.router.navigate([item.name], {
@@ -140,11 +154,11 @@ export class VacancyDetailsComponent implements OnInit {
     this.editMode = false;
   }
 
-  clickOutsideForm(event, control) {
+  clickOutsideForm(event) {
     if (!this.isCreation) {
       event.stopPropagation();
       // console.log(event);
-      this.form.get(control).disable();
+      this.form.disable();
     }
   }
 
@@ -159,5 +173,16 @@ export class VacancyDetailsComponent implements OnInit {
       },
       data: '',
     });
+  }
+
+  triggerAnimation(type: boolean, editType: string) {
+    this.editModeShortInfo = editType;
+    setTimeout(() => {
+      type ? this.form.enable() : this.form.disable();
+    }, 500);
+  }
+
+  get skills(): Array<Skills | string> {
+    return getSkillsArray();
   }
 }
