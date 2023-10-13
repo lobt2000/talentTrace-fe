@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -8,23 +9,22 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TabContainerComponent } from './components/tab-container/tab-container.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { SignUpComponent } from './components/signUp/signUp.component';
 import { SignInComponent } from './components/signIn/signIn.component';
 import { RouterModule } from '@angular/router';
 import { UiPageComponent } from './components/ui-page/ui-page.component';
 import { UiBreadcrumbsComponent } from './components/ui-breadcrumbs/ui-breadcrumbs.component';
 import { UiInstructionComponent } from './components/ui-instruction/ui-instruction.component';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { PermissionsModalComponent } from './components/modals/permissions-modal/permissions-modal.component';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { GoogleMapsModalComponent } from './components/modals/google-maps-modal/google-maps-modal.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { AgmCoreModule } from '@agm/core';
   ],
   imports: [
     CommonModule,
+    // BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -53,12 +54,8 @@ import { AgmCoreModule } from '@agm/core';
     MatCheckboxModule,
     MatSelectModule,
     MatFormFieldModule,
-    AgmCoreModule.forRoot({
-      apiKey: "AIzaSyD95W0lvAu6jV03YXxotXvBKI7EXC3VOPk",
-      libraries: ['places']
-    }),
-    GooglePlaceModule,
-    MatIconModule
+
+    MatIconModule,
   ],
   exports: [
     UiToggleComponent,

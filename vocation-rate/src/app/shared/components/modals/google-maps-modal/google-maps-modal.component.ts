@@ -2,7 +2,7 @@ import { MapsAPILoader } from '@agm/core';
 import { Component, NgZone, OnInit, Inject } from '@angular/core';
 import { BaseModalComponent } from '../base-modal.component';
 import { TranslateService } from '@ngx-translate/core';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 // MatIconModule
 
 @Component({
@@ -70,8 +70,6 @@ export class GoogleMapsModalComponent
       });
     });
   }
-
-  
 
   // Get Current Location Coordinates
   private setCurrentLocation() {

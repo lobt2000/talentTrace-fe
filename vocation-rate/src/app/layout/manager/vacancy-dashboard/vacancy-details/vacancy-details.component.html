@@ -1,5 +1,5 @@
 <app-ui-page [defaultBreadcrumb]="defaultBreadcrumb">
-    <ng-container pageName>{{ name | translate }}</ng-container>
+    <ng-container pageName>{{ id | translate }}</ng-container>
     <ng-container pageContent>
         <div class="w-100 h-100">
             <mat-tab-group [selectedIndex]="1">
@@ -72,32 +72,38 @@
                             </div>
 
                         </div>
-                        <div class="short-info d-flex align-items-center colDir position-relative" [formGroup]="form">
+                        <div class="short-info d-flex align-items-center colDir position-relative" [formGroup]="form"
+                            (clickOutside)="clickOutsideForm($event)">
                             <div class="w-100 d-flex align-items-center justify-content-between mb-20">
                                 <p class="font-w-bold font-size-20 orange w-100 ">Job Details</p>
+                                <button class="short-info-edit d-flex align-items-center cursor-pointer"
+                                    (click)="triggerAnimation(true, 'edit')" *ngIf="form.disabled">
+                                    <mat-icon [ngClass]="{'edit': editModeShortInfo === 'edit'}">border_color</mat-icon>
+                                </button>
+                                <ng-container *ngIf="!isCreation">
+                                    <button *ngIf="form.enabled"
+                                        class="short-info-edit d-flex align-items-center cursor-pointer"
+                                        (click)="triggerAnimation(false, 'save')">
+                                        <mat-icon class="save-style" [ngClass]="{'save': editModeShortInfo === 'save'}">done</mat-icon>
+                                    </button>
+                                </ng-container>
+
+
                             </div>
                             <div class="info w-100" *ngIf="!isCreation">
                                 <p class="font-w-bold font-size-18 gray">Job Creation Date</p>
-                                <!-- <mat-form-field> -->
-                                <!-- <input matInput [matDatepicker]="picker">
-                                    <mat-datepicker-toggle class="position-absolute" matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker> -->
-                                <!-- </mat-form-field> -->
                                 <p class="font-w-bold font-size-18 white"> March 1, 2023</p>
                             </div>
-                            <div class="info w-100" (clickOutside)="clickOutsideForm($event, 'range')">
+                            <div class="info w-100">
                                 <p class="font-w-bold font-size-18 gray">Recruitment Period</p>
-                                <mat-form-field class="edit-info position-relative"
-                                    (click)="form.get('range').enable()">
+                                <mat-form-field class="edit-info w-100">
                                     <mat-label></mat-label>
                                     <mat-date-range-input class="h-100 d-flex align-items-center"
                                         [formGroupName]="'range'" [rangePicker]="picker">
                                         <input matStartDate formControlName="start" placeholder="Start date">
                                         <input matEndDate formControlName="end" placeholder="End date">
                                     </mat-date-range-input>
-
-                                    <mat-datepicker-toggle class="position-absolute" matIconSuffix
-                                        [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-date-range-picker #picker></mat-date-range-picker>
 
                                     <mat-error
@@ -108,7 +114,6 @@
                                         end
                                         date</mat-error>
                                 </mat-form-field>
-                                <!-- <p class="font-w-bold font-size-18 white"> March 1, 2023 to March 1, 2023</p> -->
                             </div>
                             <div class="info w-100">
                                 <p class="font-w-bold font-size-18 gray">Hiring manager</p>
@@ -117,14 +122,12 @@
                                     <p class="font-size-18 font-w-bold white">{{ currVacancy.manager.name }}</p>
                                 </div>
                             </div>
-                            <div class="info w-100" (clickOutside)="clickOutsideForm($event, 'quota')"
-                                (click)="form.get('quota').enable()">
+                            <div class="info w-100">
                                 <p class="font-w-bold font-size-18 gray">Recruitment Quota</p>
                                 <input formControlName="quota" class="editFormInput font-size-18 font-w-bold"
                                     type="number">
                             </div>
-                            <div class="info w-100" (clickOutside)="clickOutsideForm($event, 'jobType')"
-                                (click)="form.get('jobType').enable()">
+                            <div class="info w-100">
                                 <p class="font-w-bold font-size-18 gray">Job Type</p>
                                 <mat-form-field class="edit-info position-relative">
                                     <!-- <mat-label></mat-label> -->
@@ -136,8 +139,7 @@
                                 </mat-form-field>
                                 <!-- <p class="font-w-bold font-size-18 white"> Fulltime </p> -->
                             </div>
-                            <div class="info w-100" (clickOutside)="clickOutsideForm($event, 'expirience')"
-                                (click)="form.get('expirience').enable()">
+                            <div class="info w-100">
                                 <p class="font-w-bold font-size-18 gray">Expirience</p>
                                 <input formControlName="expirience" class="editFormInput font-size-18 font-w-bold"
                                     type="text" placeholder="5 Years+">
@@ -153,8 +155,7 @@
 
                                 </div>
                             </div>
-                            <div class="info w-100" (clickOutside)="clickOutsideForm($event, 'salary')"
-                                (click)="form.get('salary').enable()">
+                            <div class="info w-100">
                                 <p class="font-w-bold font-size-18 gray">Salary</p>
                                 <div class="salary-control d-flex w-100 align-items-center" [formGroupName]="'salary'">
                                     <mat-form-field class=" edit-info position-relative">
@@ -183,7 +184,14 @@
                             </div>
                             <div class="info w-100">
                                 <p class="font-w-bold font-size-18 gray">Skils</p>
-                                <!-- <p class="font-w-bold font-size-18 white"> 10000</p> -->
+                                <mat-form-field class="edit-info">
+                                    <!-- <mat-label></mat-label> -->
+                                    <mat-select class="h-100 position-absolute top-0" [formControlName]="'skill'"
+                                        multiple>
+                                        <mat-option *ngFor="let topping of skills"
+                                            [value]="topping">{{topping}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
                         </div>
                     </div>

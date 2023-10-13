@@ -169,6 +169,12 @@ $colors: ("orange": #fdb75a, "gray": gray, "white": white);
   }
 }
 
+@each $height in $rangeOfNumber {
+  .h-#{$height} {
+    height: #{$height}+"%" !important;
+  }
+}
+
 @each $bottom in $rangeOfNumber {
   .bottom-#{$bottom} {
     bottom: #{$bottom}px !important;
