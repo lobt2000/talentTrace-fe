@@ -1,0 +1,12 @@
+@import "../../../../../assets/style/ui";
+:host {
+  margin-top: 10px;
+  display: block;
+}
+.progress-container {
+  height: 13px;
+  border-radius: 3px;
+  background-color: #d0d0d0;
+  margin: 0% auto;
+  overflow: hidden;
+}

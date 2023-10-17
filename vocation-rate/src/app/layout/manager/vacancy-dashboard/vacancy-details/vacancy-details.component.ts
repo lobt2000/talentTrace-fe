@@ -44,7 +44,7 @@ export class VacancyDetailsComponent implements OnInit {
       {
         name: 'Josef Monit',
 
-        image: 'assets/img/dev-company-logo.jpeg',
+        image: 'assets/img/images.jpeg',
       },
       {
         name: 'Rober Nodur',

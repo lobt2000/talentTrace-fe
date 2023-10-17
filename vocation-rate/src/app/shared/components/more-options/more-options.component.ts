@@ -10,11 +10,12 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 @Component({
   selector: 'app-more-options',
   standalone: true,
-  imports: [CommonModule, MatIconModule, SharedModule],
+  imports: [CommonModule, MatIconModule, ClickOutsideDirective],
   templateUrl: './more-options.component.html',
   styleUrls: ['./more-options.component.scss'],
   animations: [

@@ -1,0 +1,5 @@
+<div class="wrap-input icon w-100">
+    <input type="text" #input [formControl]="search" [placeholder]="(placeholder || 'Search by free text') | translate">
+    <mat-icon class="icon-x" *ngIf="search.value" (click)="resetSearch()">close</mat-icon>
+    <mat-icon class="icon-search">search</mat-icon>
+</div>

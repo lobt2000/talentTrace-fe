@@ -1,0 +1,30 @@
+<div class="action position-relative d-flex align-items-center justify-content-center ml-2" (click)="isOptions=true"
+    (clickOutside)="isOptions=false">
+    <button class="d-flex align-items-center justify-content-center p-1 cursor-pointer">
+        <mat-icon>
+            sort
+        </mat-icon>
+    </button>
+
+    <div class="options-container position-absolute" [@enterLeaveTrigger]="isOptions ? 'open' : 'closed'">
+        <div class="option-block d-flex align-items-center justify-content-start font-size-15 font-w-bold cursor-pointer"
+            *ngFor=" let sort of sortsList" (click)="triggerAction(sort)">
+            <app-ui-accordion [options]="[]" optionsType="radio">
+                <ng-container accordion-content>
+                    <mat-radio-group aria-labelledby="example-radio-group-label"
+                        class="option-block d-flex align-items-start colDir justify-content-start font-size-15 font-w-bold cursor-pointer">
+                        <mat-radio-button [color]="'primary'" class="example-radio-button"
+                            *ngFor="let sort of sortsList" [value]="sort.name">
+                            {{sort.name}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </ng-container>
+
+            </app-ui-accordion>
+        </div>
+
+
+
+
+    </div>
+</div>

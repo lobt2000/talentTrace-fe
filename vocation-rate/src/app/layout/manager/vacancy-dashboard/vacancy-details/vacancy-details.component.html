@@ -2,32 +2,9 @@
     <ng-container pageName>{{ id | translate }}</ng-container>
     <ng-container pageContent>
         <div class="w-100 h-100">
-            <mat-tab-group [selectedIndex]="1">
+            <mat-tab-group [selectedIndex]="0">
                 <mat-tab label="Candidates">
-                    <div class="tab-container">
-                        <div class="candidates-header d-flex align-items-center justify-content-between">
-                            <div class="sort-by">
-
-                            </div>
-                            <div class="count">
-                                {{'Candidates' | translate}}: {{candidates.length}}
-                            </div>
-                        </div>
-                        <div class="candidates-body">
-                            <div class="candidate cursor-pointer d-flex align-items-center justify-content-between"
-                                *ngFor="let item of currVacancy.candidates">
-                                <img [src]="item.image" class="item-icon" alt="">
-                                <div class="item-name">
-                                    {{item.name}}
-                                </div>
-                                <!-- <div class="action">
-                                    <button class="cursor-pointer d-flex align-items-center">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
+                    <app-candidates-list [candidates]="currVacancy.candidates"></app-candidates-list>
                 </mat-tab>
                 <mat-tab label="Job details">
                     <div class="tab-container d-flex justify-content-between">
@@ -84,7 +61,8 @@
                                     <button *ngIf="form.enabled"
                                         class="short-info-edit d-flex align-items-center cursor-pointer"
                                         (click)="triggerAnimation(false, 'save')">
-                                        <mat-icon class="save-style" [ngClass]="{'save': editModeShortInfo === 'save'}">done</mat-icon>
+                                        <mat-icon class="save-style"
+                                            [ngClass]="{'save': editModeShortInfo === 'save'}">done</mat-icon>
                                     </button>
                                 </ng-container>
 
