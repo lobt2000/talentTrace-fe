@@ -1,14 +1,16 @@
 <div class="action position-relative d-flex align-items-center justify-content-center ml-2" (click)="isOptions=true"
-    (clickOutside)="isOptions=false">
+    (clickOutside)="isOptions=false" fadeAniimation [animationProperty]="animationProperty" [isOpenOption]="isOptions"
+    [delay]="isOptions ? 0 : 500">
     <button class="d-flex align-items-center justify-content-center p-1 cursor-pointer">
         <mat-icon>
             sort
         </mat-icon>
     </button>
 
-    <div class="options-container position-absolute" [@enterLeaveTrigger]="isOptions ? 'open' : 'closed'">
+    <div class="options-container position-absolute colDir" [@enterLeaveTrigger]="isOptions ? 'open' : 'closed'"
+        [ngClass]="{'fade': isOptions}">
         <div class="option-block d-flex align-items-center justify-content-start font-size-15 font-w-bold cursor-pointer"
-            *ngFor=" let sort of sortsList" (click)="triggerAction(sort)">
+            *ngFor=" let sort of sortsList">
             <app-ui-accordion [options]="[]" optionsType="radio">
                 <ng-container accordion-content>
                     <mat-radio-group aria-labelledby="example-radio-group-label"

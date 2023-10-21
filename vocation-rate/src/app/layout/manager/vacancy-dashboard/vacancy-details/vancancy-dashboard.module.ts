@@ -24,11 +24,16 @@ import { ClickOutsideDirective } from 'src/app/shared/directives/click-outside.d
 import { UiSearchComponent } from 'src/app/shared/components/ui/ui-search/ui-search.component';
 import { UiFilterComponent } from 'src/app/shared/components/ui/ui-filter/ui-filter.component';
 import { UiSortComponent } from 'src/app/shared/components/ui/ui-sort/ui-sort.component';
-
-
+import { HiringTeamComponent } from './hiring-team/hiring-team.component';
+import { PersonCardComponent } from '../shared/components/person-card/person-card.component';
+import { ChangeMemberModalComponent } from '../shared/components/change-member-modal/change-member-modal.component';
 
 @NgModule({
-  declarations: [VacancyDetailsComponent, CandidatesListComponent],
+  declarations: [
+    VacancyDetailsComponent,
+    CandidatesListComponent,
+    HiringTeamComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -51,7 +56,9 @@ import { UiSortComponent } from 'src/app/shared/components/ui/ui-sort/ui-sort.co
     ClickOutsideDirective,
     UiSearchComponent,
     UiFilterComponent,
-    UiSortComponent
+    UiSortComponent,
+    PersonCardComponent,
+    ChangeMemberModalComponent,
   ],
   providers: [{ provide: 'ckeditor', useValue: ClassicEditor }],
 })

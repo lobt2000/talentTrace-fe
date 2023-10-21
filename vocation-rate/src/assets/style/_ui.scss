@@ -159,7 +159,7 @@ $cursors: ("pointer");
 $fontWeights: ("normal", "bold", "light");
 $colors: ("orange": #fdb75a, "gray": gray, "white": white);
 
-@for $i from -100 through 100 {
+@for $i from -100 through 200 {
   $rangeOfNumber: append($rangeOfNumber, $i);
 }
 
