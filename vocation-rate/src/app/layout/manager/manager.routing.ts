@@ -18,13 +18,13 @@ const routes: Routes = [
             (m) => m.VacancyDashboardModule
           ),
       },
-      // {
-      //   path: 'manager-department',
-      //   loadChildren: () =>
-      //     import('./manager-department/manager-department.module').then(
-      //       (m) => m.ManagerDepartmentModule
-      //     ),
-      // },
+      {
+        path: 'employee-dashboard',
+        loadChildren: () =>
+          import('./employee-dashboard/employee-dashboard.module').then(
+            (m) => m.EmployeeDashboardModule
+          ),
+      },
       // {
       //   path: 'company-members',
       //   loadChildren: () =>

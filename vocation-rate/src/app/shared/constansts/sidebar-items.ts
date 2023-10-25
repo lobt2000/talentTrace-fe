@@ -7,6 +7,12 @@ export const SidebarItemsManager = [
     link: '/manager/vacancy-dashboard',
     image: '',
   },
+  {
+    name: 'Employee dashboard',
+    icon: 'icon-edit',
+    link: '/manager/employee-dashboard',
+    image: '',
+  },
 ];
 
 export const SidebarItemsCompany = [

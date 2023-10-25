@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { IOptions } from '../../interfaces/options.interface';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,14 +21,13 @@ import { UiProgressComponent } from '../ui/ui-progress/ui-progress.component';
   ],
   templateUrl: './candidate-card.component.html',
   styleUrls: ['./candidate-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CandidateCardComponent implements OnInit {
   @Input() candidate;
   @Input() moreOptions: Array<IOptions> = [];
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     console.log(this.moreOptions);
   }
 }

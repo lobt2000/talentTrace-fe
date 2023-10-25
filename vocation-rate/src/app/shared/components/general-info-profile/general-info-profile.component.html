@@ -1,0 +1,261 @@
+<ng-container [formGroup]="employeeFrom" *ngIf="editMode; else defultData">
+    <div class="additional-info-block d-flex align-items-center justify-content-center position-relative">
+        <div class="user-icon">
+            <img src="../../../../assets/img/dev-company-logo.jpeg" alt="">
+        </div>
+        <div class="w-90 d-flex align-items-center justify-content-around">
+            <div class="w-40 position-relative">
+                <mat-form-field class="edit-info additional position-relative">
+                    <mat-label>Style</mat-label>
+                    <mat-select class="h-100" [formControlName]="'unit'">
+                        <mat-option *ngFor="let type of jobTypes" [value]="type.name">
+                            {{type.name}}
+                        </mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+                <mat-error class="position-absolute" *ngIf="employeeFrom.get('unit').hasError('required')">
+                    Style is <strong>required</strong>
+                </mat-error>
+            </div>
+            <div class="w-40 position-relative">
+                <mat-form-field class="edit-info additional position-relative">
+                    <mat-label>Type</mat-label>
+                    <mat-select class="h-100" [formControlName]="'unit'">
+                        <mat-option *ngFor="let type of jobTypes" [value]="type.name">
+                            {{type.name}}
+                        </mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+                <mat-error class="position-absolute" *ngIf="employeeFrom.get('unit').hasError('required')">
+                    Type is <strong>required</strong>
+                </mat-error>
+            </div>
+
+        </div>
+        <button class="short-info-edit d-flex align-items-center cursor-pointer position-absolute right-20 top-20"
+            (click)="editMode=false">
+            <mat-icon class="save-style">done</mat-icon>
+        </button>
+    </div>
+    <div class="main-info-block d-flex align-items-start justify-content-between">
+        <div class="w-49 d-flex align-items-center justify-content-center colDir bg-lightmain p-3">
+            <div class="col-8">
+                <div class="default-formField w-100" appearance="fill">
+                    <input class="default-input" matInput [formControlName]="'firstName'" required>
+                    <label class="default-label">{{'Name' | translate}} <span
+                            *ngIf="employeeFrom.get('firstName').hasError('required')"
+                            class="position-absolute">*</span></label>
+                    <div class="default-input-error-message" *ngIf="employeeFrom.get('firstName').hasError('required')">
+                        Name is <strong>required</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="default-formField w-100" appearance="fill">
+                    <input class="default-input" matInput [formControlName]="'position'" required>
+                    <label class="default-label">{{'Surname' | translate}} <span
+                            *ngIf="employeeFrom.get('surName').hasError('required')"
+                            class="position-absolute">*</span></label>
+                    <div class="default-input-error-message" *ngIf="employeeFrom.get('surName').hasError('required')">
+                        Surname is <strong>required</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="default-formField w-100" appearance="fill">
+                    <input class="default-input" matInput [formControlName]="'position'" required>
+                    <label class="default-label">{{'Start date' | translate}}</label>
+                    <div class="default-input-error-message" *ngIf="employeeFrom.get('startDate').hasError('required')">
+                        Start date is <strong>required</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 position-relative">
+                <mat-form-field class="edit-info position-relative">
+                    <mat-label>Department</mat-label>
+                    <mat-select class="h-100" [formControlName]="'department'">
+                        <mat-option *ngFor="let type of jobTypes" [value]="type.name">
+                            {{type.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error class="position-absolute" *ngIf="employeeFrom.get('department').hasError('required')">
+                    Department is <strong>required</strong>
+                </mat-error>
+            </div>
+            <div class="col-8">
+                <div class="default-formField w-100" appearance="fill">
+                    <input class="default-input" matInput [formControlName]="'projectName'" required>
+                    <label class="default-label">{{'Project name' | translate}} <span
+                            *ngIf="employeeFrom.get('projectName').hasError('required')"
+                            class="position-absolute">*</span></label>
+                    <div class="default-input-error-message"
+                        *ngIf="employeeFrom.get('projectName').hasError('required')">
+                        Project name is <strong>required</strong>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="w-49 d-flex align-items-center justify-content-center colDir bg-lightmain p-3">
+            <div class="col-8 position-relative">
+                <mat-form-field class="edit-info position-relative">
+                    <mat-label>Unit</mat-label>
+                    <mat-select class="h-100" [formControlName]="'unit'">
+                        <mat-option *ngFor="let type of jobTypes" [value]="type.name">
+                            {{type.name}}
+                        </mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+                <mat-error class="position-absolute" *ngIf="employeeFrom.get('unit').hasError('required')">
+                    Unit is <strong>required</strong>
+                </mat-error>
+            </div>
+            <div class="col-8">
+                <div class="default-formField w-100" appearance="fill">
+                    <input class="default-input" matInput [formControlName]="'hr'" required>
+                    <label class="default-label">{{'HR' | translate}} <span
+                            *ngIf="employeeFrom.get('hr').hasError('required')"
+                            class="position-absolute">*</span></label>
+                    <div class="default-input-error-message" *ngIf="employeeFrom.get('hr').hasError('required')">
+                        HR is <strong>required</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 position-relative">
+                <mat-form-field class="edit-info position-relative">
+                    <mat-label>Country</mat-label>
+                    <mat-select class="h-100" [formControlName]="'country'">
+                        <mat-option *ngFor="let type of jobTypes" [value]="type.name">
+                            {{type.name}}
+                        </mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+                <mat-error class="position-absolute" *ngIf="employeeFrom.get('country').hasError('required')">
+                    Country is <strong>required</strong>
+                </mat-error>
+            </div>
+            <div class="col-8">
+                <div class="default-formField w-100" appearance="fill">
+                    <input class="default-input" matInput [formControlName]="'city'" required>
+                    <label class="default-label">{{'City' | translate}} <span
+                            *ngIf="employeeFrom.get('city').hasError('required')"
+                            class="position-absolute">*</span></label>
+                    <div class="default-input-error-message" *ngIf="employeeFrom.get('city').hasError('required')">
+                        City is <strong>required</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="default-formField w-100" appearance="fill">
+                    <input class="default-input" matInput [formControlName]="'phoneNumber'" required>
+                    <label class="default-label">{{'Phone number' | translate}} <span
+                            *ngIf="employeeFrom.get('phoneNumber').hasError('required')"
+                            class="position-absolute">*</span>
+                    </label>
+                    <div class="default-input-error-message"
+                        *ngIf="employeeFrom.get('phoneNumber').hasError('required')">
+                        Phone number is <strong>required</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="default-formField w-100" appearance="fill">
+                    <input class="default-input" matInput [formControlName]="'workEmail'" required>
+                    <label class="default-label">{{'Work email' | translate}} <span
+                            *ngIf="employeeFrom.get('workEmail').hasError('required')"
+                            class="position-absolute">*</span>
+                    </label>
+                    <div class="default-input-error-message" *ngIf="employeeFrom.get('workEmail').hasError('required')">
+                        Work email is <strong>required</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+
+<ng-template #defultData>
+    <div class="additional-info-block d-flex align-items-center justify-content-center position-relative">
+        <div class="user-icon">
+            <img src="../../../../assets/img/dev-company-logo.jpeg" alt="">
+        </div>
+        <div class="w-100 d-flex align-items-center justify-content-between mt-30 ">
+
+            <div class="w-100 d-flex position-relative align-items-center colDir">
+                <div class="w-100 whitegray data-label">Status</div>
+                <div class="w-100 data-value">Current</div>
+            </div>
+            <div class="w-100 d-flex position-relative align-items-center colDir">
+                <div class="w-100 whitegray data-label">Type</div>
+                <div class="w-100 data-value">Full-time</div>
+            </div>
+
+
+        </div>
+        <button class="short-info-edit d-flex align-items-center cursor-pointer position-absolute right-20 top-20"
+            (click)="editMode=true">
+            <mat-icon>border_color</mat-icon>
+        </button>
+    </div>
+    <div class="main-info-block d-flex align-items-center justify-content-between">
+        <div class="w-49 align-items-center justify-content-center colDir">
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Name</div>
+                <div class="w-100 data-value">Petro</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Surname</div>
+                <div class="w-100 data-value">Antonushun</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Start date</div>
+                <div class="w-100 data-value">12.01.2001</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Department</div>
+                <div class="w-100 data-value">System Administrator</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Project name</div>
+                <div class="w-100 data-value">Arty</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Unit</div>
+                <div class="w-100 data-value data-label">Unit 1</div>
+            </div>
+        </div>
+        <div class="w-49 align-items-center justify-content-center colDir">
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">HR</div>
+                <div class="w-100 data-value">Yana Kryher</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Position</div>
+                <div class="w-100 data-value">System Administrator</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Country</div>
+                <div class="w-100 data-value">Ukraine</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">City</div>
+                <div class="w-100 data-value">Lviv</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Phone number</div>
+                <div class="w-100 data-value">+380971302656</div>
+            </div>
+            <div class="d-flex align-items-center w-100 position-relative mt-10 mb-10">
+                <div class="w-100 whitegray data-label bg-lightmain">Work Email</div>
+                <div class="w-100 data-value">bkolodiue@binariks.com</div>
+            </div>
+        </div>
+
+    </div>
+</ng-template>
