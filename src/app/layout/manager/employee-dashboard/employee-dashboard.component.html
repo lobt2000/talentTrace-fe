@@ -1,0 +1,10 @@
+<app-ui-page [defaultBreadcrumb]="defaultBreadcrumb">
+    <ng-container pageName>{{ 'Employee Dashboard' | translate }}</ng-container>
+    <ng-container pageContent>
+        <div class="employee-list">
+            <app-ui-dashboard-table [columns]="columns" [rows]="employee_list"
+                (goToItem)="onGoToItem($event)"></app-ui-dashboard-table>
+        </div>
+    </ng-container>
+
+</app-ui-page>

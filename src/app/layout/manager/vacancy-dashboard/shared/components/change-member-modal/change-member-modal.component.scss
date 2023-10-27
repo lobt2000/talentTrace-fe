@@ -1,0 +1,21 @@
+@import "../../../../../../../assets/style/ui";
+
+:host {
+  @include size(100%, 100%);
+
+  header {
+    @include size(100%, 70px);
+    background-color: #fdb75a;
+  }
+
+  main {
+    padding: 20px;
+    @include size(100%, calc(100% - 140px));
+  }
+}
+
+::ng-deep {
+  .mdc-dialog__surface {
+    padding: 0 !important;
+  }
+}

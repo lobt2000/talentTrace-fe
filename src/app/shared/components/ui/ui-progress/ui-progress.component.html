@@ -1,0 +1,6 @@
+<p class="font-size-14 font-w-bold">{{title}}</p>
+<div class="progress-container d-flex align-items-start justify-content-start position-relative w-100">
+    <div class="progress position-relative h-100"
+        [ngStyle]="{'width': culculatePercent + '%', 'background-color' : getProgressBgColor }">
+    </div>
+</div>
