@@ -14,6 +14,7 @@ import { UserType } from '../../constansts/user-type.model';
 export class SignInComponent implements OnInit {
   form: UntypedFormGroup;
   @Input() typeOfUser: string = UserType.User;
+  @Output() formValue: EventEmitter<any> = new EventEmitter();
   constructor(private fb: UntypedFormBuilder) {}
 
   ngOnInit(): void {
@@ -22,19 +23,32 @@ export class SignInComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      email: this.fb.control('', [Validators.required, Validators.email]),
+      email: this.fb.control('bkolodiy@gmail.com', [
+        Validators.required,
+        Validators.email,
+      ]),
       companyEmail: this.fb.control(
         '',
         this.typeOfUser == UserType.User
           ? [Validators.required, Validators.email]
           : [],
       ),
-      password: this.fb.control('', [
+      password: this.fb.control('adasA231@dasdas', [
         Validators.required,
         Validators.pattern(
           '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&|?\\/<>~""\'\';:*?])[A-Za-z\\d#$@!%&|?\\/<>~""\'\';:*?]{8,30}$',
         ),
       ]),
     });
+  }
+
+  submitForm() {
+    console.log(this.form.valid);
+
+    if (this.form.valid) {
+      this.formValue.emit({
+        ...this.form.getRawValue(),
+      });
+    }
   }
 }

@@ -29,19 +29,19 @@ export class SignUpComponent implements OnInit {
 
   buildUserForm() {
     this.formEmail = this.fb.group({
-      email: this.fb.control('sdfs@sdfsdf.com', [
+      email: this.fb.control('bkolodiy@gmail.com', [
         Validators.required,
         Validators.email,
       ]),
       ...(this.typeOfUser == 'user' && {
-        companyEmail: this.fb.control('adasA231@dasdas', [
+        companyEmail: this.fb.control('adasA231@gmail.com', [
           Validators.required,
           Validators.email,
         ]),
       }),
     });
     this.formPassword = this.fb.group({
-      confPassword: this.fb.control('adasA231@dasdas', [
+      confirmPassword: this.fb.control('adasA231@dasdas', [
         Validators.required,
         this.confirmPassValidator(),
         Validators.pattern(

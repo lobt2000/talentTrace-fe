@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +26,9 @@ export class AuthService {
       });
   }
 
-  validateLogin(user: any) {
-    return this.http.post('/api/user/login', {
-      username: user.username,
+  validateLogin(user: any): Observable<any> {
+    return this.http.post('/api/v1/login', {
+      email: user.email,
       password: user.password,
     });
   }
@@ -35,5 +36,13 @@ export class AuthService {
   logout() {
     localStorage.clear();
     this.router.navigate(['home']);
+  }
+
+  signUpCompany(body): Observable<any> {
+    return this.http.post('/api/v1/signUpCompany', body);
+  }
+
+  loginByCompany(body): Observable<any> {
+    return this.http.post('/api/v1/loginByCompany', body);
   }
 }

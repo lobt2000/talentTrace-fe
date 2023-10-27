@@ -11,7 +11,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login(data) {
-    this.authService.getToken(data);
+  loginByCompany(data) {
+    const body = {
+      email: data.email,
+      password: data.password,
+    };
+    this.authService.loginByCompany(body).subscribe((res) => {
+      console.log(res);
+    });
   }
 }

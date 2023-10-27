@@ -125,7 +125,7 @@
             <input
               class="default-input"
               matInput
-              [formControlName]="'confPassword'"
+              [formControlName]="'confirmPassword'"
               required
               [type]="hideConfirmPass ? 'password' : 'text'"
             />
@@ -145,8 +145,8 @@
             <mat-error
               class="default-input-error-message"
               *ngIf="
-                formPassword.get('confPassword').hasError('pattern') &&
-                !formPassword.get('confPassword').hasError('required')
+                formPassword.get('confirmPassword').hasError('pattern') &&
+                !formPassword.get('confirmPassword').hasError('required')
               "
             >
               * Width 8-30, At least one: upper & lower letter, number, special
@@ -155,16 +155,16 @@
             <mat-error
               class="default-input-error-message"
               *ngIf="
-                formPassword.get('confPassword').hasError('notmatch') &&
-                !formPassword.get('confPassword').hasError('pattern') &&
-                !formPassword.get('confPassword').hasError('required')
+                formPassword.get('confirmPassword').hasError('notmatch') &&
+                !formPassword.get('confirmPassword').hasError('pattern') &&
+                !formPassword.get('confirmPassword').hasError('required')
               "
             >
               Please enter a valid confirm password
             </mat-error>
             <mat-error
               class="default-input-error-message"
-              *ngIf="formPassword.get('confPassword').hasError('required')"
+              *ngIf="formPassword.get('confirmPassword').hasError('required')"
             >
               Confirm Password is <strong>required</strong>
             </mat-error>
@@ -322,7 +322,7 @@
             <input
               class="default-input"
               matInput
-              [formControlName]="'confPassword'"
+              [formControlName]="'confirmPassword'"
               required
               [type]="hideConfirmPass ? 'password' : 'text'"
             />
@@ -342,15 +342,15 @@
             <mat-error
               class="default-input-error-message"
               *ngIf="
-                formPassword.get('confPassword').hasError('password') &&
-                !formPassword.get('confPassword').hasError('required')
+                formPassword.get('confirmPassword').hasError('password') &&
+                !formPassword.get('confirmPassword').hasError('required')
               "
             >
               Please enter a valid confirm password
             </mat-error>
             <mat-error
               class="default-input-error-message"
-              *ngIf="formPassword.get('confPassword').hasError('required')"
+              *ngIf="formPassword.get('confirmPassword').hasError('required')"
             >
               Confirm Password is <strong>required</strong>
             </mat-error>

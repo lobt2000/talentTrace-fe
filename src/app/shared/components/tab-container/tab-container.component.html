@@ -55,6 +55,7 @@
       <ng-container [ngSwitch]="typeOfAction">
         <app-signIn
           [typeOfUser]="'company'"
+          (formValue)="onGetFormValue($event)"
           *ngSwitchCase="'login'"
         ></app-signIn>
         <app-signUp

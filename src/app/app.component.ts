@@ -33,16 +33,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.validateLogin();
-  }
-
-  validateLogin() {
-    // this.loginService.validateLogin({
-    //   username: 'roy', password: '123'
-    // }).subscribe(result => {
-    //   console.log('result is ', result);
-    // }, error => {
-    //   console.log('error is ', error);
-    // });
+    // this.validateLogin();
   }
 }
