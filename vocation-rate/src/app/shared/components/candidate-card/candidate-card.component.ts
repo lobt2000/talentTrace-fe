@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import { IOptions } from '../../interfaces/options.interface';
 import { CommonModule } from '@angular/common';
@@ -27,7 +29,18 @@ export class CandidateCardComponent implements OnInit {
   @Input() candidate;
   @Input() moreOptions: Array<IOptions> = [];
 
+  @Output() goToItem: EventEmitter<any> = new EventEmitter();
+
   ngOnInit(): void {
     console.log(this.moreOptions);
+  }
+
+  onGoToItem(event) {
+    if (
+      [...event.target.classList].includes('mat-icon') ||
+      [...event.target.parentNode.classList].some((el) => el.includes('option'))
+    )
+      return;
+    this.goToItem.emit(this.candidate);
   }
 }

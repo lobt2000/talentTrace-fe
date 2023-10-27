@@ -25,13 +25,13 @@ const routes: Routes = [
             (m) => m.EmployeeDashboardModule
           ),
       },
-      // {
-      //   path: 'company-members',
-      //   loadChildren: () =>
-      //     import('./staff-department/staff-department.module').then(
-      //       (m) => m.StaffDepartmentModule
-      //     ),
-      // },
+      {
+        path: 'candidates',
+        loadChildren: () =>
+          import('./candidates/candidates.module').then(
+            (m) => m.CandidatesModule
+          ),
+      },
     ],
   },
 ];
