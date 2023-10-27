@@ -17,6 +17,7 @@ export class UiDashboardTableComponent
   @Input() columns: ColumnModel[];
   @Input() rows: any[];
   @Output() goToPermissions: EventEmitter<any> = new EventEmitter();
+  @Output() goToItem: EventEmitter<any> = new EventEmitter();
   constructor(private translate: TranslateService) {
     super(translate);
   }
@@ -38,6 +39,10 @@ export class UiDashboardTableComponent
   }
 
   onGoToPermissions(item) {
-    this.goToPermissions.emit(item)
+    this.goToPermissions.emit(item);
+  }
+
+  onGoToItem(item) {
+    this.goToItem.emit(item);
   }
 }

@@ -1,0 +1,213 @@
+@import "../../../../assets/style/ui";
+
+:host {
+  @include size(100%, 100%);
+  @include flex-box(column, nowrap, space-between, center);
+  padding: 20px;
+  //   display: inline-block;
+  transition: all ease-in-out 0.3s;
+
+  .additional-info-block {
+    @include size(50%, fit-content);
+    background-color: #344c51;
+    border-radius: 5px;
+    padding: 20px;
+
+    .user-icon {
+      img {
+        border-radius: 5px;
+      }
+    }
+
+    .short-info-edit {
+      @include size(45px, 35px);
+      color: #fdb75a;
+      justify-content: space-evenly;
+      background-color: transparent;
+      border: 1px solid #fdb75a;
+      border-radius: 10px;
+
+      .save-style {
+        font-weight: bold;
+      }
+
+      &:hover {
+        background-color: #6a918f;
+      }
+      &:focus {
+        outline: none;
+      }
+
+      mat-icon {
+        @include size(16px, 16px);
+        font-size: 15px;
+        animation: 0.5s ease-in-out;
+      }
+    }
+  }
+
+  .main-info-block {
+    @include size(100%, 95%);
+    border-radius: 5px;
+    padding: 20px;
+    div:first-child {
+      border-radius: 5px;
+      // background-color: #344c51;
+      // padding: 8px;
+    }
+  }
+
+  .data-value {
+    border-radius: 4px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+  }
+
+  .data-label {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .edit-info {
+    border-radius: 5px;
+    border: unset;
+    transition: all 0.3s ease-in-out;
+    @include size(100%, 50px);
+    margin: 20px 0px 30px;
+
+    input {
+      @include size(100%, 100%);
+      font-size: 16px;
+      &:disabled {
+        color: white !important;
+        padding-left: 0;
+      }
+    }
+
+    &:focus {
+      outline: 3px solid #fdb75a;
+    }
+  }
+}
+
+.default-formField {
+  height: 50px;
+  .default-label {
+    transform: translate(10px, 50%);
+  }
+  .default-input {
+    @include size(100%, 100%);
+  }
+}
+
+.default-input:focus + .default-label,
+.default-input:valid + .default-label {
+  transform: translate(0, -20px) scale(0.8);
+  color: #d1c5fc;
+  font-size: 16px;
+}
+
+:host ::ng-deep {
+  .mat-mdc-form-field-error {
+    font-size: 12px;
+    bottom: 10px;
+    left: 12px;
+  }
+
+  .edit-info {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      background-color: transparent !important;
+      outline: 2px solid white;
+      border-radius: 4px;
+      padding-left: 10px;
+    }
+
+    &.additional {
+      .mat-mdc-text-field-wrapper {
+        background-color: transparent !important;
+        border-bottom: 2px solid white;
+        border-radius: 0px;
+        outline: unset;
+        padding-left: 10px;
+      }
+    }
+
+    .mdc-text-field--invalid {
+      //   outline: 2px solid var(--mdc-filled-text-field-error-label-text-color) !important;
+      .mdc-floating-label {
+        color: var(--mdc-filled-text-field-error-label-text-color) !important;
+      }
+    }
+
+    .mdc-text-field--filled {
+      .mdc-floating-label {
+        // color: var(--mdc-filled-text-field-label-text-color) !important;
+      }
+    }
+
+    .mdc-floating-label {
+      top: 50% !important;
+      color: white !important;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding: 0 !important;
+      border-top: unset !important;
+      height: 50px;
+      min-height: unset !important;
+      position: relative;
+    }
+
+    .mat-date-range-input-container {
+      height: 100%;
+
+      .mat-date-range-input-wrapper {
+        @include size(80px, 100%);
+      }
+    }
+
+    mat-datepicker-toggle > button:focus {
+      outline: unset !important;
+    }
+
+    .mat-date-range-input-separator {
+      padding-right: 10px;
+    }
+
+    .mat-mdc-select-trigger {
+      height: 100%;
+      .mat-mdc-select-value {
+        font-size: 16px;
+        margin-top: 15px;
+        color: white;
+      }
+      .mat-mdc-select-arrow-wrapper {
+        transform: translateY(0px) !important;
+      }
+      .mat-mdc-select-arrow {
+        color: white !important;
+      }
+    }
+
+    .mdc-text-field--filled {
+      transition: all 0.3s ease-in-out;
+    }
+
+    .mat-mdc-select-multiple {
+      .mat-mdc-select-value {
+        padding-left: 0px;
+        line-height: 50px;
+        // margin-top: 10px;
+      }
+
+      .mat-mdc-select-arrow-wrapper {
+        transform: translateY(0px) !important;
+      }
+    }
+  }
+}

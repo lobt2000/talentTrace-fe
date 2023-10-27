@@ -1,0 +1,14 @@
+@import "../../../../../assets/style/ui";
+
+:host {
+  width: 100%;
+
+  ::ng-deep {
+    .mdc-label {
+      margin-bottom: 0 !important;
+    }
+    .mat-expansion-panel-body {
+      padding: 0 15px 16px !important;
+    }
+  }
+}

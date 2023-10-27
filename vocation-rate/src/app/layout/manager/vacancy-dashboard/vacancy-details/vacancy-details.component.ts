@@ -1,10 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { GoogleMapsModalComponent } from 'src/app/shared/components/modals/google-maps-modal/google-maps-modal.component';
+import { PageActions } from 'src/app/shared/constansts/page-actions.model';
 import { IBreadcrumb } from 'src/app/shared/constansts/ui-breadcrumbs.interface';
 // import { ClickOutsideDirective } from 'shared/directives/click-outside.directive';
 import {
@@ -18,7 +26,7 @@ import {
   templateUrl: './vacancy-details.component.html',
   styleUrls: ['./vacancy-details.component.scss'],
 })
-export class VacancyDetailsComponent implements OnInit {
+export class VacancyDetailsComponent implements OnInit, AfterViewInit {
   @Input() id = '';
   editor = ClassicEditor;
   editorData = '';
@@ -44,7 +52,7 @@ export class VacancyDetailsComponent implements OnInit {
       {
         name: 'Josef Monit',
 
-        image: 'assets/img/dev-company-logo.jpeg',
+        image: 'assets/img/images.jpeg',
       },
       {
         name: 'Rober Nodur',
@@ -77,8 +85,11 @@ export class VacancyDetailsComponent implements OnInit {
     { name: 'gbp', icon: 'currency_pound' },
     { name: 'uah', icon: 'euro_symbol' },
   ];
+  select: number = 0;
 
   form: UntypedFormGroup;
+
+  @ViewChild('stepper') stepper: MatStepper;
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
@@ -95,9 +106,7 @@ export class VacancyDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.skills);
-    console.log(this.route.snapshot.params['id'], this.id);
-    this.isCreation = this.id == 'Creation';
+    this.isCreation = this.id == PageActions.CREATION;
 
     this.breadcrumbsService.addBreadcrumbs({
       label: this.id,
@@ -106,6 +115,12 @@ export class VacancyDetailsComponent implements OnInit {
     });
 
     this.buildShortInfoForm();
+  }
+
+  ngAfterViewInit(): void {
+    this.stepper.selectedIndexChange.subscribe((el) => {
+      this.select = el;
+    });
   }
 
   buildShortInfoForm() {
@@ -144,8 +159,6 @@ export class VacancyDetailsComponent implements OnInit {
 
   onChange({ editor }) {
     this.editorData = editor.getData();
-
-    console.log(this.editorData);
   }
 
   clickOutside(event) {
@@ -180,6 +193,10 @@ export class VacancyDetailsComponent implements OnInit {
     setTimeout(() => {
       type ? this.form.enable() : this.form.disable();
     }, 500);
+  }
+
+  get selectNotANull() {
+    return typeof this.select !== 'undefined';
   }
 
   get skills(): Array<Skills | string> {

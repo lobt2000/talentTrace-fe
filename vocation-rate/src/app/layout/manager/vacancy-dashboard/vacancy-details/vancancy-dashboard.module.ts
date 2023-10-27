@@ -18,9 +18,22 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { VacancyDetailsRoutingModule } from './vacancy-dasboard.routing';
 import { VacancyDetailsComponent } from './vacancy-details.component';
+import { CandidatesListComponent } from './candidates-list/candidates-list.component';
+import { CandidateCardComponent } from 'src/app/shared/components/candidate-card/candidate-card.component';
+import { ClickOutsideDirective } from 'src/app/shared/directives/click-outside.directive';
+import { UiSearchComponent } from 'src/app/shared/components/ui/ui-search/ui-search.component';
+import { UiFilterComponent } from 'src/app/shared/components/ui/ui-filter/ui-filter.component';
+import { UiSortComponent } from 'src/app/shared/components/ui/ui-sort/ui-sort.component';
+import { HiringTeamComponent } from './hiring-team/hiring-team.component';
+import { PersonCardComponent } from '../shared/components/person-card/person-card.component';
+import { ChangeMemberModalComponent } from '../shared/components/change-member-modal/change-member-modal.component';
 
 @NgModule({
-  declarations: [VacancyDetailsComponent],
+  declarations: [
+    VacancyDetailsComponent,
+    CandidatesListComponent,
+    HiringTeamComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -38,8 +51,15 @@ import { VacancyDetailsComponent } from './vacancy-details.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    CollapseItemListModule
+    CollapseItemListModule,
+    CandidateCardComponent,
+    ClickOutsideDirective,
+    UiSearchComponent,
+    UiFilterComponent,
+    UiSortComponent,
+    PersonCardComponent,
+    ChangeMemberModalComponent,
   ],
   providers: [{ provide: 'ckeditor', useValue: ClassicEditor }],
 })
-export class  VacancyDetailsModule {}
+export class VacancyDetailsModule {}

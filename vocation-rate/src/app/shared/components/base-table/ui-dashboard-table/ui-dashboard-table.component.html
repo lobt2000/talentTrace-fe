@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of rows">
+        <tr *ngFor="let row of rows" (click)="onGoToItem(row)">
           <ng-container *ngFor="let colField of columns">
             <ng-container [ngSwitch]="colField.field">
               <td *ngSwitchCase="'name'">

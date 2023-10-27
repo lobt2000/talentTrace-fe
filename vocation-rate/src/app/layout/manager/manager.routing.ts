@@ -18,20 +18,20 @@ const routes: Routes = [
             (m) => m.VacancyDashboardModule
           ),
       },
-      // {
-      //   path: 'manager-department',
-      //   loadChildren: () =>
-      //     import('./manager-department/manager-department.module').then(
-      //       (m) => m.ManagerDepartmentModule
-      //     ),
-      // },
-      // {
-      //   path: 'company-members',
-      //   loadChildren: () =>
-      //     import('./staff-department/staff-department.module').then(
-      //       (m) => m.StaffDepartmentModule
-      //     ),
-      // },
+      {
+        path: 'employee-dashboard',
+        loadChildren: () =>
+          import('./employee-dashboard/employee-dashboard.module').then(
+            (m) => m.EmployeeDashboardModule
+          ),
+      },
+      {
+        path: 'candidates',
+        loadChildren: () =>
+          import('./candidates/candidates.module').then(
+            (m) => m.CandidatesModule
+          ),
+      },
     ],
   },
 ];
