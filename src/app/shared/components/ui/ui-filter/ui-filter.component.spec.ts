@@ -8,7 +8,7 @@ describe('UiFilterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [UiFilterComponent]
+      imports: [UiFilterComponent],
     });
     fixture = TestBed.createComponent(UiFilterComponent);
     component = fixture.componentInstance;

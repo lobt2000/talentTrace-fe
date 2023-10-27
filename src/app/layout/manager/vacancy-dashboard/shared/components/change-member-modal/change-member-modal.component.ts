@@ -24,7 +24,7 @@ export class ChangeMemberModalComponent extends BaseModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IPersonChange,
     private translate: TranslateService,
-    public dialogRef: MatDialogRef<ChangeMemberModalComponent>
+    public dialogRef: MatDialogRef<ChangeMemberModalComponent>,
   ) {
     super(translate, dialogRef);
   }

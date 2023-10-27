@@ -30,13 +30,13 @@ import { IAnimationProperty } from '../../constansts/animation-property.interfac
         'open',
         style({
           opacity: 1,
-        })
+        }),
       ),
       state(
         'closed',
         style({
           opacity: 0,
-        })
+        }),
       ),
       transition('open => closed', [animate('0.3s')]),
       transition('closed => open', [animate('0.3s 0.2s')]),

@@ -8,9 +8,8 @@ describe('AdditionByUploadingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdditionByUploadingComponent ]
-    })
-    .compileComponents();
+      declarations: [AdditionByUploadingComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdditionByUploadingComponent);
     component = fixture.componentInstance;

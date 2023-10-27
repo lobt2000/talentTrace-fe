@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
     VacancyDashboardRoutingModule,
     CollapseItemListModule,
     SharedModule,
-    TranslateModule
+    TranslateModule,
   ],
   providers: [],
 })

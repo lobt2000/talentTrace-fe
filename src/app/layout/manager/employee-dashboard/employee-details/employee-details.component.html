@@ -1,19 +1,24 @@
 <app-ui-page [defaultBreadcrumb]="defaultBreadcrumb">
-    <ng-container pageName>{{ id | translate }}</ng-container>
-    <ng-container pageContent>
-        <div class="w-100 h-100">
-            <mat-tab-group #stepper class="w-100 h-100">
-                <mat-tab label="General info">
-                    <app-general-info-profile *ngIf="selectNotANull && select === 0"></app-general-info-profile>
-                </mat-tab>
-                <mat-tab label="Perfomance">
-                    <app-perfomance *ngIf="selectNotANull && select === 1"></app-perfomance>
-                </mat-tab>
-                <mat-tab label="Managers">
-                    <app-managers-team *ngIf="selectNotANull && select === 2"></app-managers-team>
-                </mat-tab>
-            </mat-tab-group>
-        </div>
-    </ng-container>
-
+  <ng-container pageName>{{ id | translate }}</ng-container>
+  <ng-container pageContent>
+    <div class="w-100 h-100">
+      <mat-tab-group #stepper class="w-100 h-100">
+        <mat-tab label="General info">
+          <app-general-info-profile
+            *ngIf="selectNotANull && select === 0"
+          ></app-general-info-profile>
+        </mat-tab>
+        <mat-tab label="Perfomance">
+          <app-perfomance
+            *ngIf="selectNotANull && select === 1"
+          ></app-perfomance>
+        </mat-tab>
+        <mat-tab label="Managers">
+          <app-managers-team
+            *ngIf="selectNotANull && select === 2"
+          ></app-managers-team>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </ng-container>
 </app-ui-page>

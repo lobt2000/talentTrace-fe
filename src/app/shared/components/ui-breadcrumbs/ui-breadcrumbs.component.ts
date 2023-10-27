@@ -14,12 +14,11 @@ export class UiBreadcrumbsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('sdfsf');
-    
   }
 
   onBreadcrumb(breadcrumb: IBreadcrumb, i: number) {
     console.log(breadcrumb);
-    
+
     // if (i == this.breadcrumbs.length - 1) {
     //   return false;
     // }

@@ -1,16 +1,19 @@
-<div class="instruction-conteiner d-flex justify-content-center align-items-center colDir">
-    <div class="header d-flex align-items-center">
-        <h3>
-            <ng-content select="[headerName]"></ng-content>
-        </h3>
-    </div>
-    <div class="description">
-        <ng-content select="[decriptionText]"></ng-content>
-    </div>
+<div
+  class="instruction-conteiner d-flex justify-content-center align-items-center colDir"
+>
+  <div class="header d-flex align-items-center">
+    <h3>
+      <ng-content select="[headerName]"></ng-content>
+    </h3>
+  </div>
+  <div class="description">
+    <ng-content select="[decriptionText]"></ng-content>
+  </div>
 
-    <div class="actions d-flex align-items-center justify-content-around" *ngIf="withButtons">
-        <ng-content select="[buttons]"></ng-content>
-
-    </div>
-
+  <div
+    class="actions d-flex align-items-center justify-content-around"
+    *ngIf="withButtons"
+  >
+    <ng-content select="[buttons]"></ng-content>
+  </div>
 </div>

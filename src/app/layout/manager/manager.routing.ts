@@ -15,21 +15,21 @@ const routes: Routes = [
         path: 'vacancy-dashboard',
         loadChildren: () =>
           import('./vacancy-dashboard/vancancy-dashboard.module').then(
-            (m) => m.VacancyDashboardModule
+            (m) => m.VacancyDashboardModule,
           ),
       },
       {
         path: 'employee-dashboard',
         loadChildren: () =>
           import('./employee-dashboard/employee-dashboard.module').then(
-            (m) => m.EmployeeDashboardModule
+            (m) => m.EmployeeDashboardModule,
           ),
       },
       {
         path: 'candidates',
         loadChildren: () =>
           import('./candidates/candidates.module').then(
-            (m) => m.CandidatesModule
+            (m) => m.CandidatesModule,
           ),
       },
     ],

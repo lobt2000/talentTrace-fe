@@ -39,7 +39,7 @@ export class BreadcrumbsService {
       this.breadcrumbs$.next(
         breadcrumb
           ? [...this.getBreadcrumbs, breadcrumb]
-          : [...this.getBreadcrumbs]
+          : [...this.getBreadcrumbs],
       );
     }, 0);
   }

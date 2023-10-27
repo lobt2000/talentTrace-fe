@@ -1,45 +1,84 @@
 <div class="signIn-form" [formGroup]="form">
-  <div class="form-container" [ngStyle]="{ 'margin-top': typeOfUser == 'user' ? '0px' : '40px'}">
+  <div
+    class="form-container"
+    [ngStyle]="{ 'margin-top': typeOfUser == 'user' ? '0px' : '40px' }"
+  >
     <div class="form-block">
       <label for="">Email address</label>
-      <input type="text" placeholder="Email" [formControlName]="'email'">
-      <span class="default-input-error-message"
-        *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
+      <input type="text" placeholder="Email" [formControlName]="'email'" />
+      <span
+        class="default-input-error-message"
+        *ngIf="
+          form.get('email').hasError('email') &&
+          !form.get('email').hasError('required')
+        "
+      >
         Please enter a valid email address
       </span>
-      <span class="default-input-error-message" *ngIf="form.get('email').hasError('required')">
+      <span
+        class="default-input-error-message"
+        *ngIf="form.get('email').hasError('required')"
+      >
         Email is <strong>required</strong>
       </span>
     </div>
     <div class="form-block">
       <label for="">Password</label>
-      <input type="text" placeholder="Password" [formControlName]="'password'">
-      <span class="default-input-error-message"
-        *ngIf="form.get('password').hasError('pattern') && !form.get('password').hasError('required')">
+      <input
+        type="text"
+        placeholder="Password"
+        [formControlName]="'password'"
+      />
+      <span
+        class="default-input-error-message"
+        *ngIf="
+          form.get('password').hasError('pattern') &&
+          !form.get('password').hasError('required')
+        "
+      >
         * Width 8-30, At least one: upper & lower letter, number, special sympol
       </span>
-      <span class="default-input-error-message" *ngIf="form.get('password').hasError('required')">
+      <span
+        class="default-input-error-message"
+        *ngIf="form.get('password').hasError('required')"
+      >
         Password is <strong>required</strong>
       </span>
     </div>
     <div class="form-block" *ngIf="typeOfUser == 'user'">
       <label for="">Company Email address</label>
-      <input type="text" placeholder="Company Email" [formControlName]="'companyEmail'">
-      <span class="default-input-error-message"
-        *ngIf="form.get('companyEmail').hasError('email') && !form.get('companyEmail').hasError('required')">
+      <input
+        type="text"
+        placeholder="Company Email"
+        [formControlName]="'companyEmail'"
+      />
+      <span
+        class="default-input-error-message"
+        *ngIf="
+          form.get('companyEmail').hasError('email') &&
+          !form.get('companyEmail').hasError('required')
+        "
+      >
         Please enter a valid email address
       </span>
-      <span class="default-input-error-message" *ngIf="form.get('companyEmail').hasError('required')">
+      <span
+        class="default-input-error-message"
+        *ngIf="form.get('companyEmail').hasError('required')"
+      >
         Company Email is <strong>required</strong>
       </span>
     </div>
   </div>
-  <p class="forget-password" [routerLink]="[ '/forgot-password' ]">Forget password?</p>
-  <button class="signIn-button"> ENTER </button>
+  <p class="forget-password" [routerLink]="['/forgot-password']">
+    Forget password?
+  </p>
+  <button class="signIn-button">ENTER</button>
   <p class="cross-line-block">
     <span class="cross-line-title">Or</span>
   </p>
   <div class="another-login-block">
-    <button class="another-login-button"><img src="../../../assets/svg/google.svg" alt=""> Google</button>
+    <button class="another-login-button">
+      <img src="../../../assets/svg/google.svg" alt="" /> Google
+    </button>
   </div>
 </div>

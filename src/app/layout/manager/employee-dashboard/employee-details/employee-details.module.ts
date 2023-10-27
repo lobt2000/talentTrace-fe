@@ -25,7 +25,7 @@ import { GeneralInfoProfileComponent } from 'src/app/shared/components/general-i
     MatTabsModule,
     ManagersTeamComponent,
     PerfomanceComponent,
-    GeneralInfoProfileComponent
+    GeneralInfoProfileComponent,
   ],
 })
 export class EmployeeDetailsModule {}

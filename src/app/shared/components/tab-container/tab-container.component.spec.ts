@@ -11,9 +11,8 @@ describe('TabContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [TabContainerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -4,11 +4,22 @@
     <table class="ui-default-table table-sort w-100">
       <thead>
         <tr>
-          <th *ngFor="let column of columns; let i=index" (click)="toggleSort(column, i)" [class.col-arrow]="i == 0">
-            <div *ngIf="column.label" class="wrap-icon d-flex justify-content-between align-items-center">
+          <th
+            *ngFor="let column of columns; let i = index"
+            (click)="toggleSort(column, i)"
+            [class.col-arrow]="i == 0"
+          >
+            <div
+              *ngIf="column.label"
+              class="wrap-icon d-flex justify-content-between align-items-center"
+            >
               {{ column.label | translate }}
-              <i class="icon-arrow-thin sort {{ getArrowClass(i) }}" *ngIf="!column.hiddenSort"
-                [class.active]="i == this.activeIndex"> </i>
+              <i
+                class="icon-arrow-thin sort {{ getArrowClass(i) }}"
+                *ngIf="!column.hiddenSort"
+                [class.active]="i == this.activeIndex"
+              >
+              </i>
             </div>
           </th>
         </tr>
@@ -21,28 +32,29 @@
                 {{ row.name }}
               </td>
               <td *ngSwitchCase="'createDate'">
-                {{ row.createDate | date: 'dd.MM.yyyy' }}
+                {{ row.createDate | date: "dd.MM.yyyy" }}
               </td>
               <td *ngSwitchCase="'permission'">
-                <button class="btn btn-secondary" (click)="onGoToPermissions(row)">
-                  {{'permission' | translate}}
+                <button
+                  class="btn btn-secondary"
+                  (click)="onGoToPermissions(row)"
+                >
+                  {{ "permission" | translate }}
                 </button>
               </td>
 
               <td *ngSwitchCase="'delete'">
-                <div class="item-icon icon-delete" (click)="deleteMission(row)"></div>
+                <div
+                  class="item-icon icon-delete"
+                  (click)="deleteMission(row)"
+                ></div>
               </td>
 
               <td *ngSwitchDefault>
                 {{ row[colField.field] }}
               </td>
-
             </ng-container>
           </ng-container>
-
-
-
-
         </tr>
       </tbody>
       <div class="loader-wrapper" *ngIf="isLoading">

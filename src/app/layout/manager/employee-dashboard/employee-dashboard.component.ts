@@ -64,7 +64,7 @@ export class EmployeeDashboardComponent {
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

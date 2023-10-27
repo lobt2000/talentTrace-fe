@@ -3,6 +3,6 @@ export interface IOptions {
   name: string;
   icon: {
     color: string;
-    name: string
+    name: string;
   };
 }

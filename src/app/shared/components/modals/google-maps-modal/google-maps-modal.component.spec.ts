@@ -8,9 +8,8 @@ describe('GoogleMapsModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GoogleMapsModalComponent ]
-    })
-    .compileComponents();
+      declarations: [GoogleMapsModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(GoogleMapsModalComponent);
     component = fixture.componentInstance;

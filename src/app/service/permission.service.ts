@@ -16,7 +16,7 @@ export class PermissionService {
           .filter((el) => el.checked)
           .map((el) => {
             const curPermission = permissionsIds.find(
-              (per) => per.name === el.name
+              (per) => per.name === el.name,
             );
 
             return {
@@ -27,11 +27,11 @@ export class PermissionService {
                   typeof el.selectValue == 'object'
                     ? el.selectValue.map((per) => ({
                         id: curPermission.children.find(
-                          (curChildPer) => curChildPer.name == per
+                          (curChildPer) => curChildPer.name == per,
                         )?.id,
                       }))
                     : curPermission.children.find(
-                        (per) => per.name === el.selectValue
+                        (per) => per.name === el.selectValue,
                       )?.id,
               }),
             };

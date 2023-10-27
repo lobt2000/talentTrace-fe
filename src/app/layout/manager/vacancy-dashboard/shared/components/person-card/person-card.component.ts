@@ -47,13 +47,13 @@ import { IAnimationProperty } from 'src/app/shared/constansts/animation-property
         'open',
         style({
           transform: 'rotateY(0deg)',
-        })
+        }),
       ),
       state(
         'closed',
         style({
           transform: 'rotateY(-180deg)',
-        })
+        }),
       ),
       transition('open => closed', [animate('0.6s ease-in')]),
       transition('closed => open', [animate('0.6s ease-in')]),
@@ -66,13 +66,16 @@ export class PersonCardComponent implements OnDestroy {
   animationProperty: IAnimationProperty = {
     childClassName: 'rotate-side',
     parentClassName: 'card-side-block',
-    isFirstInit: true
+    isFirstInit: true,
   };
   @Input() isChangingMember: boolean = false;
   @Input() manager: boolean = false;
   @Output() triggerEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  constructor(
+    private renderer: Renderer2,
+    private el: ElementRef,
+  ) {}
 
   onTriggerChangeSide(value?) {
     this.isOpenOption = value || !this.isOpenOption;

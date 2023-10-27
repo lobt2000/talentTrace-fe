@@ -69,25 +69,25 @@ export class BaseTableComponent {
       const level2 = parseInt(class2, 10);
       const name1 = class1.replace(/\d+/g, '').replace(/-/g, '');
       const name2 = class2.replace(/\d+/g, '').replace(/-/g, '');
-    //   const order1 = OrderLevels.find((el) => name1 == el.name)?.order;
-    //   const order2 = OrderLevels.find((el) => name2 == el.name)?.order;
+      //   const order1 = OrderLevels.find((el) => name1 == el.name)?.order;
+      //   const order2 = OrderLevels.find((el) => name2 == el.name)?.order;
       /*console.log(a[column.field]);
       console.log(name1);
       console.log('---second---');
       console.log(b[column.field]);
       console.log(name2);
       console.log('---------new---------');*/
-    //   if (order1 > order2) {
-    //     return 1;
-    //   } else if (order1 < order2) {
-    //     return -1;
-    //   } else if (name1 == name2) {
-    //     if (level1 > level2) {
-    //       return 1;
-    //     } else if (level1 < level2) {
-    //       return -1;
-    //     }
-    //   }
+      //   if (order1 > order2) {
+      //     return 1;
+      //   } else if (order1 < order2) {
+      //     return -1;
+      //   } else if (name1 == name2) {
+      //     if (level1 > level2) {
+      //       return 1;
+      //     } else if (level1 < level2) {
+      //       return -1;
+      //     }
+      //   }
       return 0;
     }
     if (column?.cell?.type == ColumnTypes.date) {

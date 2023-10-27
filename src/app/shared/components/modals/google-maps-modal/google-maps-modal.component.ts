@@ -25,7 +25,7 @@ export class GoogleMapsModalComponent
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private translate: TranslateService,
-    public dialogRef: MatDialogRef<GoogleMapsModalComponent>
+    public dialogRef: MatDialogRef<GoogleMapsModalComponent>,
   ) {
     super(translate, dialogRef);
   }
@@ -90,7 +90,7 @@ export class GoogleMapsModalComponent
           this.longitude = 24.029717;
           this.zoom = 8;
           this.getAddress(this.latitude, this.longitude);
-        }
+        },
       );
     }
   }
@@ -118,7 +118,7 @@ export class GoogleMapsModalComponent
         } else {
           window.alert('Geocoder failed due to: ' + status);
         }
-      }
+      },
     );
   }
 

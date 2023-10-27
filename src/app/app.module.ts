@@ -12,14 +12,13 @@ function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(
     http,
     '../assets/i18n/',
-    '.json?cb=' + new Date().getTime()
+    '.json?cb=' + new Date().getTime(),
   );
 }
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

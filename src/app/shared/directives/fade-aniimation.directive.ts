@@ -19,7 +19,10 @@ export class FadeAniimationDirective implements OnChanges, OnDestroy {
   @Input({ required: true }) animationProperty: IAnimationProperty;
   @Input({ required: true }) isOpenOption: boolean;
   @Input() delay: number = 500;
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -48,7 +51,7 @@ export class FadeAniimationDirective implements OnChanges, OnDestroy {
             ? 'flex'
             : !classList.includes(this.animationProperty.childClassName)
             ? 'none'
-            : 'flex'
+            : 'flex',
         );
       });
   }

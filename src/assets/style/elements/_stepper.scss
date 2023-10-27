@@ -2,7 +2,7 @@
 @import "../variables";
 
 form {
-  @include flex-box(column, nowrap, initial, center)
+  @include flex-box(column, nowrap, initial, center);
 }
 
 .default-stepper-header {
@@ -15,7 +15,7 @@ form {
 
 .default-stepper-button-block {
   @include size(100%, 60px);
-  @include flex-box(row, nowrap, space-around, center)
+  @include flex-box(row, nowrap, space-around, center);
 }
 
 .default-stepper-button {

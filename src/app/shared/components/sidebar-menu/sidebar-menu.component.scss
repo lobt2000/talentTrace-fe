@@ -33,7 +33,9 @@
 .item-icon {
   @include size(40px, 40px);
   border-radius: 100%;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0px 3px 6px 0 rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 0 3px 0 rgba(0, 0, 0, 0.12),
+    0px 3px 6px 0 rgba(0, 0, 0, 0.22);
   outline: 1px solid white;
 }
 

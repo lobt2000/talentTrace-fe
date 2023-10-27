@@ -8,7 +8,7 @@ describe('GeneralInfoProfileComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GeneralInfoProfileComponent]
+      declarations: [GeneralInfoProfileComponent],
     });
     fixture = TestBed.createComponent(GeneralInfoProfileComponent);
     component = fixture.componentInstance;

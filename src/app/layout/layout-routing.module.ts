@@ -20,21 +20,21 @@ const routes: Routes = [
         path: 'registration',
         loadChildren: () =>
           import('../registration/registration.module').then(
-            (m) => m.RegistrationModule
+            (m) => m.RegistrationModule,
           ),
       },
       {
         path: 'forgot-password',
         loadChildren: () =>
           import('../forgot-password/forgot-password.module').then(
-            (m) => m.ForgotPasswordModule
+            (m) => m.ForgotPasswordModule,
           ),
       },
       {
         path: 'home',
         loadChildren: () =>
           import('../initial-page/initial-page.module').then(
-            (m) => m.InitialPageModule
+            (m) => m.InitialPageModule,
           ),
       },
       {

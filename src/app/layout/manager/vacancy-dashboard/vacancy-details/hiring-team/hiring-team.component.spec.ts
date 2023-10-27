@@ -8,7 +8,7 @@ describe('HiringTeamComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HiringTeamComponent]
+      declarations: [HiringTeamComponent],
     });
     fixture = TestBed.createComponent(HiringTeamComponent);
     component = fixture.componentInstance;

@@ -8,9 +8,8 @@ describe('UiBreadcrumbsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiBreadcrumbsComponent ]
-    })
-    .compileComponents();
+      declarations: [UiBreadcrumbsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UiBreadcrumbsComponent);
     component = fixture.componentInstance;

@@ -24,7 +24,7 @@ export class PermissionsModalComponent
     @Inject(MAT_DIALOG_DATA) public data,
     private translate: TranslateService,
     public dialogRef: MatDialogRef<PermissionsModalComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     super(translate, dialogRef);
   }
@@ -189,24 +189,24 @@ export class PermissionsModalComponent
 
     merge(
       ...this.vacanciesFromSubPermissionArray['controls'].map(
-        (control, index) => control.get('checked').valueChanges
-      )
+        (control, index) => control.get('checked').valueChanges,
+      ),
     )
       .pipe(debounceTime(100))
       .subscribe(() => {
         const isAllChecked = this.areAllChecked(
-          this.vacanciesFromSubPermissionArray.value
+          this.vacanciesFromSubPermissionArray.value,
         );
         this.getVacanciesFormGroup.patchValue(
           { isAll: isAllChecked },
-          { emitEvent: false }
+          { emitEvent: false },
         );
       });
 
     merge(
       ...this.vacanciesFromSubPermissionArray['controls']
         .filter((control) => control.get('selectValue'))
-        .map((control) => control.get('selectValue').valueChanges)
+        .map((control) => control.get('selectValue').valueChanges),
     )
       .pipe(debounceTime(100))
       .subscribe((res) => {
@@ -225,24 +225,24 @@ export class PermissionsModalComponent
 
     merge(
       ...this.membersFromSubPermissionArray['controls'].map(
-        (control, index) => control.get('checked').valueChanges
-      )
+        (control, index) => control.get('checked').valueChanges,
+      ),
     )
       .pipe(debounceTime(100))
       .subscribe(() => {
         const isAllChecked = this.areAllChecked(
-          this.membersFromSubPermissionArray.value
+          this.membersFromSubPermissionArray.value,
         );
         this.getMembersFormGroup.patchValue(
           { isAll: isAllChecked },
-          { emitEvent: false }
+          { emitEvent: false },
         );
       });
 
     merge(
       ...this.membersFromSubPermissionArray['controls']
         .filter((control) => control.get('selectValue'))
-        .map((control) => control.get('selectValue').valueChanges)
+        .map((control) => control.get('selectValue').valueChanges),
     )
       .pipe(debounceTime(100))
       .subscribe((res: any) => {
@@ -259,7 +259,7 @@ export class PermissionsModalComponent
     for (const prop in dataPermissions) {
       this.getSubpermissionArray(prop)['controls'].forEach((control) => {
         const availablePermission = dataPermissions[prop].find(
-          (el) => el.name === control.value.name
+          (el) => el.name === control.value.name,
         );
         if (control.get('selectValue')) {
           control.patchValue({
@@ -269,12 +269,12 @@ export class PermissionsModalComponent
                 ? permissionsObjects.children
                     .filter((el) =>
                       availablePermission.children.some(
-                        (per) => per.id === el.id
-                      )
+                        (per) => per.id === el.id,
+                      ),
                     )
                     .map((el) => el.name)
                 : permissionsObjects.children.find(
-                    (el) => el.id == availablePermission.children
+                    (el) => el.id == availablePermission.children,
                   ).name,
           });
         } else {
@@ -309,7 +309,7 @@ export class PermissionsModalComponent
     this.getSubpermissionArray(type)
       ['controls'].filter(
         (control) =>
-          control.get('selectValue') && control.get('selectValue').value
+          control.get('selectValue') && control.get('selectValue').value,
       )
       .forEach((control) => {
         control.patchValue(value, { emitEvent: false });
@@ -328,7 +328,7 @@ export class PermissionsModalComponent
             .patchValue(
               elementValue.type == 'select'
                 ? elementValue.options[0].name
-                : [elementValue.options[0].name]
+                : [elementValue.options[0].name],
             );
         }
       });
@@ -354,7 +354,7 @@ export class PermissionsModalComponent
           (control) =>
             control.get('selectValue') &&
             control.get('selectValue').value &&
-            typeof control.get('selectValue').value == 'object'
+            typeof control.get('selectValue').value == 'object',
         )
         .forEach((control) => {
           const selectValue = control.get('selectValue');
@@ -363,13 +363,13 @@ export class PermissionsModalComponent
           if (selectValue.value.includes('All')) {
             if (selectValue.value.length == 1) {
               optionsControlsArray.forEach((option) =>
-                this.formPatchValue(option, { checked: true }, false)
+                this.formPatchValue(option, { checked: true }, false),
               );
 
               this.formPatchValue(
                 selectValue,
                 [...control.value.options.map((el) => el.name)],
-                false
+                false,
               );
             } else {
               if (
@@ -379,31 +379,31 @@ export class PermissionsModalComponent
                 this.formPatchValue(
                   optionsControlsArray[0],
                   { checked: false },
-                  false
+                  false,
                 );
 
                 this.formPatchValue(
                   selectValue,
                   [...selectValue.value.filter((el) => el !== 'All')],
-                  false
+                  false,
                 );
               } else {
                 this.formPatchValue(
                   optionsControlsArray[0],
                   { checked: true },
-                  false
+                  false,
                 );
                 this.formPatchValue(
                   selectValue,
                   [...options.value.map((el) => el.name)],
-                  false
+                  false,
                 );
               }
             }
           } else {
             if (options.value[0].checked) {
               optionsControlsArray.forEach((option) =>
-                this.formPatchValue(option, { checked: false }, false)
+                this.formPatchValue(option, { checked: false }, false),
               );
               this.formPatchValue(selectValue, [], false);
             } else {
@@ -412,7 +412,7 @@ export class PermissionsModalComponent
                 this.formPatchValue(
                   optionsControlsArray[0],
                   { checked: true },
-                  false
+                  false,
                 );
                 filteredOptions = options.value.map((el) => el.name);
               } else {

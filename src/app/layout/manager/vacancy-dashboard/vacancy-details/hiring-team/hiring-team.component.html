@@ -1,10 +1,12 @@
 <div class="tab-container">
-    <div class="hiring-team-body d-flex align-items-start justify-content-start">
-        <app-person-card (triggerEvent)="onTriggerEvent($event)"></app-person-card>
-        <div class="card" (click)="onAddMember()">
-            <mat-icon class="font-size-160 w-100 h-100 d-flex align-items-center justify-content-center white">
-                add
-            </mat-icon>
-        </div>
+  <div class="hiring-team-body d-flex align-items-start justify-content-start">
+    <app-person-card (triggerEvent)="onTriggerEvent($event)"></app-person-card>
+    <div class="card" (click)="onAddMember()">
+      <mat-icon
+        class="font-size-160 w-100 h-100 d-flex align-items-center justify-content-center white"
+      >
+        add
+      </mat-icon>
     </div>
+  </div>
 </div>

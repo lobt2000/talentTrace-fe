@@ -12,7 +12,7 @@ const routes: Routes = [
     path: ':id',
     loadChildren: () =>
       import('./vacancy-details/vancancy-dashboard.module').then(
-        (m) => m.VacancyDetailsModule
+        (m) => m.VacancyDetailsModule,
       ),
   },
 ];

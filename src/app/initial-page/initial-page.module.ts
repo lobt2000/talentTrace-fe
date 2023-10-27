@@ -9,9 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    InitialPageComponent
-  ],
+  declarations: [InitialPageComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -19,8 +17,8 @@ import { SharedModule } from '../shared/shared.module';
     InitialPageRoutingModule,
     HttpClientModule,
     TranslateModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [],
 })
-export class InitialPageModule { }
+export class InitialPageModule {}

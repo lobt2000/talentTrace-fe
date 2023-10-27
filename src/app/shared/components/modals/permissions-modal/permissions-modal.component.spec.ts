@@ -8,9 +8,8 @@ describe('PermissionsModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PermissionsModalComponent ]
-    })
-    .compileComponents();
+      declarations: [PermissionsModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PermissionsModalComponent);
     component = fixture.componentInstance;

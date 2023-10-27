@@ -1,33 +1,44 @@
 <main class="initial-container">
   <header class="initial-header">
     <nav class="initial-menu">
-      <img class="logo" src="../../assets/img/logo2.0.png" alt="">
+      <img class="logo" src="../../assets/img/logo2.0.png" alt="" />
       <h1 class="title">Nazva</h1>
       <p class="menu-information">
-        <a href="">{{'Our Product' | translate}}</a>
+        <a href="">{{ "Our Product" | translate }}</a>
       </p>
       <p class="menu-information">
-        <a href="">{{'About Us' | translate}}</a>
+        <a href="">{{ "About Us" | translate }}</a>
       </p>
       <p class="menu-information">
-        <a href="">{{'Contact Us' | translate}}</a>
+        <a href="">{{ "Contact Us" | translate }}</a>
       </p>
-      <button class="menu-buttons" (click)="goToLogin()">{{'Sign In' | translate}}</button>
-      <button class="menu-buttons" (click)="goToRegistration()">{{'Sign Up' | translate}}</button>
+      <button class="menu-buttons" (click)="goToLogin()">
+        {{ "Sign In" | translate }}
+      </button>
+      <button class="menu-buttons" (click)="goToRegistration()">
+        {{ "Sign Up" | translate }}
+      </button>
       <div class="menu-lang">
-        <p class="lang-text">{{'English' | translate}}</p>
+        <p class="lang-text">{{ "English" | translate }}</p>
         <app-ui-toggle></app-ui-toggle>
-        <p class="lang-text">{{'Ukrainian' | translate}}</p>
+        <p class="lang-text">{{ "Ukrainian" | translate }}</p>
       </div>
     </nav>
     <div class="additional-header"></div>
   </header>
   <section class="initial-content">
     <div class="ourProduct-section">
-      <img class="ourProduct-section__img" src="../../assets/img/landing_page_1.png" alt="">
-      <p class="ourProduct-section__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum unde
-        repellendus at accusantium praesentium vel, sed sint commodi deleniti enim nihil, asperiores, vitae quos
-        laudantium? Laborum voluptatem excepturi nesciunt adipisci!</p>
+      <img
+        class="ourProduct-section__img"
+        src="../../assets/img/landing_page_1.png"
+        alt=""
+      />
+      <p class="ourProduct-section__text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum unde
+        repellendus at accusantium praesentium vel, sed sint commodi deleniti
+        enim nihil, asperiores, vitae quos laudantium? Laborum voluptatem
+        excepturi nesciunt adipisci!
+      </p>
     </div>
   </section>
 </main>

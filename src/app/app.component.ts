@@ -8,10 +8,10 @@ import { AuthService } from './service/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'vocation-rate';
+  title = 'talentTrace-fe';
   constructor(
     private authService: AuthService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {
     translateService.addLangs(['en', 'ua']);
     const lang = +localStorage.getItem('langId');
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     //   version: "weekly",
     //   libraries: ["places"]
     // });
-    
+
     // loader.load().then(async () => {
     //   const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
     //   map = new Map(document.getElementById("map") as HTMLElement, {

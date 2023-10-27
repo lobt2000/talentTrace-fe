@@ -1,93 +1,215 @@
 <ng-container *ngIf="typeOfUser == 'user'; else defaultForm">
   <div class="signIn-form">
-    <mat-stepper class="user-stepper-container" orientation="horizontal" [linear]="isLinear" #stepper>
+    <mat-stepper
+      class="user-stepper-container"
+      orientation="horizontal"
+      [linear]="isLinear"
+      #stepper
+    >
       <mat-step [stepControl]="formEmail">
         <form [formGroup]="formEmail">
-          <ng-template matStepLabel><span class="default-stepper-header">Fill out your email</span></ng-template>
+          <ng-template matStepLabel
+            ><span class="default-stepper-header"
+              >Fill out your email</span
+            ></ng-template
+          >
           <div class="default-formField" appearance="fill">
-            <input class="default-input" matInput [formControlName]="'email'" required>
+            <input
+              class="default-input"
+              matInput
+              [formControlName]="'email'"
+              required
+            />
             <mat-label class="default-label">Email</mat-label>
-            <mat-error class="default-input-error-message"
-              *ngIf="formEmail.get('email').hasError('email') && !formEmail.get('email').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="
+                formEmail.get('email').hasError('email') &&
+                !formEmail.get('email').hasError('required')
+              "
+            >
               Please enter a valid email address
             </mat-error>
-            <mat-error class="default-input-error-message" *ngIf="formEmail.get('email').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="formEmail.get('email').hasError('required')"
+            >
               Email is <strong>required</strong>
             </mat-error>
           </div>
           <div class="default-formField" appearance="fill">
-            <input class="default-input" matInput [formControlName]="'companyEmail'" required>
+            <input
+              class="default-input"
+              matInput
+              [formControlName]="'companyEmail'"
+              required
+            />
             <mat-label class="default-label">Company Email</mat-label>
-            <mat-error class="default-input-error-message"
-              *ngIf="formEmail.get('companyEmail').hasError('companyEmail') && !formEmail.get('companyEmail').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="
+                formEmail.get('companyEmail').hasError('companyEmail') &&
+                !formEmail.get('companyEmail').hasError('required')
+              "
+            >
               Please enter a valid email address
             </mat-error>
-            <mat-error class="default-input-error-message" *ngIf="formEmail.get('companyEmail').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="formEmail.get('companyEmail').hasError('required')"
+            >
               Company Email is <strong>required</strong>
             </mat-error>
           </div>
           <div class="default-stepper-button-block">
-            <button class="default-stepper-button btn-blue" mat-button matStepperNext>Next</button>
+            <button
+              class="default-stepper-button btn-blue"
+              mat-button
+              matStepperNext
+            >
+              Next
+            </button>
           </div>
         </form>
       </mat-step>
       <mat-step [stepControl]="formPassword">
         <form [formGroup]="formPassword">
-          <ng-template matStepLabel><span class="default-stepper-header">Fill out your password</span></ng-template>
+          <ng-template matStepLabel
+            ><span class="default-stepper-header"
+              >Fill out your password</span
+            ></ng-template
+          >
           <div class="default-formField" appearance="fill">
-            <input class="default-input" matInput [formControlName]="'password'" required
-              [type]="hidePass ? 'password' : 'text'">
+            <input
+              class="default-input"
+              matInput
+              [formControlName]="'password'"
+              required
+              [type]="hidePass ? 'password' : 'text'"
+            />
             <mat-label class="default-label">Password</mat-label>
-            <button class="hide-password-button" mat-icon-button matSuffix (click)="hidePass = !hidePass"
-              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
-              <mat-icon style="color: white;">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <button
+              class="hide-password-button"
+              mat-icon-button
+              matSuffix
+              (click)="hidePass = !hidePass"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePass"
+            >
+              <mat-icon style="color: white">{{
+                hidePass ? "visibility_off" : "visibility"
+              }}</mat-icon>
             </button>
             <!-- <div class="password-info">
               <mat-icon>help</mat-icon>
               <div class="password-info-layer"></div>
             </div> -->
-            <mat-error class="default-input-error-message"
-              *ngIf="formPassword.get('password').hasError('pattern') && !formPassword.get('password').hasError('required')">
-              * Width 8-30, At least one: upper & lower letter, number, special sympol
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="
+                formPassword.get('password').hasError('pattern') &&
+                !formPassword.get('password').hasError('required')
+              "
+            >
+              * Width 8-30, At least one: upper & lower letter, number, special
+              sympol
             </mat-error>
-            <mat-error class="default-input-error-message" *ngIf="formPassword.get('password').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="formPassword.get('password').hasError('required')"
+            >
               Password is <strong>required</strong>
             </mat-error>
           </div>
           <div class="default-formField" appearance="fill">
-            <input class="default-input" matInput [formControlName]="'confPassword'" required
-              [type]="hideConfirmPass ? 'password' : 'text'">
+            <input
+              class="default-input"
+              matInput
+              [formControlName]="'confPassword'"
+              required
+              [type]="hideConfirmPass ? 'password' : 'text'"
+            />
             <mat-label class="default-label">Confirm Password</mat-label>
-            <button class="hide-password-button" mat-icon-button matSuffix (click)="hideConfirmPass = !hideConfirmPass"
-              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPass">
-              <mat-icon style="color: white;">{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <button
+              class="hide-password-button"
+              mat-icon-button
+              matSuffix
+              (click)="hideConfirmPass = !hideConfirmPass"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hideConfirmPass"
+            >
+              <mat-icon style="color: white">{{
+                hideConfirmPass ? "visibility_off" : "visibility"
+              }}</mat-icon>
             </button>
-            <mat-error class="default-input-error-message"
-              *ngIf="formPassword.get('confPassword').hasError('pattern') && !formPassword.get('confPassword').hasError('required')">
-              * Width 8-30, At least one: upper & lower letter, number, special sympol
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="
+                formPassword.get('confPassword').hasError('pattern') &&
+                !formPassword.get('confPassword').hasError('required')
+              "
+            >
+              * Width 8-30, At least one: upper & lower letter, number, special
+              sympol
             </mat-error>
-            <mat-error class="default-input-error-message"
-              *ngIf="formPassword.get('confPassword').hasError('notmatch') && !formPassword.get('confPassword').hasError('pattern') && !formPassword.get('confPassword').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="
+                formPassword.get('confPassword').hasError('notmatch') &&
+                !formPassword.get('confPassword').hasError('pattern') &&
+                !formPassword.get('confPassword').hasError('required')
+              "
+            >
               Please enter a valid confirm password
             </mat-error>
-            <mat-error class="default-input-error-message"
-              *ngIf="formPassword.get('confPassword').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="formPassword.get('confPassword').hasError('required')"
+            >
               Confirm Password is <strong>required</strong>
             </mat-error>
           </div>
           <div class="default-stepper-button-block">
-            <button class="default-stepper-button" mat-button matStepperPrevious>Back</button>
-            <button class="default-stepper-button btn-blue" mat-button matStepperNext>Next</button>
+            <button
+              class="default-stepper-button"
+              mat-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              class="default-stepper-button btn-blue"
+              mat-button
+              matStepperNext
+            >
+              Next
+            </button>
           </div>
         </form>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel><span class="default-stepper-header">Done</span></ng-template>
+        <ng-template matStepLabel
+          ><span class="default-stepper-header">Done</span></ng-template
+        >
         <p class="default-stepper-header">You are now done.</p>
         <div class="default-stepper-button-block">
-          <button class="default-stepper-button" mat-button matStepperPrevious>Back</button>
-          <button class="default-stepper-button btn-grey" mat-button (click)="stepper.reset()">Reset</button>
-          <button class="default-stepper-button btn-blue" (click)="submitForm()" mat-button>Sign Up</button>
+          <button class="default-stepper-button" mat-button matStepperPrevious>
+            Back
+          </button>
+          <button
+            class="default-stepper-button btn-grey"
+            mat-button
+            (click)="stepper.reset()"
+          >
+            Reset
+          </button>
+          <button
+            class="default-stepper-button btn-blue"
+            (click)="submitForm()"
+            mat-button
+          >
+            Sign Up
+          </button>
         </div>
       </mat-step>
     </mat-stepper>
@@ -95,82 +217,185 @@
       <span class="cross-line-title">Or</span>
     </p>
     <div class="another-login-block">
-      <button class="another-login-button"><img src="../../../assets/svg/google.svg" alt=""> Google</button>
+      <button class="another-login-button">
+        <img src="../../../assets/svg/google.svg" alt="" /> Google
+      </button>
     </div>
   </div>
 </ng-container>
 
 <ng-template #defaultForm>
   <div class="signIn-form">
-    <mat-stepper class="user-stepper-container" orientation="horizontal" [linear]="isLinear" #stepper>
+    <mat-stepper
+      class="user-stepper-container"
+      orientation="horizontal"
+      [linear]="isLinear"
+      #stepper
+    >
       <mat-step [stepControl]="formEmail">
         <form [formGroup]="formEmail">
-          <ng-template matStepLabel><span class="default-stepper-header">Fill out your email</span></ng-template>
+          <ng-template matStepLabel
+            ><span class="default-stepper-header"
+              >Fill out your email</span
+            ></ng-template
+          >
           <div class="default-formField" appearance="fill">
-            <input class="default-input" matInput [formControlName]="'email'" required>
+            <input
+              class="default-input"
+              matInput
+              [formControlName]="'email'"
+              required
+            />
             <mat-label class="default-label">Email</mat-label>
-            <mat-error class="default-input-error-message"
-              *ngIf="formEmail.get('email').hasError('email') && !formEmail.get('email').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="
+                formEmail.get('email').hasError('email') &&
+                !formEmail.get('email').hasError('required')
+              "
+            >
               Please enter a valid email address
             </mat-error>
-            <mat-error class="default-input-error-message" *ngIf="formEmail.get('email').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="formEmail.get('email').hasError('required')"
+            >
               Email is <strong>required</strong>
             </mat-error>
           </div>
           <div class="default-stepper-button-block">
-            <button class="default-stepper-button btn-blue" mat-button matStepperNext>Next</button>
+            <button
+              class="default-stepper-button btn-blue"
+              mat-button
+              matStepperNext
+            >
+              Next
+            </button>
           </div>
         </form>
       </mat-step>
       <mat-step [stepControl]="formPassword">
         <form [formGroup]="formPassword">
-          <ng-template matStepLabel><span class="default-stepper-header">Fill out your password</span></ng-template>
+          <ng-template matStepLabel
+            ><span class="default-stepper-header"
+              >Fill out your password</span
+            ></ng-template
+          >
           <div class="default-formField" appearance="fill">
-            <input class="default-input" matInput [formControlName]="'password'" required
-              [type]="hidePass ? 'password' : 'text'">
+            <input
+              class="default-input"
+              matInput
+              [formControlName]="'password'"
+              required
+              [type]="hidePass ? 'password' : 'text'"
+            />
             <mat-label class="default-label">Password</mat-label>
-            <button class="hide-password-button" mat-icon-button matSuffix (click)="hidePass = !hidePass"
-              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
-              <mat-icon style="color: white;">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <button
+              class="hide-password-button"
+              mat-icon-button
+              matSuffix
+              (click)="hidePass = !hidePass"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePass"
+            >
+              <mat-icon style="color: white">{{
+                hidePass ? "visibility_off" : "visibility"
+              }}</mat-icon>
             </button>
-            <mat-error class="default-input-error-message"
-              *ngIf="formPassword.get('password').hasError('password') && !formPassword.get('password').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="
+                formPassword.get('password').hasError('password') &&
+                !formPassword.get('password').hasError('required')
+              "
+            >
               Please enter a valid password
             </mat-error>
-            <mat-error class="default-input-error-message" *ngIf="formPassword.get('password').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="formPassword.get('password').hasError('required')"
+            >
               Password is <strong>required</strong>
             </mat-error>
           </div>
           <div class="default-formField" appearance="fill">
-            <input class="default-input" matInput [formControlName]="'confPassword'" required
-              [type]="hideConfirmPass ? 'password' : 'text'">
+            <input
+              class="default-input"
+              matInput
+              [formControlName]="'confPassword'"
+              required
+              [type]="hideConfirmPass ? 'password' : 'text'"
+            />
             <mat-label class="default-label">Confirm Password</mat-label>
-            <button class="hide-password-button" mat-icon-button matSuffix (click)="hideConfirmPass = !hideConfirmPass"
-              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPass">
-              <mat-icon style="color: white;">{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <button
+              class="hide-password-button"
+              mat-icon-button
+              matSuffix
+              (click)="hideConfirmPass = !hideConfirmPass"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hideConfirmPass"
+            >
+              <mat-icon style="color: white">{{
+                hideConfirmPass ? "visibility_off" : "visibility"
+              }}</mat-icon>
             </button>
-            <mat-error class="default-input-error-message"
-              *ngIf="formPassword.get('confPassword').hasError('password') && !formPassword.get('confPassword').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="
+                formPassword.get('confPassword').hasError('password') &&
+                !formPassword.get('confPassword').hasError('required')
+              "
+            >
               Please enter a valid confirm password
             </mat-error>
-            <mat-error class="default-input-error-message"
-              *ngIf="formPassword.get('confPassword').hasError('required')">
+            <mat-error
+              class="default-input-error-message"
+              *ngIf="formPassword.get('confPassword').hasError('required')"
+            >
               Confirm Password is <strong>required</strong>
             </mat-error>
           </div>
           <div class="default-stepper-button-block">
-            <button class="default-stepper-button" mat-button matStepperPrevious>Back</button>
-            <button class="default-stepper-button btn-blue" mat-button matStepperNext>Next</button>
+            <button
+              class="default-stepper-button"
+              mat-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              class="default-stepper-button btn-blue"
+              mat-button
+              matStepperNext
+            >
+              Next
+            </button>
           </div>
         </form>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel><span class="default-stepper-header">Done</span></ng-template>
+        <ng-template matStepLabel
+          ><span class="default-stepper-header">Done</span></ng-template
+        >
         <p class="default-stepper-header">You are now done.</p>
         <div class="default-stepper-button-block">
-          <button class="default-stepper-button" mat-button matStepperPrevious>Back</button>
-          <button class="default-stepper-button btn-grey" mat-button (click)="stepper.reset()">Reset</button>
-          <button class="default-stepper-button btn-blue" (click)="submitForm()" mat-button>Sign Up</button>
+          <button class="default-stepper-button" mat-button matStepperPrevious>
+            Back
+          </button>
+          <button
+            class="default-stepper-button btn-grey"
+            mat-button
+            (click)="stepper.reset()"
+          >
+            Reset
+          </button>
+          <button
+            class="default-stepper-button btn-blue"
+            (click)="submitForm()"
+            mat-button
+          >
+            Sign Up
+          </button>
         </div>
       </mat-step>
     </mat-stepper>
@@ -178,7 +403,9 @@
       <span class="cross-line-title">Or</span>
     </p>
     <div class="another-login-block">
-      <button class="another-login-button"><img src="../../../assets/svg/google.svg" alt=""> Google</button>
+      <button class="another-login-button">
+        <img src="../../../assets/svg/google.svg" alt="" /> Google
+      </button>
     </div>
   </div>
 </ng-template>

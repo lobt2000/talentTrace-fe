@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserType } from '../constansts/user-type.model';
 import { CommonUrls } from '../constansts/common/common.constants';
@@ -7,12 +12,12 @@ import { CommonUrls } from '../constansts/common/common.constants';
 @Injectable({
   providedIn: 'root',
 })
-export class IsManagerGuard  {
+export class IsManagerGuard {
   constructor(private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>

@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class BaseModalComponent {
   constructor(
     protected translateService: TranslateService,
-    public dialogRef: MatDialogRef<BaseModalComponent>
+    public dialogRef: MatDialogRef<BaseModalComponent>,
   ) {}
 
   onClose(value?) {

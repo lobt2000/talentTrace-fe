@@ -96,12 +96,12 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   get getSelectedValue() {
     return this.currencies.find(
-      (res) => res.name == this.form.get('salary').value.type
+      (res) => res.name == this.form.get('salary').value.type,
     )?.icon;
   }
 

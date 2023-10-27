@@ -25,7 +25,7 @@ export class ManuallAdditionComponent implements OnInit {
     private dialogRef: MatDialog,
     private route: ActivatedRoute,
     private breadcrumbsService: BreadcrumbsService,
-    private permissionService: PermissionService
+    private permissionService: PermissionService,
   ) {}
 
   ngOnInit(): void {

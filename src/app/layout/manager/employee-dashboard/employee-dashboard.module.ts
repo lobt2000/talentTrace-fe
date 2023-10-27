@@ -18,7 +18,7 @@ import { UiDashboardTableModule } from 'src/app/shared/components/base-table/ui-
     SharedModule,
     TranslateModule,
     EmployeeDashboardRoutingModule,
-    UiDashboardTableModule
+    UiDashboardTableModule,
   ],
 })
 export class EmployeeDashboardModule {}

@@ -1,40 +1,67 @@
 <ul class="nav nav-tabs">
   <li class="nav-item" (click)="changeTab('user')">
-    <a data-target="#sign-in-user" class="nav-link" [class.active]="activeTab == 'user'" role="tab" data-toggle="tab"
-      aria-controls="active" aria-expanded="true">
-      <span class="nav-title">
-        User
-      </span>
+    <a
+      data-target="#sign-in-user"
+      class="nav-link"
+      [class.active]="activeTab == 'user'"
+      role="tab"
+      data-toggle="tab"
+      aria-controls="active"
+      aria-expanded="true"
+    >
+      <span class="nav-title"> User </span>
     </a>
   </li>
   <li class="nav-item" (click)="changeTab('company')">
-    <a data-target="#sign-in-company" class="nav-link" [class.active]="activeTab == 'company'" role="tab"
-      data-toggle="tab" aria-controls="active" aria-expanded="true">
-      <span class="nav-title">
-        Company
-      </span>
+    <a
+      data-target="#sign-in-company"
+      class="nav-link"
+      [class.active]="activeTab == 'company'"
+      role="tab"
+      data-toggle="tab"
+      aria-controls="active"
+      aria-expanded="true"
+    >
+      <span class="nav-title"> Company </span>
     </a>
   </li>
-
 </ul>
 
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane" [ngClass]="{'show active': activeTab == 'user'}" id="sign-in-user">
+  <div
+    role="tabpanel"
+    class="tab-pane"
+    [ngClass]="{ 'show active': activeTab == 'user' }"
+    id="sign-in-user"
+  >
     <ng-container *ngIf="activeTab == 'user'">
       <ng-container [ngSwitch]="typeOfAction">
         <app-signIn [typeOfUser]="'user'" *ngSwitchCase="'login'"></app-signIn>
-        <app-signUp [typeOfUser]="'user'" *ngSwitchCase="'registration'" (formValue)="onGetFormValue($event)"></app-signUp>
+        <app-signUp
+          [typeOfUser]="'user'"
+          *ngSwitchCase="'registration'"
+          (formValue)="onGetFormValue($event)"
+        ></app-signUp>
       </ng-container>
-
     </ng-container>
-
   </div>
-  <div role="tabpanel" class="tab-pane" [ngClass]="{'show active': activeTab == 'company'}" id="sign-in-company">
+  <div
+    role="tabpanel"
+    class="tab-pane"
+    [ngClass]="{ 'show active': activeTab == 'company' }"
+    id="sign-in-company"
+  >
     <ng-container *ngIf="activeTab == 'company'">
       <ng-container [ngSwitch]="typeOfAction">
-        <app-signIn [typeOfUser]="'company'" *ngSwitchCase="'login'"></app-signIn>
-        <app-signUp [typeOfUser]="'company'" (formValue)="onGetFormValue($event)"
-          *ngSwitchCase="'registration'"></app-signUp>
+        <app-signIn
+          [typeOfUser]="'company'"
+          *ngSwitchCase="'login'"
+        ></app-signIn>
+        <app-signUp
+          [typeOfUser]="'company'"
+          (formValue)="onGetFormValue($event)"
+          *ngSwitchCase="'registration'"
+        ></app-signUp>
       </ng-container>
     </ng-container>
   </div>

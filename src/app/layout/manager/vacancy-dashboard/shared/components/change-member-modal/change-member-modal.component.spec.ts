@@ -8,7 +8,7 @@ describe('ChangeMemberModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ChangeMemberModalComponent]
+      declarations: [ChangeMemberModalComponent],
     });
     fixture = TestBed.createComponent(ChangeMemberModalComponent);
     component = fixture.componentInstance;

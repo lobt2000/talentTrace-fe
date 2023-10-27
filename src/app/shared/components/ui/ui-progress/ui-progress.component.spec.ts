@@ -8,7 +8,7 @@ describe('UiProgressComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UiProgressComponent]
+      declarations: [UiProgressComponent],
     });
     fixture = TestBed.createComponent(UiProgressComponent);
     component = fixture.componentInstance;

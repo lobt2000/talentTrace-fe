@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -35,14 +35,14 @@ export class DashboardComponent implements OnInit {
 
     this.router.navigate(
       [CommonUrls.Company, 'company-members', 'add-manually'],
-      { queryParams: { actionType: 'editing', id: 1 } }
+      { queryParams: { actionType: 'editing', id: 1 } },
     );
   }
 
   addMembers(type: string) {
     this.router.navigate(
       [CommonUrls.Company, 'company-members', `add-${type}`],
-      { queryParams: { actionType: 'creation' } }
+      { queryParams: { actionType: 'creation' } },
     );
   }
 }

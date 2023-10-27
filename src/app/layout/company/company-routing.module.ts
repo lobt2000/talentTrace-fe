@@ -17,21 +17,21 @@ const routes: Routes = [
         path: 'vacancy-dashboard',
         loadChildren: () =>
           import('./vacancy-dashboard/vancancy-dashboard.module').then(
-            (m) => m.VacancyDashboardModule
+            (m) => m.VacancyDashboardModule,
           ),
       },
       {
         path: 'manager-department',
         loadChildren: () =>
           import('./manager-department/manager-department.module').then(
-            (m) => m.ManagerDepartmentModule
+            (m) => m.ManagerDepartmentModule,
           ),
       },
       {
         path: 'company-members',
         loadChildren: () =>
           import('./staff-department/staff-department.module').then(
-            (m) => m.StaffDepartmentModule
+            (m) => m.StaffDepartmentModule,
           ),
       },
     ],

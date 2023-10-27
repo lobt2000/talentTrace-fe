@@ -13,7 +13,7 @@ export class UiPageComponent implements OnInit {
   @Input() defaultBreadcrumb;
   constructor(
     private breadcrumbsService: BreadcrumbsService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {

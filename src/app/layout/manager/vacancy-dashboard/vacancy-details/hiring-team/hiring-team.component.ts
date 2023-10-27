@@ -22,7 +22,7 @@ export class HiringTeamComponent {
 
   constructor(
     private dialog: MatDialog,
-    private vacancyDashboardService: VacancyDashboardService
+    private vacancyDashboardService: VacancyDashboardService,
   ) {}
 
   onTriggerEvent(value: IPersonChange) {

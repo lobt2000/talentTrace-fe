@@ -18,7 +18,7 @@ export class ManuallAdditionComponent implements OnInit {
   currManager: IMember;
   constructor(
     private route: ActivatedRoute,
-    private breadcrumbsService: BreadcrumbsService
+    private breadcrumbsService: BreadcrumbsService,
   ) {}
 
   ngOnInit(): void {

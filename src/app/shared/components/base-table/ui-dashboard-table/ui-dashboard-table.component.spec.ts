@@ -8,9 +8,8 @@ describe('UiDashboardTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiDashboardTableComponent ]
-    })
-    .compileComponents();
+      declarations: [UiDashboardTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UiDashboardTableComponent);
     component = fixture.componentInstance;

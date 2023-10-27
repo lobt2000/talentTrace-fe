@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "vocation-rate": {
+    "talentTrace-fe": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/vocation-rate",
+            "outputPath": "dist/talentTrace-fe",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "vocation-rate:build:production"
+              "browserTarget": "talentTrace-fe:build:production"
             },
             "development": {
-              "browserTarget": "vocation-rate:build:development"
+              "browserTarget": "talentTrace-fe:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vocation-rate:build"
+            "browserTarget": "talentTrace-fe:build"
           }
         },
         "test": {

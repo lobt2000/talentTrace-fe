@@ -1,35 +1,52 @@
 <div class="w-100 collapse-container">
-    <div class="header d-flex align-items-center justify-content-between">
-        <div class="title">{{ title | translate }}</div>
-        <div class="d-flex align-items-center">
-            <div class="count">{{ itemsList.length }}</div>
-            <app-more-options *ngIf="moreOptions && moreOptions.length" [optionsList]="moreOptions"></app-more-options>
+  <div class="header d-flex align-items-center justify-content-between">
+    <div class="title">{{ title | translate }}</div>
+    <div class="d-flex align-items-center">
+      <div class="count">{{ itemsList.length }}</div>
+      <app-more-options
+        *ngIf="moreOptions && moreOptions.length"
+        [optionsList]="moreOptions"
+      ></app-more-options>
+    </div>
+  </div>
+  <div class="items-list">
+    <div
+      class="item d-flex align-items-center justify-content-between"
+      *ngFor="let item of itemsList"
+      (click)="onGoToItem(item)"
+    >
+      <img
+        *ngIf="showContent(item, 'icon')"
+        [src]="item.icon"
+        class="item-icon"
+        alt=""
+      />
+      <div class="text-info d-flex justify-content-center colDir">
+        <div class="item-name" *ngIf="showContent(item, 'name')">
+          {{ item.name }}
         </div>
-
-    </div>
-    <div class="items-list">
-        <div class="item d-flex align-items-center justify-content-between" *ngFor="let item of itemsList"
-            (click)="onGoToItem(item)">
-            <img *ngIf="showContent(item, 'icon')" [src]="item.icon" class="item-icon" alt="">
-            <div class="text-info d-flex justify-content-center colDir">
-                <div class="item-name" *ngIf="showContent(item, 'name')">{{item.name}}</div>
-                <div>
-                    <span *ngIf="showContent(item, 'employment')">{{item.employment}} </span>
-                    <span *ngIf="showContent(item, 'city')">{{item.city}}</span>
-                </div>
-                <div class="items-icons d-flex" *ngIf="showContent(item, 'candidates')">
-                    <img *ngFor="let candidate of item.candidates" class="item-icon" [src]="candidate" alt="">
-
-                </div>
-
-            </div>
-            <div class="options">
-                <div class="active" *ngIf="showContent(item, 'active')"></div>
-            </div>
+        <div>
+          <span *ngIf="showContent(item, 'employment')"
+            >{{ item.employment }}
+          </span>
+          <span *ngIf="showContent(item, 'city')">{{ item.city }}</span>
         </div>
+        <div class="items-icons d-flex" *ngIf="showContent(item, 'candidates')">
+          <img
+            *ngFor="let candidate of item.candidates"
+            class="item-icon"
+            [src]="candidate"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="options">
+        <div class="active" *ngIf="showContent(item, 'active')"></div>
+      </div>
     </div>
+  </div>
 
-    <div *ngIf="!itemsList.length">
-        {{ 'You have no {{noItems}} yet' | translate }}
-    </div>
+  <div *ngIf="!itemsList.length">
+    {{ 'You have no {{noItems}} yet' | translate }}
+  </div>
 </div>

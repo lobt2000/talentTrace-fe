@@ -6,11 +6,14 @@ import { BreadcrumbsService } from './breadcrumbs.service';
 describe('Service: Breadcrumbs', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BreadcrumbsService]
+      providers: [BreadcrumbsService],
     });
   });
 
-  it('should ...', inject([BreadcrumbsService], (service: BreadcrumbsService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [BreadcrumbsService],
+    (service: BreadcrumbsService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

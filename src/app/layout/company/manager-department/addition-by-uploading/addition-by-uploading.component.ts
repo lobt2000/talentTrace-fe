@@ -60,7 +60,7 @@ export class AdditionByUploadingComponent implements OnInit {
     private route: ActivatedRoute,
     private permissionService: PermissionService,
     private _dialog: MatDialog,
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -97,7 +97,7 @@ export class AdditionByUploadingComponent implements OnInit {
       .subscribe((res) => {
         const permissions = this.permissionService.getCorrectPermissions(res);
         this.parsedDataArray.find(
-          (manager) => manager.id === elem.id
+          (manager) => manager.id === elem.id,
         ).permission = Object.values(permissions).length
           ? permissions
           : elem.permission;

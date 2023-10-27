@@ -8,7 +8,7 @@ describe('UiSortComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [UiSortComponent]
+      imports: [UiSortComponent],
     });
     fixture = TestBed.createComponent(UiSortComponent);
     component = fixture.componentInstance;

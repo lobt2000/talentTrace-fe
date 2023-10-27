@@ -13,7 +13,6 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {}
 
   registration(event) {
-
     localStorage.setItem('userType', 'manager');
     this.router.navigate([CommonUrls.Manager]);
   }

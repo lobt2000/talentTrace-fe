@@ -47,7 +47,7 @@ export class UploadingAdditionComponent implements OnInit {
   };
   constructor(
     private breadcrumbsService: BreadcrumbsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

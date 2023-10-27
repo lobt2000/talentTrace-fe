@@ -1,8 +1,18 @@
-<header class="d-flex align-items-center justify-content-center position-relative">
-    <h3>{{data.title}}</h3>
-    <div class="position-absolute right-10 top-10 cursor-pointer" (click)="onClose()"><mat-icon
-            class="font-size-25 font-w-bold">close</mat-icon></div>
+<header
+  class="d-flex align-items-center justify-content-center position-relative"
+>
+  <h3>{{ data.title }}</h3>
+  <div
+    class="position-absolute right-10 top-10 cursor-pointer"
+    (click)="onClose()"
+  >
+    <mat-icon class="font-size-25 font-w-bold">close</mat-icon>
+  </div>
 </header>
 <main class="mt-20">
-    <app-person-card class="d-flex" (triggerEvent)="onTriggerEvent($event)" [isChangingMember]="true"></app-person-card>
+  <app-person-card
+    class="d-flex"
+    (triggerEvent)="onTriggerEvent($event)"
+    [isChangingMember]="true"
+  ></app-person-card>
 </main>

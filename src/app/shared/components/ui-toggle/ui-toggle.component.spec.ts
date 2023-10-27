@@ -8,9 +8,8 @@ describe('UiToggleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiToggleComponent ]
-    })
-    .compileComponents();
+      declarations: [UiToggleComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

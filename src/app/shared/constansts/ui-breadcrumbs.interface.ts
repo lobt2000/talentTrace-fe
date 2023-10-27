@@ -1,7 +1,6 @@
 export interface IBreadcrumb {
-    label: string;
-    value: any;
-    link?: string;
-    queryParams?: {};
-  }
-  
+  label: string;
+  value: any;
+  link?: string;
+  queryParams?: {};
+}

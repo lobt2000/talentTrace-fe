@@ -7,12 +7,12 @@ export enum colorPlate {
 
 export const getColorPlate = (percent): colorPlateKeys => {
   const percents: Array<string | colorPlate> = Object.values(colorPlate).filter(
-    (el) => typeof el === 'number'
+    (el) => typeof el === 'number',
   );
   const comparePercent: string | colorPlate = percents.find((per, i, obj) =>
     !obj[i - 1] && per >= percent
       ? true
-      : per >= percent && obj[i - 1] < percent
+      : per >= percent && obj[i - 1] < percent,
   );
   return colorPlate[comparePercent];
 };

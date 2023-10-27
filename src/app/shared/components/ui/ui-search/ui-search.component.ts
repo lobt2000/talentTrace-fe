@@ -37,7 +37,13 @@ interface ILookUp {
   styleUrls: ['./ui-search.component.scss'],
   providers: [CONTROL_UI_SEARCH],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, MatIconModule]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    MatIconModule,
+  ],
 })
 export class UiSearchComponent
   implements OnInit, OnDestroy, ControlValueAccessor
@@ -75,7 +81,7 @@ export class UiSearchComponent
     this.activeItem = item.id;
     this.onChange(item.hasOwnProperty('fullName') ? item.fullName : item.name);
     this.changed.emit(
-      item.hasOwnProperty('fullName') ? item.fullName : item.name
+      item.hasOwnProperty('fullName') ? item.fullName : item.name,
     );
     // this.selectItem.emit(this.activeItem);
   }

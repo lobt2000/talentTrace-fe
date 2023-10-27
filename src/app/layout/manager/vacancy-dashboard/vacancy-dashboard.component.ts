@@ -190,7 +190,7 @@ export class VacancyDashboardComponent implements OnInit {
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

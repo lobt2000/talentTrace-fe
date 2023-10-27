@@ -8,7 +8,7 @@ describe('PerfomanceComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [PerfomanceComponent]
+      imports: [PerfomanceComponent],
     });
     fixture = TestBed.createComponent(PerfomanceComponent);
     component = fixture.componentInstance;

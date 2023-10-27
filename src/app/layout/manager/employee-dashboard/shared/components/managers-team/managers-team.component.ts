@@ -20,14 +20,14 @@ import { PersonCardComponent } from 'src/app/layout/manager/vacancy-dashboard/sh
   templateUrl: './managers-team.component.html',
   styleUrls: ['./managers-team.component.scss'],
   standalone: true,
-  imports: [MatIconModule, CommonModule, PersonCardComponent]
+  imports: [MatIconModule, CommonModule, PersonCardComponent],
 })
 export class ManagersTeamComponent {
   isOpenOption: boolean = false;
 
   constructor(
     private dialog: MatDialog,
-    private employeeDashboardService: EmployeeDashboardService
+    private employeeDashboardService: EmployeeDashboardService,
   ) {}
 
   onTriggerEvent(value: IPersonChange) {
