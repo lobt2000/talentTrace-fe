@@ -1,0 +1,50 @@
+@import "../../../../assets/style/ui";
+:host {
+  @include size(30%, fit-content);
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+.card {
+  @include flex-box(column, nowrap, space-between, center);
+  @include size(100%, fit-content);
+  background-color: #efeff1;
+
+  border-radius: 5px;
+  transition: all ease-in-out 0.3s;
+
+  padding: 16px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  cursor: pointer;
+
+  &:hover {
+    background-color: #d3ddff;
+  }
+
+  .common-info {
+    @include size(100%, 70px);
+    border-bottom: 1px solid #c0c0c0;
+    padding: 5px 0px;
+  }
+
+  .skill-scores {
+    @include size(100%, calc(100% - 150px));
+    border-bottom: 1px solid #c0c0c0;
+    padding: 5px 0px;
+  }
+
+  .history-action {
+    @include size(100%, 50px);
+    padding: 5px 0px;
+  }
+
+  //   .action {
+  //     button {
+  //       padding: 5px;
+  //       color: #f25454;
+  //       background-color: transparent;
+  //       outline: unset;
+  //       border: 1px solid #f25454;
+  //       border-radius: 10px;
+  //     }
+  //   }
+}

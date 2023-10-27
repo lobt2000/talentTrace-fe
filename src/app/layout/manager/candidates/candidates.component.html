@@ -1,0 +1,35 @@
+<app-ui-page [defaultBreadcrumb]="defaultBreadcrumb">
+    <ng-container pageName>{{ 'Vacancy Dashboard' | translate }}</ng-container>
+    <ng-container pageContent>
+
+        <div class="tab-container">
+            <div class="candidates-header d-flex align-items-center justify-content-between">
+
+                <app-ui-search></app-ui-search>
+                <div class="actions d-flex align-items-center justify-content-between">
+                    <button
+                        class="compare d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative">
+
+                        <mat-icon>
+                            widgets
+                        </mat-icon>
+                        <div class="comparing-count position-absolute">2</div>
+
+                    </button>
+                    <app-ui-filter [filtersList]="filterList"></app-ui-filter>
+
+                    <app-ui-sort [sortsList]="sortsList"></app-ui-sort>
+                </div>
+                <!-- <div class="count">
+                    {{'Candidates' | translate}}: {{candidates.length}}
+                </div> -->
+            </div>
+            <div class="candidates-body d-flex align-items-start justify-content-start">
+
+                <app-candidate-card [candidate]="item" [moreOptions]="candidateOption"
+                    *ngFor="let item of candidates" (goToItem)="onGoToCandidate($event)"></app-candidate-card>
+            </div>
+        </div>
+    </ng-container>
+
+</app-ui-page>
