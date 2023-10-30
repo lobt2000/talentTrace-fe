@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { CommonUrls } from '../shared/constansts/common/common.constants';
+import { Router } from '@angular/router';
+import { LoadingService } from '../service/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +10,11 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private loadingService: LoadingService,
+  ) {}
 
   ngOnInit(): void {}
 
@@ -16,8 +23,23 @@ export class LoginComponent implements OnInit {
       email: data.email,
       password: data.password,
     };
+    this.loadingService.setLoading(true);
     this.authService.loginByCompany(body).subscribe((res) => {
-      console.log(res);
+      this.authService.setValueToLocalBase(res.user.role);
+      this.loadingService.setLoading(false);
+    });
+  }
+
+  loginUser(data) {
+    const body = {
+      email: data.email,
+      password: data.password,
+      companyEmail: data.companyEmail,
+    };
+    this.loadingService.setLoading(true);
+    this.authService.loginByCompany(body).subscribe((res) => {
+      this.authService.setValueToLocalBase(res.user.role);
+      this.loadingService.setLoading(false);
     });
   }
 }

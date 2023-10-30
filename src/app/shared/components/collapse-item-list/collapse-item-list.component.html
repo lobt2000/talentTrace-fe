@@ -10,43 +10,50 @@
     </div>
   </div>
   <div class="items-list">
-    <div
-      class="item d-flex align-items-center justify-content-between"
-      *ngFor="let item of itemsList"
-      (click)="onGoToItem(item)"
-    >
-      <img
-        *ngIf="showContent(item, 'icon')"
-        [src]="item.icon"
-        class="item-icon"
-        alt=""
-      />
-      <div class="text-info d-flex justify-content-center colDir">
-        <div class="item-name" *ngIf="showContent(item, 'name')">
-          {{ item.name }}
+    <ng-container *ngIf="itemsList.length; else noItems">
+      <div
+        class="item d-flex align-items-center justify-content-between"
+        *ngFor="let item of itemsList"
+        (click)="onGoToItem(item)"
+      >
+        <img
+          *ngIf="showContent(item, 'icon')"
+          [src]="item.icon"
+          class="item-icon"
+          alt=""
+        />
+        <div class="text-info d-flex justify-content-center colDir">
+          <div class="item-name" *ngIf="showContent(item, 'name')">
+            {{ item.name }}
+          </div>
+          <div>
+            <span *ngIf="showContent(item, 'employment')"
+              >{{ item.employment }}
+            </span>
+            <span *ngIf="showContent(item, 'city')">{{ item.city }}</span>
+          </div>
+          <div
+            class="items-icons d-flex"
+            *ngIf="showContent(item, 'candidates')"
+          >
+            <img
+              *ngFor="let candidate of item.candidates"
+              class="item-icon"
+              [src]="candidate"
+              alt=""
+            />
+          </div>
         </div>
-        <div>
-          <span *ngIf="showContent(item, 'employment')"
-            >{{ item.employment }}
-          </span>
-          <span *ngIf="showContent(item, 'city')">{{ item.city }}</span>
-        </div>
-        <div class="items-icons d-flex" *ngIf="showContent(item, 'candidates')">
-          <img
-            *ngFor="let candidate of item.candidates"
-            class="item-icon"
-            [src]="candidate"
-            alt=""
-          />
+        <div class="options">
+          <div class="active" *ngIf="showContent(item, 'active')"></div>
         </div>
       </div>
-      <div class="options">
-        <div class="active" *ngIf="showContent(item, 'active')"></div>
-      </div>
-    </div>
+    </ng-container>
   </div>
 
-  <div *ngIf="!itemsList.length">
-    {{ 'You have no {{noItems}} yet' | translate }}
-  </div>
+  <ng-template #noItems>
+    <div class="item d-flex align-items-center justify-content-center">
+      {{ 'You have no {{noItems}} yet' | translate }}
+    </div>
+  </ng-template>
 </div>

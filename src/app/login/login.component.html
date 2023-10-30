@@ -5,7 +5,8 @@
     <app-tab-container
       class="tab-container"
       [typeOfAction]="'login'"
-      (formValue)="loginByCompany($event)"
+      (formCompanyValue)="loginByCompany($event)"
+      (formUserValue)="loginUser($event)"
     >
     </app-tab-container>
   </section>

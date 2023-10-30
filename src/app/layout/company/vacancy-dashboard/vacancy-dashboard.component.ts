@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 
 @Component({
@@ -158,15 +159,17 @@ export class VacancyDashboardComponent implements OnInit {
     link: '/company/vacancy-dashboard',
   };
 
-  constructor(private breadcrumbsService: BreadcrumbsService) {}
+  constructor(
+    private breadcrumbsService: BreadcrumbsService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {}
 
   onGoToItem(item) {
-    this.breadcrumbsService.addBreadcrumbs({
-      label: item.name,
-      value: item,
-      link: `/companyvacancy-dashboard/${item.name}`,
+    this.router.navigate([item.name], {
+      relativeTo: this.route,
     });
   }
 }

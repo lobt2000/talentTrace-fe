@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable, switchMap } from 'rxjs';
+import { CommonUrls } from '../shared/constansts/common/common.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +12,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private cookieService: CookieService,
   ) {}
 
   getToken(userData) {
@@ -21,7 +24,10 @@ export class AuthService {
       })
       .subscribe((res) => {
         if (res && res['access_token']) {
-          localStorage.setItem('user_profile', JSON.stringify(res));
+          console.log(res);
+
+          localStorage.setItem('userAuth', JSON.stringify(res));
+          this.cookieService.set('userAuth', JSON.stringify(res));
         }
       });
   }
@@ -35,14 +41,49 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
+    this.cookieService.deleteAll('/', 'localhost');
     this.router.navigate(['home']);
   }
 
   signUpCompany(body): Observable<any> {
-    return this.http.post('/api/v1/signUpCompany', body);
+    return this.http
+      .post('/api/v1/signUpCompany', body)
+      .pipe(switchMap((res) => this.setTokenValue(res)));
+  }
+
+  signUpUser(body): Observable<any> {
+    return this.http
+      .post('/api/v1/signUpCompany', body)
+      .pipe(switchMap((res) => this.setTokenValue(res)));
   }
 
   loginByCompany(body): Observable<any> {
-    return this.http.post('/api/v1/loginByCompany', body);
+    return this.http
+      .post('/api/v1/loginByCompany', body)
+      .pipe(switchMap((res) => this.setTokenValue(res)));
+  }
+
+  loginUser(body): Observable<any> {
+    return this.http
+      .post('/api/v1/loginUser', body)
+      .pipe(switchMap((res) => this.setTokenValue(res)));
+  }
+
+  getinitUser(): Observable<any> {
+    return this.http.get('/api/v1/users');
+  }
+
+  setValueToLocalBase(role) {
+    localStorage.setItem('userType', role);
+    this.router.navigate([CommonUrls.Manager]);
+  }
+
+  setTokenValue(token): Observable<any> {
+    if (token && token['access_token']) {
+      delete token['status'];
+      localStorage.setItem('userAuth', JSON.stringify(token));
+      this.cookieService.set('userAuth', JSON.stringify(token));
+      return this.getinitUser();
+    }
   }
 }

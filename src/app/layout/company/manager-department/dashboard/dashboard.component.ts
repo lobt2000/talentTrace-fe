@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { LoadingService } from 'src/app/service/loading.service';
 import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
+import { ManagerDepartmentService } from '../services/manager-department.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,10 +25,13 @@ export class DashboardComponent implements OnInit {
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private router: Router,
+    private loadingService: LoadingService,
+    private managersDepServices: ManagerDepartmentService,
   ) {}
 
   ngOnInit(): void {
     this.breadcrumbsService.removeActiveBreadcrumb();
+    this.getAllManagers();
   }
 
   onGoToItem(item) {
@@ -47,5 +52,13 @@ export class DashboardComponent implements OnInit {
       [CommonUrls.Company, 'manager-department', `add-${type}`],
       { queryParams: { actionType: 'creation' } },
     );
+  }
+
+  getAllManagers() {
+    this.loadingService.setLoading(true);
+    this.managersDepServices.getAllManagers().subscribe((res: any) => {
+      this.managers_list = res.managers;
+      this.loadingService.setLoading(false);
+    });
   }
 }
