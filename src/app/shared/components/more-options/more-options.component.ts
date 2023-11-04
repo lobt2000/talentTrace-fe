@@ -11,7 +11,7 @@ import {
 } from '@angular/animations';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { FadeAniimationDirective } from '../../directives/fade-aniimation.directive';
-import { IAnimationProperty } from '../../constansts/animation-property.interface';
+import { IAnimationProperty } from '../../interfaces/animation-property.interface';
 
 @Component({
   selector: 'app-more-options',

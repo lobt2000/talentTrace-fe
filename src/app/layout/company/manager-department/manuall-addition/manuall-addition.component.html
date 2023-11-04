@@ -8,12 +8,24 @@
       }}
     </h3>
     <div class="col-4 d-flex align-items-center justify-content-end">
-      <button class="default-stepper-button btn-default-green">
+      <button
+        class="default-stepper-button btn-default-green"
+        *ngIf="isCreationScrean"
+        (click)="onSubmit()"
+      >
         {{ "Save" | translate }}
       </button>
       <button
-        *ngIf="defaultQueryParams.actionType !== 'creation'"
+        class="default-stepper-button btn-default-green"
+        *ngIf="!isCreationScrean"
+        (click)="changeScrean()"
+      >
+        {{ "Edit" | translate }}
+      </button>
+      <button
+        *ngIf="!isCreationScrean"
         class="default-stepper-button btn-default-red"
+        (click)="onDelete()"
       >
         {{ "Delete" | translate }}
       </button>
@@ -21,7 +33,26 @@
   </div>
 
   <div class="creation-form d-flex justify-content-around">
-    <form
+    <app-general-info-profile
+      [editMode]="isCreationScrean"
+      [hideActionButton]="true"
+      [person]="currManager"
+      (updateFormValue)="onUpdateFormValue($event)"
+    >
+      <!-- <ng-container permissions>
+        <div class="row w-100 align-items-center justify-content-center position-relative">
+          <button class="default-stepper-button btn-blue" (click)="openPermissionsModal()">
+            {{ "Permissions" | translate }}
+          </button>
+          <div class="default-input-error-message position-absolute bottom--20"
+            *ngIf="form.get('permissions').hasError('required')">
+            Permissions is <strong>required</strong>
+          </div>
+        </div>
+      </ng-container> -->
+    </app-general-info-profile>
+
+    <!-- <form
       class="form align-items-center justify-content-center"
       [formGroup]="form"
     >
@@ -123,6 +154,6 @@
           Permissions is <strong>required</strong>
         </div>
       </div>
-    </form>
+    </form> -->
   </div>
 </div>

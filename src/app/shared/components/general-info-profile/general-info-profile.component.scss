@@ -8,7 +8,7 @@
   transition: all ease-in-out 0.3s;
 
   .additional-info-block {
-    @include size(50%, fit-content);
+    @include size(auto, fit-content);
     background-color: #344c51;
     border-radius: 5px;
     padding: 20px;

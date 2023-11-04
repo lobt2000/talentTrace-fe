@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
+import { StaffDepartmentService } from '../services/staff-department.service';
+import { LoadingService } from 'src/app/service/loading.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,17 +11,13 @@ import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  managers_list: any[] = [
-    {
-      name: 'Middle Front-End Angular Developer',
-      icon: 'assets/img/dev-company-logo.jpeg',
-      active: true,
-    },
-  ];
+  employees_list: any[] = [];
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private router: Router,
+    private staffDepartmentService: StaffDepartmentService,
+    private loadingService: LoadingService,
   ) {}
 
   ngOnInit(): void {
@@ -44,5 +42,13 @@ export class DashboardComponent implements OnInit {
       [CommonUrls.Company, 'company-members', `add-${type}`],
       { queryParams: { actionType: 'creation' } },
     );
+  }
+
+  getAllManagers() {
+    this.loadingService.setLoading(true);
+    this.staffDepartmentService.getAllEmployees().subscribe((res: any) => {
+      this.employees_list = res.employees;
+      this.loadingService.setLoading(false);
+    });
   }
 }

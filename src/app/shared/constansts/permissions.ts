@@ -1,4 +1,6 @@
-export const children = [
+import { ICommon } from '../interfaces/common/common.interface';
+
+export const children: Array<ICommon> = [
   {
     name: 'All',
     id: 0,

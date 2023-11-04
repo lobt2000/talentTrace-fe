@@ -1,0 +1,14 @@
+@import "../../../../assets/style/ui";
+
+.notiffication-date {
+  @include size(150px, 50px);
+  background-color: #fdb75a;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.notiffication-block {
+  background-color: #27373a;
+  border-radius: 5px;
+}

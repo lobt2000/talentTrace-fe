@@ -38,6 +38,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'managerRegistration',
+        loadComponent: () =>
+          import('../manager-registration/manager-registration.component').then(
+            (m) => m.ManagerRegistrationComponent,
+          ),
+      },
+      {
         path: CommonUrls.Company,
         loadChildren: () =>
           import('./company/company.module').then((m) => m.CompanyModule),

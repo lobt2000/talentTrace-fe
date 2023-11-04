@@ -28,7 +28,7 @@ import {
   OptionTypeKeys,
 } from 'src/app/shared/constansts/optionType.model';
 import { FadeAniimationDirective } from 'src/app/shared/directives/fade-aniimation.directive';
-import { IAnimationProperty } from 'src/app/shared/constansts/animation-property.interface';
+import { IAnimationProperty } from 'src/app/shared/interfaces/animation-property.interface';
 
 @Component({
   selector: 'app-person-card',

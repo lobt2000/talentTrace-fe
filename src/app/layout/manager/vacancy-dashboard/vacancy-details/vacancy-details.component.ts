@@ -13,7 +13,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { GoogleMapsModalComponent } from 'src/app/shared/components/modals/google-maps-modal/google-maps-modal.component';
 import { PageActions } from 'src/app/shared/constansts/page-actions.model';
-import { IBreadcrumb } from 'src/app/shared/constansts/ui-breadcrumbs.interface';
+import { IBreadcrumb } from 'src/app/shared/interfaces/ui-breadcrumbs.interface';
 // import { ClickOutsideDirective } from 'shared/directives/click-outside.directive';
 import {
   keySkills,

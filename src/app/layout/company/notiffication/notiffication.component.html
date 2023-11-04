@@ -1,0 +1,46 @@
+<app-ui-page [withBreadcrimbs]="false">
+  <ng-container pageName>{{ "Notiffications" | translate }}</ng-container>
+  <ng-container pageContent>
+    <div class="w-100 h-100">
+      <div
+        class="d-flex colDir align-items-center p-3"
+        *ngFor="let notifficationObjs of notiffications"
+      >
+        <p class="notiffication-date font-size-20 font-w-bold">
+          {{ notifficationObjs.date | date: "MM/dd/yy" }}
+        </p>
+        <div
+          class="d-flex align-items-center justify-content-between w-100 notiffication-block mt-20 p-4 white"
+          *ngFor="let notiffication of notifficationObjs.notiffications"
+        >
+          <div class="w-80 h-100 d-flex colDir justify-content-between">
+            <div class="font-size-20 font-w-bold mb-10">
+              {{ getNotifficationTitle(notiffication.notifyType) }} -
+              {{ notiffication.from }}
+            </div>
+            <div>
+              {{ notiffication.notifyText }}
+            </div>
+          </div>
+          <div
+            class="w-20 d-flex align-items-end justify-content-between colDir"
+            *ngIf="notiffication.active"
+          >
+            <button
+              class="default-stepper-button btn-default-green mt-0"
+              (click)="acceptNotiffiAction(notiffication)"
+            >
+              Accept
+            </button>
+            <button
+              class="default-stepper-button btn-default-red"
+              (click)="declineNotiffiAction(notiffication)"
+            >
+              Decline
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</app-ui-page>

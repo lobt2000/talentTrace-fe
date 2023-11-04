@@ -51,10 +51,8 @@ export class AuthService {
       .pipe(switchMap((res) => this.setTokenValue(res)));
   }
 
-  signUpUser(body): Observable<any> {
-    return this.http
-      .post('/api/v1/signUpCompany', body)
-      .pipe(switchMap((res) => this.setTokenValue(res)));
+  signUpManager(body): Observable<any> {
+    return this.http.post('/api/v1/signUpManager', body);
   }
 
   loginByCompany(body): Observable<any> {
@@ -85,5 +83,11 @@ export class AuthService {
       this.cookieService.set('userAuth', JSON.stringify(token));
       return this.getinitUser();
     }
+  }
+
+  updateManagerPass(body): Observable<any> {
+    return this.http
+      .patch('/api/v1/updateManagerPassword', body)
+      .pipe(switchMap((res) => this.setTokenValue(res)));
   }
 }

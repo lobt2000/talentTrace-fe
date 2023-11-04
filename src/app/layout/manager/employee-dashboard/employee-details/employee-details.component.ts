@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
-import { IBreadcrumb } from 'src/app/shared/constansts/ui-breadcrumbs.interface';
+import { IBreadcrumb } from 'src/app/shared/interfaces/ui-breadcrumbs.interface';
 
 @Component({
   selector: 'app-employee-details',

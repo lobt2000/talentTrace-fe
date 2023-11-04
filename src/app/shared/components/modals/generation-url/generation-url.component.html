@@ -1,0 +1,17 @@
+<div
+  class="header d-flex align-items-center justify-content-center position-relative"
+>
+  <h3>Generation Url</h3>
+  <div class="position-absolute right-0 top-0 cursor-pointer">
+    <mat-icon (click)="onClose()">close</mat-icon>
+  </div>
+</div>
+
+<div class="url-container d-flex align-items-center justify-content-around">
+  <div class="url-block d-flex align-items-center justify-content-center">
+    <p>{{ url }}</p>
+  </div>
+  <button class="cursor-pointer" [cdkCopyToClipboard]="url">
+    <mat-icon>content_copy</mat-icon>
+  </button>
+</div>

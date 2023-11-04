@@ -1,0 +1,44 @@
+@import "../../assets/style/ui";
+@import "../../assets/style/mixins";
+@import "../../assets/style/variables";
+@import "../../assets/style/elements/buttons";
+
+.login-block {
+  @include flex-box(column, nowrap, center, center);
+
+  h2 {
+    @include size(100%, 70px);
+    text-align: center;
+    line-height: 70px;
+    color: #e0e0e0;
+  }
+
+  &__text {
+    font-weight: 300;
+    @include size(100%, 20px);
+    @include flex-box(row, nowrap, center, center);
+    white-space: nowrap;
+    font-size: 16px;
+    color: #e0e0e0;
+  }
+
+  form {
+    width: 100%;
+    @include flex-box(column, nowrap, center, center);
+    height: calc(30%);
+  }
+
+  .hide-password-button {
+    right: 30px;
+    background-color: transparent;
+    border: unset;
+    top: 20%;
+    &:focus {
+      border: unset;
+      outline: unset;
+    }
+  }
+  //   button:last-child {
+  //     margin-top: 45px;
+  //   }
+}

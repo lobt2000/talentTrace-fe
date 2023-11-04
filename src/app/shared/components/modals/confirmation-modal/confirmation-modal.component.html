@@ -1,0 +1,27 @@
+<div
+  class="header d-flex align-items-center justify-content-center position-relative"
+>
+  <h3 class="font-size-30">{{ data.title }}</h3>
+  <div class="position-absolute right-10 top-10 cursor-pointer">
+    <mat-icon (click)="onClose()">close</mat-icon>
+  </div>
+</div>
+
+<p class="font-size-18 white">{{ data.text }}</p>
+
+<div class="action w-100 d-flex align-items-center justify-content-around p-3">
+  <button
+    class="default-stepper-button btn-default-green"
+    *ngIf="!data.withoutButtonOkay"
+    (click)="onClose(true)"
+  >
+    Okay
+  </button>
+  <button
+    class="default-stepper-button btn-default-red"
+    *ngIf="!data.withoutButtonCancel"
+    (click)="onClose()"
+  >
+    Cancel
+  </button>
+</div>

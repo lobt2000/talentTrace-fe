@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IBreadcrumb } from '../../constansts/ui-breadcrumbs.interface';
+import { IBreadcrumb } from '../../interfaces/ui-breadcrumbs.interface';
 import { Router } from '@angular/router';
 
 @Component({

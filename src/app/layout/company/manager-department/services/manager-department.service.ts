@@ -10,4 +10,22 @@ export class ManagerDepartmentService {
   getAllManagers() {
     return this.http.get('/api/v1/managers');
   }
+
+  getManager(id: string) {
+    return this.http.get(`/api/v1/managers/${id}`);
+  }
+
+  createManager(body) {
+    return this.http.post(`/api/v1/managers`, body);
+  }
+
+  updateManager(id: string, body) {
+    console.log(id);
+
+    return this.http.patch(`/api/v1/managers/${id}`, body);
+  }
+
+  deleteManager(id: string) {
+    return this.http.delete(`/api/v1/managers/${id}`);
+  }
 }

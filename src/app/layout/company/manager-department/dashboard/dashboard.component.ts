@@ -14,13 +14,7 @@ import { ManagerDepartmentService } from '../services/manager-department.service
   },
 })
 export class DashboardComponent implements OnInit {
-  managers_list: any[] = [
-    {
-      name: 'Middle Front-End Angular Developer',
-      icon: 'assets/img/dev-company-logo.jpeg',
-      active: true,
-    },
-  ];
+  managers_list: any[] = [];
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
@@ -41,9 +35,11 @@ export class DashboardComponent implements OnInit {
       link: `/company/manager-department`,
     });
 
+    console.log(item);
+
     this.router.navigate(
       [CommonUrls.Company, 'manager-department', 'add-manually'],
-      { queryParams: { actionType: 'editing', id: 1 } },
+      { queryParams: { actionType: 'editing', id: item._id } },
     );
   }
 

@@ -15,6 +15,7 @@ import { StaffDepartmentRoutes } from './staff-department.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManuallAdditionComponent } from './manuall-addition/manuall-addition.component';
 import { UploadingAdditionComponent } from './uploading-addition/uploading-addition.component';
+import { GeneralInfoProfileComponent } from 'src/app/shared/components/general-info-profile/general-info-profile.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { UploadingAdditionComponent } from './uploading-addition/uploading-addit
     MatIconModule,
     MatStepperModule,
     UiDashboardTableModule,
+    GeneralInfoProfileComponent,
   ],
   declarations: [
     StaffDepartmentComponent,

@@ -5,41 +5,45 @@
     <div class="user-icon">
       <img src="../../../../assets/img/dev-company-logo.jpeg" alt="" />
     </div>
-    <div class="w-90 d-flex align-items-center justify-content-around">
-      <div class="w-40 position-relative">
-        <mat-form-field class="edit-info additional position-relative">
-          <mat-label>Style</mat-label>
-          <mat-select class="h-100" [formControlName]="'unit'">
-            <mat-option *ngFor="let type of jobTypes" [value]="type.name">
-              {{ type.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-error
-          class="position-absolute"
-          *ngIf="employeeFrom.get('unit').hasError('required')"
-        >
-          Style is <strong>required</strong>
-        </mat-error>
+    <div class="d-flex w-90 colDir">
+      <div class="w-100 d-flex align-items-center justify-content-around">
+        <div class="w-40 position-relative">
+          <mat-form-field class="edit-info additional position-relative">
+            <mat-label>Status</mat-label>
+            <mat-select class="h-100" [formControlName]="'status'">
+              <mat-option *ngFor="let type of status" [value]="type">
+                {{ type.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error
+            class="position-absolute"
+            *ngIf="employeeFrom.get('status').hasError('required')"
+          >
+            Status is <strong>required</strong>
+          </mat-error>
+        </div>
+        <div class="w-40 position-relative">
+          <mat-form-field class="edit-info additional position-relative">
+            <mat-label>Type</mat-label>
+            <mat-select class="h-100" [formControlName]="'employmentType'">
+              <mat-option *ngFor="let type of employmentType" [value]="type">
+                {{ type.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error
+            class="position-absolute"
+            *ngIf="employeeFrom.get('employmentType').hasError('required')"
+          >
+            Type is <strong>required</strong>
+          </mat-error>
+        </div>
       </div>
-      <div class="w-40 position-relative">
-        <mat-form-field class="edit-info additional position-relative">
-          <mat-label>Type</mat-label>
-          <mat-select class="h-100" [formControlName]="'unit'">
-            <mat-option *ngFor="let type of jobTypes" [value]="type.name">
-              {{ type.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-error
-          class="position-absolute"
-          *ngIf="employeeFrom.get('unit').hasError('required')"
-        >
-          Type is <strong>required</strong>
-        </mat-error>
-      </div>
+      <ng-content select="[permissions]"></ng-content>
     </div>
     <button
+      *ngIf="!hideActionButton"
       class="short-info-edit d-flex align-items-center cursor-pointer position-absolute right-20 top-20"
       (click)="editMode = false"
     >
@@ -79,7 +83,7 @@
           <input
             class="default-input"
             matInput
-            [formControlName]="'position'"
+            [formControlName]="'surName'"
             required
           />
           <label class="default-label"
@@ -103,7 +107,7 @@
           <input
             class="default-input"
             matInput
-            [formControlName]="'position'"
+            [formControlName]="'startDate'"
             required
           />
           <label class="default-label">{{ "Start date" | translate }}</label>
@@ -119,7 +123,7 @@
         <mat-form-field class="edit-info position-relative">
           <mat-label>Department</mat-label>
           <mat-select class="h-100" [formControlName]="'department'">
-            <mat-option *ngFor="let type of jobTypes" [value]="type.name">
+            <mat-option *ngFor="let type of departments" [value]="type">
               {{ type.name }}
             </mat-option>
           </mat-select>
@@ -129,6 +133,25 @@
           *ngIf="employeeFrom.get('department').hasError('required')"
         >
           Department is <strong>required</strong>
+        </mat-error>
+      </div>
+      <div
+        class="col-8 position-relative"
+        *ngIf="employeeFrom.get('department').value?.id === 6"
+      >
+        <mat-form-field class="edit-info position-relative">
+          <mat-label>Sub Department</mat-label>
+          <mat-select class="h-100" [formControlName]="'subDepartment'">
+            <mat-option *ngFor="let type of subDepartments" [value]="type">
+              {{ type.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error
+          class="position-absolute"
+          *ngIf="employeeFrom.get('subDepartment').hasError('required')"
+        >
+          Sub Department is <strong>required</strong>
         </mat-error>
       </div>
       <div class="col-8">
@@ -155,15 +178,50 @@
           </div>
         </div>
       </div>
+      <div class="col-8 position-relative">
+        <mat-form-field class="edit-info position-relative">
+          <mat-label>Position</mat-label>
+          <mat-select class="h-100" [formControlName]="'position'">
+            <mat-option *ngFor="let type of positions" [value]="type">
+              {{ type.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error
+          class="position-absolute"
+          *ngIf="employeeFrom.get('position').hasError('required')"
+        >
+          Position is <strong>required</strong>
+        </mat-error>
+      </div>
     </div>
     <div
       class="w-49 d-flex align-items-center justify-content-center colDir bg-lightmain p-3"
     >
+      <div
+        class="col-8 position-relative"
+        *ngIf="employeeFrom.get('position').value"
+      >
+        <mat-form-field class="edit-info position-relative">
+          <mat-label>Level</mat-label>
+          <mat-select class="h-100" [formControlName]="'level'">
+            <mat-option *ngFor="let type of levels" [value]="type">
+              {{ type.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error
+          class="position-absolute"
+          *ngIf="employeeFrom.get('level').hasError('required')"
+        >
+          Level is <strong>required</strong>
+        </mat-error>
+      </div>
       <div class="col-8 position-relative">
         <mat-form-field class="edit-info position-relative">
           <mat-label>Unit</mat-label>
           <mat-select class="h-100" [formControlName]="'unit'">
-            <mat-option *ngFor="let type of jobTypes" [value]="type.name">
+            <mat-option *ngFor="let type of units" [value]="type">
               {{ type.name }}
             </mat-option>
           </mat-select>
@@ -203,7 +261,7 @@
         <mat-form-field class="edit-info position-relative">
           <mat-label>Country</mat-label>
           <mat-select class="h-100" [formControlName]="'country'">
-            <mat-option *ngFor="let type of jobTypes" [value]="type.name">
+            <mat-option *ngFor="let type of countries" [value]="type">
               {{ type.name }}
             </mat-option>
           </mat-select>
@@ -285,6 +343,12 @@
           >
             Work email is <strong>required</strong>
           </div>
+          <div
+            class="default-input-error-message"
+            *ngIf="employeeFrom.get('workEmail').hasError('email')"
+          >
+            Work email is <strong>not valid</strong>
+          </div>
         </div>
       </div>
     </div>
@@ -304,11 +368,16 @@
         <div class="w-100 data-value">Current</div>
       </div>
       <div class="w-100 d-flex position-relative align-items-center colDir">
-        <div class="w-100 whitegray data-label">Type</div>
-        <div class="w-100 data-value">Full-time</div>
+        <div class="w-100 whitegray data-label">
+          {{ getValueFromForm("status", "name") }}
+        </div>
+        <div class="w-100 data-value">
+          {{ getValueFromForm("employmentType", "name") }}
+        </div>
       </div>
     </div>
     <button
+      *ngIf="!hideActionButton"
       class="short-info-edit d-flex align-items-center cursor-pointer position-absolute right-20 top-20"
       (click)="editMode = true"
     >
@@ -323,37 +392,43 @@
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Name</div>
-        <div class="w-100 data-value">Petro</div>
+        <div class="w-100 data-value">{{ getValueFromForm("firstName") }}</div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Surname</div>
-        <div class="w-100 data-value">Antonushun</div>
+        <div class="w-100 data-value">{{ getValueFromForm("surName") }}</div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Start date</div>
-        <div class="w-100 data-value">12.01.2001</div>
+        <div class="w-100 data-value">{{ getValueFromForm("startDate") }}</div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Department</div>
-        <div class="w-100 data-value">System Administrator</div>
+        <div class="w-100 data-value">
+          {{ getValueFromForm("department", "name") }}
+        </div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Project name</div>
-        <div class="w-100 data-value">Arty</div>
+        <div class="w-100 data-value">
+          {{ getValueFromForm("projectName") }}
+        </div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Unit</div>
-        <div class="w-100 data-value data-label">Unit 1</div>
+        <div class="w-100 data-value data-label">
+          {{ getValueFromForm("unit", "name") }}
+        </div>
       </div>
     </div>
     <div class="w-49 align-items-center justify-content-center colDir">
@@ -361,37 +436,43 @@
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">HR</div>
-        <div class="w-100 data-value">Yana Kryher</div>
+        <div class="w-100 data-value">{{ getValueFromForm("hr") }}</div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Position</div>
-        <div class="w-100 data-value">System Administrator</div>
+        <div class="w-100 data-value">
+          {{ getValueFromForm("position", "name") }}
+        </div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Country</div>
-        <div class="w-100 data-value">Ukraine</div>
+        <div class="w-100 data-value">
+          {{ getValueFromForm("country", "name") }}
+        </div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">City</div>
-        <div class="w-100 data-value">Lviv</div>
+        <div class="w-100 data-value">{{ getValueFromForm("city") }}</div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Phone number</div>
-        <div class="w-100 data-value">+380971302656</div>
+        <div class="w-100 data-value">
+          {{ getValueFromForm("phoneNumber") }}
+        </div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Work Email</div>
-        <div class="w-100 data-value">bkolodiue@binariks.com</div>
+        <div class="w-100 data-value">{{ getValueFromForm("workEmail") }}</div>
       </div>
     </div>
   </div>

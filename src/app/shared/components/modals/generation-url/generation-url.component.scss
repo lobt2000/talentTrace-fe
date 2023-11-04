@@ -1,0 +1,46 @@
+@import "../../../../../assets/style/ui";
+:host {
+  @include size(100%, 100%);
+
+  .header {
+    @include size(100%, 50px);
+    margin-bottom: 20px;
+  }
+
+  .url-container {
+    @include size(100%, 100px);
+    padding: 20px;
+    .url-block {
+      @include size(60%, 85%);
+      border: 2px solid gray;
+      border-radius: 5px;
+
+      p {
+        @include size(100%, 100%);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        line-height: 28px;
+        padding: 10px;
+      }
+    }
+
+    button {
+      @include size(50px, 85%);
+      border: 2px solid;
+      background-color: transparent;
+      padding: 10px;
+      border-radius: 5px;
+      line-height: 40px;
+
+      &:focus {
+        outline: unset;
+        border-color: green;
+
+        mat-icon {
+          color: green;
+        }
+      }
+    }
+  }
+}

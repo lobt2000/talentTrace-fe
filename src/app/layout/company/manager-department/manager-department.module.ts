@@ -15,6 +15,7 @@ import { ManuallAdditionComponent } from './manuall-addition/manuall-addition.co
 import { AdditionByUploadingComponent } from './addition-by-uploading/addition-by-uploading.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { GeneralInfoProfileComponent } from 'src/app/shared/components/general-info-profile/general-info-profile.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatStepperModule,
     UiDashboardTableModule,
+    GeneralInfoProfileComponent,
   ],
   providers: [],
 })

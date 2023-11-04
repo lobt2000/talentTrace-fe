@@ -23,12 +23,24 @@
           alt=""
         />
         <div class="text-info d-flex justify-content-center colDir">
-          <div class="item-name" *ngIf="showContent(item, 'name')">
+          <div
+            class="item-name"
+            *ngIf="showContent(item, 'name'); else nameConnect"
+          >
             {{ item.name }}
           </div>
+          <ng-template #nameConnect>
+            <div
+              class="item-name"
+              *ngIf="showContent(item, 'name'); else nameConnect"
+            >
+              {{ item.name }}
+            </div>
+          </ng-template>
+
           <div>
-            <span *ngIf="showContent(item, 'employment')"
-              >{{ item.employment }}
+            <span *ngIf="showContent(item, 'employmentType')"
+              >{{ item.employmentType.name }}
             </span>
             <span *ngIf="showContent(item, 'city')">{{ item.city }}</span>
           </div>
