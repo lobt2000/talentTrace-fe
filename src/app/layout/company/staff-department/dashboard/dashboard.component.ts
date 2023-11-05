@@ -22,18 +22,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.breadcrumbsService.removeActiveBreadcrumb();
+    this.getAllEmployees();
   }
 
   onGoToItem(item) {
-    this.breadcrumbsService.addBreadcrumbs({
-      label: item.name,
-      value: item,
-      link: `/company/company-members`,
-    });
-
     this.router.navigate(
       [CommonUrls.Company, 'company-members', 'add-manually'],
-      { queryParams: { actionType: 'editing', id: 1 } },
+      { queryParams: { actionType: 'editing', id: item.id } },
     );
   }
 
@@ -44,10 +39,10 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getAllManagers() {
+  getAllEmployees() {
     this.loadingService.setLoading(true);
     this.staffDepartmentService.getAllEmployees().subscribe((res: any) => {
-      this.employees_list = res.employees;
+      this.employees_list = res.data;
       this.loadingService.setLoading(false);
     });
   }

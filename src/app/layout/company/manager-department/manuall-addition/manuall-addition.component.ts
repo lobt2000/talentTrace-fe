@@ -74,7 +74,7 @@ export class ManuallAdditionComponent implements OnInit {
   getCurrentManager(id) {
     this.loadingService.setLoading(true);
     this.managerDepartmentService.getManager(id).subscribe((res: IRequest) => {
-      this.currManager = res.data.user;
+      this.currManager = res.data;
       this.loadingService.setLoading(false);
     });
   }
@@ -95,7 +95,7 @@ export class ManuallAdditionComponent implements OnInit {
       : this.managerDepartmentService.createManager(body);
 
     apiRequest.subscribe((res: { status: string; data: any }) => {
-      this.currManager = res.data.user;
+      this.currManager = res.data;
       const notifficationId =
         this.route.snapshot.queryParams['notifficationId'];
 
@@ -110,6 +110,7 @@ export class ManuallAdditionComponent implements OnInit {
       );
 
       if (this.openUrlModal) this.openGenerationUrl();
+      this.loadingService.setLoading(false);
       this.initPage();
     });
   }

@@ -35,11 +35,9 @@ export class DashboardComponent implements OnInit {
       link: `/company/manager-department`,
     });
 
-    console.log(item);
-
     this.router.navigate(
       [CommonUrls.Company, 'manager-department', 'add-manually'],
-      { queryParams: { actionType: 'editing', id: item._id } },
+      { queryParams: { actionType: 'editing', id: item.id } },
     );
   }
 
@@ -53,7 +51,7 @@ export class DashboardComponent implements OnInit {
   getAllManagers() {
     this.loadingService.setLoading(true);
     this.managersDepServices.getAllManagers().subscribe((res: any) => {
-      this.managers_list = res.managers;
+      this.managers_list = res.data;
       this.loadingService.setLoading(false);
     });
   }

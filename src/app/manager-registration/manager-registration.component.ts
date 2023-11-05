@@ -40,7 +40,6 @@ export class ManagerRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.managerId = this.activeRoute.snapshot.queryParams['id'];
-    console.log(this.managerId);
 
     this.buildForm();
   }
@@ -82,7 +81,7 @@ export class ManagerRegistrationComponent implements OnInit {
       .updateManagerPass(body)
       .pipe(
         tap((res) => {
-          this.authService.setValueToLocalBase(res.user.role);
+          this.authService.setValueToLocalBase(res.data.role);
           this.loadingService.setLoading(false);
         }),
       )

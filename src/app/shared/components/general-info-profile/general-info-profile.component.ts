@@ -98,8 +98,6 @@ export class GeneralInfoProfileComponent implements OnInit, OnChanges {
   }
 
   updateForm() {
-    console.log(this.employeeFrom);
-
     this.employeeFrom.patchValue({ ...this.person });
   }
 

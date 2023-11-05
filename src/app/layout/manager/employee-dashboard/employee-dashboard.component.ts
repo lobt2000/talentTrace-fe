@@ -72,8 +72,6 @@ export class EmployeeDashboardComponent {
   }
 
   onGoToItem(item) {
-    console.log(item);
-
     this.router.navigate([item.name], {
       relativeTo: this.route,
     });

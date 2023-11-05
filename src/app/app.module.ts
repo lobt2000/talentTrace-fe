@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UiLoaderComponent } from './shared/components/ui/ui-loader/ui-loader.component';
 import { ManagerRegistrationComponent } from './manager-registration/manager-registration.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(
@@ -46,7 +47,7 @@ function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

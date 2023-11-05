@@ -20,8 +20,6 @@ export class StaffDepartmentService {
   }
 
   updateEmployee(id: string, body) {
-    console.log(id);
-
     return this.http.patch(`/api/v1/employees/${id}`, body);
   }
 

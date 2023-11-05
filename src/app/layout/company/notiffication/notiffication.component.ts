@@ -29,8 +29,7 @@ export class NotifficationComponent implements OnInit {
 
   ngOnInit(): void {
     this.notifficationService.getCompanyNotiffication().subscribe((res) => {
-      this.notiffications = res.data.notiffications;
-      console.log(this.notiffications);
+      this.notiffications = res.data;
     });
   }
 

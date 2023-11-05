@@ -24,8 +24,6 @@ export class AuthService {
       })
       .subscribe((res) => {
         if (res && res['access_token']) {
-          console.log(res);
-
           localStorage.setItem('userAuth', JSON.stringify(res));
           this.cookieService.set('userAuth', JSON.stringify(res));
         }

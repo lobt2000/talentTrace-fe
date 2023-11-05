@@ -12,13 +12,9 @@ export class UiBreadcrumbsComponent implements OnInit {
   @Output() breadcrumb = new EventEmitter();
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    console.log('sdfsf');
-  }
+  ngOnInit(): void {}
 
   onBreadcrumb(breadcrumb: IBreadcrumb, i: number) {
-    console.log(breadcrumb);
-
     // if (i == this.breadcrumbs.length - 1) {
     //   return false;
     // }

@@ -33,13 +33,17 @@ export class ManuallAdditionComponent implements OnInit {
     private staffDepartmentService: StaffDepartmentService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initPage();
+  }
 
   initPage() {
     this.defaultQueryParams = {
       actionType: this.route.snapshot.queryParams['actionType'] || 'creation',
       id: this.route.snapshot.queryParams['id'],
     };
+
+    this.breadcrumbsService.removeActiveBreadcrumb();
 
     this.breadcrumbsService.addBreadcrumbs({
       label:
@@ -56,7 +60,7 @@ export class ManuallAdditionComponent implements OnInit {
   getCurrentEmployee(id) {
     this.loadingService.setLoading(true);
     this.staffDepartmentService.getEmployee(id).subscribe((res: IRequest) => {
-      this.currEmployee = res.data.user;
+      this.currEmployee = res.data;
       this.loadingService.setLoading(false);
     });
   }
@@ -77,12 +81,10 @@ export class ManuallAdditionComponent implements OnInit {
       : this.staffDepartmentService.createEmployee(body);
 
     apiRequest.subscribe((res: { status: string; data: any }) => {
-      this.currEmployee = res.data.user;
-      const notifficationId =
-        this.route.snapshot.queryParams['notifficationId'];
+      this.currEmployee = res.data;
 
       this.router.navigate(
-        [CommonUrls.Company, 'manager-department', 'add-manually'],
+        [CommonUrls.Company, 'company-members', 'add-manually'],
         { queryParams: { actionType: 'editing', id: res.data.id } },
       );
       this.initPage();
@@ -100,7 +102,7 @@ export class ManuallAdditionComponent implements OnInit {
         },
         panelClass: 'confirmation-modal',
         data: {
-          text: 'Are you sure you want to delete this manager?',
+          text: 'Are you sure you want to delete this employee?',
           title: 'Confirmation',
         },
       })
@@ -116,7 +118,7 @@ export class ManuallAdditionComponent implements OnInit {
       )
       .subscribe((res) => {
         this.loadingService.setLoading(false);
-        this.router.navigate([CommonUrls.Company, 'manager-department']);
+        this.router.navigate([CommonUrls.Company, 'company-members']);
       });
   }
 
