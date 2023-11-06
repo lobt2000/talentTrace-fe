@@ -52,7 +52,7 @@
                 </mat-checkbox>
               </ng-container>
               <ng-container *ngSwitchCase="'select'">
-                <mat-form-field class="w-100 h-80 ml-3 mr-3">
+                <mat-form-field class="permission w-100 h-80 ml-3 mr-3">
                   <mat-label>{{ item.value.name }}</mat-label>
                   <mat-select [formControlName]="'selectValue'">
                     <mat-option
@@ -69,7 +69,7 @@
               </ng-container>
 
               <ng-container *ngSwitchCase="'multiple-select'">
-                <mat-form-field class="w-100 h-80 ml-3 mr-3">
+                <mat-form-field class="permission w-100 h-80 ml-3 mr-3">
                   <mat-label>{{ item.value.name }}</mat-label>
                   <mat-select [formControlName]="'selectValue'" multiple>
                     <mat-select-trigger>
@@ -150,7 +150,7 @@
                 </mat-checkbox>
               </ng-container>
               <ng-container *ngSwitchCase="'select'">
-                <mat-form-field class="w-100 h-80 ml-3 mr-3">
+                <mat-form-field class="permission w-100 h-80 ml-3 mr-3">
                   <mat-label>{{ item.value.name }}</mat-label>
                   <mat-select [formControlName]="'selectValue'">
                     <mat-option
@@ -166,7 +166,7 @@
                 </mat-form-field>
               </ng-container>
               <ng-container *ngSwitchCase="'multiple-select'">
-                <mat-form-field class="w-100 h-80 ml-3 mr-3">
+                <mat-form-field class="permission w-100 h-80 ml-3 mr-3">
                   <mat-label>{{ item.value.name }}</mat-label>
                   <mat-select [formControlName]="'selectValue'" multiple>
                     <mat-select-trigger>

@@ -12,7 +12,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { UiAccordionComponent } from '../ui-accordion/ui-accordion.component';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
-import { IAnimationProperty } from 'src/app/shared/constansts/animation-property.interface';
+import { IAnimationProperty } from 'src/app/shared/interfaces/animation-property.interface';
 import { FadeAniimationDirective } from 'src/app/shared/directives/fade-aniimation.directive';
 
 @Component({

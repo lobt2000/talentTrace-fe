@@ -8,7 +8,7 @@ import {
   Renderer2,
   SimpleChanges,
 } from '@angular/core';
-import { IAnimationProperty } from '../constansts/animation-property.interface';
+import { IAnimationProperty } from '../interfaces/animation-property.interface';
 
 @Directive({
   selector: '[fadeAniimation]',

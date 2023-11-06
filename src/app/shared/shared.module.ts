@@ -22,6 +22,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { GenerationUrlComponent } from './components/modals/generation-url/generation-url.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
+
 @NgModule({
   declarations: [
     UiToggleComponent,
@@ -33,6 +37,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     UiInstructionComponent,
     PermissionsModalComponent,
     GoogleMapsModalComponent,
+    GenerationUrlComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +55,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatFormFieldModule,
     MatIconModule,
+    ClipboardModule,
   ],
   exports: [
     UiToggleComponent,

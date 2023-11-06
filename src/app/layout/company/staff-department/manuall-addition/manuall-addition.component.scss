@@ -13,6 +13,7 @@
   .creation-form {
     @include size(100%, calc(100% - 70px));
     margin-top: 10px;
+    overflow-y: auto;
   }
 
   .creation-form-stepper {
@@ -44,23 +45,4 @@
 .default-input {
   padding: 0;
   padding-left: 10px;
-}
-
-::ng-deep {
-  .mat-stepper-horizontal-line {
-    border-top-color: white !important;
-  }
-
-  .mat-step-text-label {
-    color: white !important;
-  }
-
-  .mat-horizontal-stepper-content {
-    @include flex-box(column, nowrap, space-around, center);
-    @include size(100%, 100%);
-  }
-
-  .mat-horizontal-content-container {
-    @include size(100%, calc(100% - 75px));
-  }
 }

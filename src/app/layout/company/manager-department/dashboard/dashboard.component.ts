@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { LoadingService } from 'src/app/service/loading.service';
 import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
+import { ManagerDepartmentService } from '../services/manager-department.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,21 +14,18 @@ import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
   },
 })
 export class DashboardComponent implements OnInit {
-  managers_list: any[] = [
-    {
-      name: 'Middle Front-End Angular Developer',
-      icon: 'assets/img/dev-company-logo.jpeg',
-      active: true,
-    },
-  ];
+  managers_list: any[] = [];
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private router: Router,
+    private loadingService: LoadingService,
+    private managersDepServices: ManagerDepartmentService,
   ) {}
 
   ngOnInit(): void {
     this.breadcrumbsService.removeActiveBreadcrumb();
+    this.getAllManagers();
   }
 
   onGoToItem(item) {
@@ -38,7 +37,7 @@ export class DashboardComponent implements OnInit {
 
     this.router.navigate(
       [CommonUrls.Company, 'manager-department', 'add-manually'],
-      { queryParams: { actionType: 'editing', id: 1 } },
+      { queryParams: { actionType: 'editing', id: item.id } },
     );
   }
 
@@ -47,5 +46,13 @@ export class DashboardComponent implements OnInit {
       [CommonUrls.Company, 'manager-department', `add-${type}`],
       { queryParams: { actionType: 'creation' } },
     );
+  }
+
+  getAllManagers() {
+    this.loadingService.setLoading(true);
+    this.managersDepServices.getAllManagers().subscribe((res: any) => {
+      this.managers_list = res.data;
+      this.loadingService.setLoading(false);
+    });
   }
 }

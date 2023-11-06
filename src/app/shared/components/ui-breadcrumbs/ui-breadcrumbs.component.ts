@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IBreadcrumb } from '../../constansts/ui-breadcrumbs.interface';
+import { IBreadcrumb } from '../../interfaces/ui-breadcrumbs.interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,13 +12,9 @@ export class UiBreadcrumbsComponent implements OnInit {
   @Output() breadcrumb = new EventEmitter();
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    console.log('sdfsf');
-  }
+  ngOnInit(): void {}
 
   onBreadcrumb(breadcrumb: IBreadcrumb, i: number) {
-    console.log(breadcrumb);
-
     // if (i == this.breadcrumbs.length - 1) {
     //   return false;
     // }

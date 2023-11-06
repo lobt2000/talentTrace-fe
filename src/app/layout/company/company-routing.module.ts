@@ -10,15 +10,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'vacancy-dashboard',
+        redirectTo: 'manager-department',
         pathMatch: 'full',
-      },
-      {
-        path: 'vacancy-dashboard',
-        loadChildren: () =>
-          import('./vacancy-dashboard/vancancy-dashboard.module').then(
-            (m) => m.VacancyDashboardModule,
-          ),
       },
       {
         path: 'manager-department',
@@ -32,6 +25,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./staff-department/staff-department.module').then(
             (m) => m.StaffDepartmentModule,
+          ),
+      },
+      {
+        path: 'notiffications',
+        loadComponent: () =>
+          import('./notiffication/notiffication.component').then(
+            (m) => m.NotifficationComponent,
           ),
       },
     ],

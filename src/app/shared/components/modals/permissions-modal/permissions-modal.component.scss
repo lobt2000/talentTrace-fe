@@ -79,7 +79,7 @@
   @include size(100%, calc(100% - 50px));
 }
 
-::ng-deep {
+:host ::ng-deep {
   .permission-checkbox {
     .mdc-checkbox
       .mdc-checkbox__native-control:enabled:not(:checked):not(
@@ -98,6 +98,7 @@
     }
   }
 
+  // .permission {
   .mat-mdc-form-field {
     display: block !important;
     font-size: 15px !important;
@@ -120,10 +121,6 @@
     }
   }
 
-  // .mat-mdc-form-field-error {
-  //   display: none !important;
-  // }
-
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: transparent !important;
   }
@@ -135,8 +132,5 @@
   .mat-mdc-form-field-subscript-wrapper {
     font-size: 12px !important;
   }
-
-  // .mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper {
-  //   transform: unset !important;
   // }
 }

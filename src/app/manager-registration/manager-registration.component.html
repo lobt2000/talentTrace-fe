@@ -1,0 +1,112 @@
+<main class="component-background">
+  <section class="login-block">
+    <h2>Resetting password</h2>
+    <p class="login-block__text">
+      Please write your email for resetting password
+    </p>
+    <form [formGroup]="formUpdatePass">
+      <div class="default-formField" appearance="fill">
+        <input
+          class="default-input"
+          matInput
+          [formControlName]="'password'"
+          required
+          [type]="hidePass ? 'password' : 'text'"
+        />
+        <span class="default-label">Password</span>
+        <button
+          class="hide-password-button"
+          mat-icon-button
+          matSuffix
+          (click)="hidePass = !hidePass"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePass"
+        >
+          <mat-icon style="color: white">{{
+            hidePass ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <!-- <div class="password-info">
+                  <mat-icon>help</mat-icon>
+                  <div class="password-info-layer"></div>
+                </div> -->
+        <mat-error
+          class="default-input-error-message"
+          *ngIf="
+            formUpdatePass.get('password').hasError('pattern') &&
+            !formUpdatePass.get('password').hasError('required')
+          "
+        >
+          * Width 8-30, At least one: upper & lower letter, number, special
+          sympol
+        </mat-error>
+        <mat-error
+          class="default-input-error-message"
+          *ngIf="formUpdatePass.get('password').hasError('required')"
+        >
+          Password is <strong>required</strong>
+        </mat-error>
+      </div>
+      <div class="default-formField" appearance="fill">
+        <input
+          class="default-input"
+          matInput
+          [formControlName]="'confirmPassword'"
+          required
+          [type]="hideConfirmPass ? 'password' : 'text'"
+        />
+        <span class="default-label">Confirm Password</span>
+        <button
+          class="hide-password-button"
+          mat-icon-button
+          matSuffix
+          (click)="hideConfirmPass = !hideConfirmPass"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hideConfirmPass"
+        >
+          <mat-icon style="color: white">{{
+            hideConfirmPass ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <mat-error
+          class="default-input-error-message"
+          *ngIf="
+            formUpdatePass.get('confirmPassword').hasError('pattern') &&
+            !formUpdatePass.get('confirmPassword').hasError('required')
+          "
+        >
+          * Width 8-30, At least one: upper & lower letter, number, special
+          sympol
+        </mat-error>
+        <mat-error
+          class="default-input-error-message"
+          *ngIf="
+            formUpdatePass.get('confirmPassword').hasError('notmatch') &&
+            !formUpdatePass.get('confirmPassword').hasError('pattern') &&
+            !formUpdatePass.get('confirmPassword').hasError('required')
+          "
+        >
+          Please enter a valid confirm password
+        </mat-error>
+        <mat-error
+          class="default-input-error-message"
+          *ngIf="formUpdatePass.get('confirmPassword').hasError('required')"
+        >
+          Confirm Password is <strong>required</strong>
+        </mat-error>
+      </div>
+    </form>
+
+    <button
+      [class]="formUpdatePass.valid ? 'btn-grey' : 'btn-blue'"
+      [disabled]="!formUpdatePass.valid"
+      class="default-button w-60"
+      (click)="onSubmit()"
+    >
+      Update Password
+    </button>
+    <button class="default-button btn-default-blue mt-45" (click)="goBack()">
+      Back
+    </button>
+  </section>
+</main>

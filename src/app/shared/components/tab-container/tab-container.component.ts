@@ -8,7 +8,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class TabContainerComponent implements OnInit {
   activeTab: string = 'user';
   @Input() typeOfAction: string = 'login';
-  @Output() formValue: EventEmitter<any> = new EventEmitter();
+  @Output() formUserValue: EventEmitter<any> = new EventEmitter();
+  @Output() formCompanyValue: EventEmitter<any> = new EventEmitter();
   constructor() {}
 
   ngOnInit() {}
@@ -18,6 +19,8 @@ export class TabContainerComponent implements OnInit {
   }
 
   onGetFormValue(event) {
-    this.formValue.emit(event);
+    'companyEmail' in event
+      ? this.formUserValue.emit(event)
+      : this.formCompanyValue.emit(event);
   }
 }
