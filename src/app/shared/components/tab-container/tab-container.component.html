@@ -36,7 +36,11 @@
   >
     <ng-container *ngIf="activeTab == 'user'">
       <ng-container [ngSwitch]="typeOfAction">
-        <app-signIn [typeOfUser]="'user'" *ngSwitchCase="'login'"></app-signIn>
+        <app-signIn
+          [typeOfUser]="'user'"
+          *ngSwitchCase="'login'"
+          (formValue)="onGetFormValue($event)"
+        ></app-signIn>
         <app-signUp
           [typeOfUser]="'user'"
           *ngSwitchCase="'registration'"

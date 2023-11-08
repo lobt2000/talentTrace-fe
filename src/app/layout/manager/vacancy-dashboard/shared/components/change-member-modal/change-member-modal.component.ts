@@ -37,4 +37,10 @@ export class ChangeMemberModalComponent extends BaseModalComponent {
     };
     this.onClose(body);
   }
+
+  get filteredManagers(): any[] {
+    return this.data.managers.filter(
+      (el) => !this.data.members.some((res) => res.id === el.id),
+    );
+  }
 }

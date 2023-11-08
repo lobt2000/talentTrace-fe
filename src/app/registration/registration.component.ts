@@ -25,7 +25,7 @@ export class RegistrationComponent implements OnInit {
   registrationCompany(event) {
     this.loadingService.setLoading(true);
     this.authService.signUpCompany(event).subscribe((res) => {
-      this.authService.setValueToLocalBase(res.data.role);
+      this.authService.setValueToLocalBase(res.data);
       this.loadingService.setLoading(false);
     });
   }

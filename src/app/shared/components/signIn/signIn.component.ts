@@ -23,12 +23,12 @@ export class SignInComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      email: this.fb.control('bkolodiy@gmail.com', [
+      email: this.fb.control('pantonushyn@binariks.com', [
         Validators.required,
         Validators.email,
       ]),
       companyEmail: this.fb.control(
-        '',
+        'bkolodiy@gmail.com',
         this.typeOfUser == UserType.User
           ? [Validators.required, Validators.email]
           : [],

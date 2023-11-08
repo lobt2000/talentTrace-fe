@@ -5,21 +5,18 @@ import {
   ViewChild,
   AfterViewInit,
 } from '@angular/core';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { ActivatedRoute, Router } from '@angular/router';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { ConfirmationModalComponent } from 'src/app/shared/components/modals/confirmation-modal/confirmation-modal.component';
 import { GoogleMapsModalComponent } from 'src/app/shared/components/modals/google-maps-modal/google-maps-modal.component';
 import { PageActions } from 'src/app/shared/constansts/page-actions.model';
 import { IBreadcrumb } from 'src/app/shared/interfaces/ui-breadcrumbs.interface';
-// import { ClickOutsideDirective } from 'shared/directives/click-outside.directive';
-import {
-  keySkills,
-  getSkillsArray,
-  Skills,
-} from 'src/app/shared/constansts/vacation.constants';
+import { VacancyDashboardService } from '../services/vacancy-dashboard.service';
+import { IRequest } from 'src/app/shared/interfaces/common/common.interface';
+import { LoadingService } from 'src/app/service/loading.service';
+import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-vacancy-details',
@@ -28,16 +25,13 @@ import {
 })
 export class VacancyDetailsComponent implements OnInit, AfterViewInit {
   @Input() id = '';
-  editor = ClassicEditor;
-  editorData = '';
-  editMode: boolean = false;
-  editModeShortInfo: string;
   defaultBreadcrumb: IBreadcrumb = {
     label: 'Dashboard',
     value: 'dashboard',
     link: '/manager/vacancy-dashboard',
   };
-  isCreation: boolean;
+  select: number = 0;
+
   currVacancy = {
     name: 'Middle Front-End Angular Developer',
     employment: 'Remote',
@@ -61,88 +55,65 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
     ],
   };
 
-  candidates = [
-    {
-      name: 'Josef Monit',
+  managers: Array<any> = [];
 
-      image: 'assets/img/dev-company-logo.jpeg',
-    },
-    {
-      name: 'Rober Nodur',
-      image: 'assets/img/logo2.0.png',
-    },
-  ];
-  jobTypes: Array<any> = [
-    { name: 'Full-Time', id: 0 },
-    { name: 'Part-Time', id: 1 },
-    { name: 'Seasonal', id: 2 },
-    { name: 'Contract', id: 3 },
-    { name: 'Temporary', id: 4 },
-  ];
-  currencies: Array<any> = [
-    { name: 'usd', icon: 'attach_money' },
-    { name: 'eur', icon: 'euro_symbol' },
-    { name: 'gbp', icon: 'currency_pound' },
-    { name: 'uah', icon: 'euro_symbol' },
-  ];
-  select: number = 0;
-
-  form: UntypedFormGroup;
+  vacancy_form: UntypedFormGroup;
+  vacancy_details = {};
 
   @ViewChild('stepper') stepper: MatStepper;
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
     private dialog: MatDialog,
+    private vacancyService: VacancyDashboardService,
+    private loadingService: LoadingService,
   ) {}
 
-  get getSelectedValue() {
-    return this.currencies.find(
-      (res) => res.name == this.form.get('salary').value.type,
-    )?.icon;
+  ngOnInit(): void {
+    this.initPage();
   }
 
-  ngOnInit(): void {
-    this.isCreation = this.id == PageActions.CREATION;
+  initPage(id?: string) {
+    if (id) this.id = id;
 
-    this.breadcrumbsService.addBreadcrumbs({
-      label: this.id,
-      value: this.id,
-      link: `/manager/vacancy-dashboard/${this.id}`,
+    if (!this.isCreation) this.getVacancyDetails();
+
+    this.breadcrumbsService.removeActiveBreadcrumb();
+    setTimeout(() => {
+      this.breadcrumbsService.addBreadcrumbs({
+        label:
+          this.id == PageActions.CREATION
+            ? this.id
+            : this.vacancy_details['name'],
+        value: this.id,
+        link: `/manager/vacancy-dashboard/${this.id}`,
+      });
+    }, 1000);
+
+    this.getAllManagers();
+  }
+
+  getVacancyDetails() {
+    this.vacancyService
+      .onGetVacancyDetails(this.id)
+      .subscribe((res: IRequest) => {
+        this.vacancy_details = res.data;
+      });
+  }
+
+  getAllManagers() {
+    this.loadingService.setLoading(true);
+    this.vacancyService.onGetAllManagers().subscribe((res: IRequest) => {
+      this.managers = res.data;
+      this.loadingService.setLoading(false);
     });
-
-    this.buildShortInfoForm();
   }
 
   ngAfterViewInit(): void {
     this.stepper.selectedIndexChange.subscribe((el) => {
       this.select = el;
     });
-  }
-
-  buildShortInfoForm() {
-    this.form = this.fb.group({
-      range: this.fb.group({
-        start: this.fb.control(<Date | null>null),
-        end: this.fb.control(<Date | null>null),
-      }),
-      quota: this.fb.control('', [Validators.required]),
-      expirience: this.fb.control('', [Validators.required]),
-      jobType: this.fb.control('', [Validators.required]),
-      salary: this.fb.group({
-        type: this.fb.control('', [Validators.required]),
-        value: this.fb.control('', [Validators.required]),
-      }),
-      location: this.fb.control('', [Validators.required]),
-      skill: this.fb.control('', [Validators.required]),
-    });
-
-    if (this.isCreation) {
-      this.form.enable();
-    }
+    this.stepper.selectedIndex = 1;
   }
 
   onGoToItem(item) {
@@ -151,55 +122,121 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
       value: item,
       link: `/manager/vacancy-dashboard/${this.id}/${item.name}`,
     });
-
-    this.router.navigate([item.name], {
-      relativeTo: this.route,
-    });
-  }
-
-  onChange({ editor }) {
-    this.editorData = editor.getData();
-  }
-
-  clickOutside(event) {
-    event.stopPropagation();
-    // console.log(event);
-    this.editMode = false;
-  }
-
-  clickOutsideForm(event) {
-    if (!this.isCreation) {
-      event.stopPropagation();
-      // console.log(event);
-      this.form.disable();
-    }
-  }
-
-  openLocationModal() {
-    // this.dialog.closeAll();
-
-    this.dialog.open(GoogleMapsModalComponent, {
-      width: '60vw',
-      height: '600px',
-      position: {
-        left: 'calc(50% - 20vw)',
-      },
-      data: '',
-    });
-  }
-
-  triggerAnimation(type: boolean, editType: string) {
-    this.editModeShortInfo = editType;
-    setTimeout(() => {
-      type ? this.form.enable() : this.form.disable();
-    }, 500);
+    this.navigateToItem(item.name);
   }
 
   get selectNotANull() {
     return typeof this.select !== 'undefined';
   }
 
-  get skills(): Array<Skills | string> {
-    return getSkillsArray();
+  onChangeFormValue(val) {
+    this.vacancy_form = val;
+  }
+
+  onSave() {
+    if (
+      !this.vacancy_form?.valid ||
+      !this.vacancy_details['managers']?.length
+    ) {
+      this.openErrorModal(
+        'Vacancy form is invalid OR you don`t add any manager to hiring team',
+      );
+      return;
+    }
+    const body = {
+      ...this.vacancy_form.getRawValue(),
+      managers: this.vacancy_details['managers']?.map((el) => el.id),
+    };
+
+    this.loadingService.setLoading(true);
+    this.vacancyService.onCreateVacancy(body).subscribe((res) => {
+      this.navigateToItem(res.data.id);
+      this.loadingService.setLoading(false);
+      this.initPage(res.data.id);
+    });
+  }
+
+  get title(): string {
+    return this.id == PageActions.CREATION
+      ? this.id
+      : this.vacancy_details['name'];
+  }
+
+  onEditForm(form) {
+    console.log(form);
+    if (!form?.valid) {
+      this.openErrorModal('Vacancy form is invalid ');
+      return;
+    }
+
+    this.loadingService.setLoading(true);
+    this.vacancyService
+      .onUpdateVacancy(this.id, {
+        ...this.vacancy_details,
+        ...form.getRawValue(),
+      })
+      .subscribe(() => {
+        this.loadingService.setLoading(false);
+        form.disable();
+      });
+  }
+
+  onDelete() {
+    this.dialog.closeAll();
+    this.dialog
+      .open(ConfirmationModalComponent, {
+        width: '40vw',
+        height: '300px',
+        position: {
+          left: 'calc(50% - 15vw)',
+        },
+        panelClass: 'confirmation-modal',
+        data: {
+          text: 'Are you sure you want to delete this vacancy?',
+          title: 'Confirmation',
+        },
+      })
+      .afterClosed()
+      .pipe(
+        filter((res) => !!res),
+        switchMap((el) => {
+          this.loadingService.setLoading(true);
+          return this.vacancyService.onDeleteVacancy(
+            this.vacancy_details['id'],
+          );
+        }),
+      )
+      .subscribe((res) => {
+        this.loadingService.setLoading(false);
+        this.navigateToItem();
+      });
+  }
+
+  navigateToItem(route?) {
+    this.vacancyService.navigateToItem(route);
+  }
+
+  openErrorModal(message) {
+    this.dialog.closeAll();
+    this.dialog
+      .open(ConfirmationModalComponent, {
+        width: '40vw',
+        height: '300px',
+        position: {
+          left: 'calc(50% - 15vw)',
+        },
+        panelClass: 'confirmation-modal',
+        data: {
+          text: message,
+          title: 'Error',
+          withoutButtonCancel: true,
+        },
+      })
+      .afterClosed()
+      .subscribe();
+  }
+
+  get isCreation(): boolean {
+    return this.id == PageActions.CREATION;
   }
 }

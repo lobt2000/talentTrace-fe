@@ -27,12 +27,14 @@ import { UiSortComponent } from 'src/app/shared/components/ui/ui-sort/ui-sort.co
 import { HiringTeamComponent } from './hiring-team/hiring-team.component';
 import { PersonCardComponent } from '../shared/components/person-card/person-card.component';
 import { ChangeMemberModalComponent } from '../shared/components/change-member-modal/change-member-modal.component';
+import { VacancyFormComponent } from './vacancy-form/vacancy-form.component';
 
 @NgModule({
   declarations: [
     VacancyDetailsComponent,
     CandidatesListComponent,
     HiringTeamComponent,
+    VacancyFormComponent,
   ],
   imports: [
     CommonModule,

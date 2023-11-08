@@ -1,0 +1,249 @@
+<div class="tab-container d-flex justify-content-between" [formGroup]="form">
+  <div class="job-main-info colDir d-flex align-items-center">
+    <div class="job-header mb-4">
+      <p class="font-w-bold font-size-20 ml-1">Header</p>
+      <div class="header-img position-relative">
+        <button
+          class="change-image position-absolute d-flex align-items-center"
+        >
+          <mat-icon>image</mat-icon>
+          Change
+          <input class="change-image-input cursor-pointer" type="file" />
+        </button>
+      </div>
+    </div>
+    <div class="job-title">
+      <p class="font-w-bold font-size-20 ml-1">Job Title</p>
+      <div class="title position-relative mt-10">
+        <input
+          [class.invalid]="getFormControl('name').invalid"
+          class="title-input"
+          type="text"
+          [formControlName]="'name'"
+          [disabled]="false"
+        />
+        <button
+          *ngIf="!isCreation"
+          class="title-edit position-absolute d-flex align-items-center cursor-pointer"
+        >
+          <mat-icon>border_color</mat-icon>
+          Edit Title
+        </button>
+      </div>
+    </div>
+    <div class="job-description">
+      <p class="font-w-bold font-size-20 ml-1 mb-10">Job Description</p>
+      <ng-container *ngIf="editMode === 'edit'">
+        <ckeditor
+          class="w-100 description"
+          [class.invalid]="getFormControl('description').invalid"
+          [editor]="editor"
+          [data]="editorData"
+          (change)="onChange($event)"
+        >
+        </ckeditor>
+      </ng-container>
+      <div
+        class="description-text cursor-pointer mt-20 white"
+        [ngClass]="{
+          visible: editMode === 'save',
+          isEmpty: !editorData.length
+        }"
+        [matTooltip]="'Click here for edit the description' | translate"
+        [matTooltipPosition]="'above'"
+        matTooltipClass="mat-custom-tooltip"
+        matTooltipClass="mat-custom-tooltip"
+        [innerHTML]="editorData"
+        (click)="triggerAnimation(true, 'edit')"
+      ></div>
+    </div>
+  </div>
+  <div class="short-info d-flex align-items-center colDir position-relative">
+    <div class="w-100 d-flex align-items-center justify-content-between mb-20">
+      <p class="font-w-bold font-size-20 orange w-100">Job Details</p>
+      <ng-container *ngIf="!isCreation">
+        <button
+          class="short-info-edit d-flex align-items-center cursor-pointer mr-2"
+          (click)="triggerAnimation(false, 'save', true)"
+          *ngIf="form.enabled"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <button
+          class="short-info-edit d-flex align-items-center cursor-pointer"
+          (click)="triggerAnimation(true, 'edit')"
+          *ngIf="form.disabled"
+        >
+          <mat-icon [ngClass]="{ edit: editMode === 'edit' }"
+            >border_color</mat-icon
+          >
+        </button>
+        <button
+          *ngIf="form.enabled"
+          class="short-info-edit d-flex align-items-center cursor-pointer"
+          (click)="triggerAnimation(false, 'save')"
+        >
+          <mat-icon class="save-style" [ngClass]="{ save: editMode === 'save' }"
+            >done</mat-icon
+          >
+        </button>
+      </ng-container>
+    </div>
+    <div class="info w-100" *ngIf="!isCreation">
+      <p class="font-w-bold font-size-18 gray">Job Creation Date</p>
+      <p class="font-w-bold font-size-18 white">March 1, 2023</p>
+    </div>
+    <div class="info w-100">
+      <p class="font-w-bold font-size-18 gray">Recruitment Period</p>
+      <mat-form-field
+        class="edit-info w-100"
+        [class.invalid]="getFormControl('range').invalid"
+      >
+        <!-- <mat-label></mat-label> -->
+        <mat-date-range-input
+          class="h-100 d-flex align-items-center"
+          [formGroupName]="'range'"
+          [rangePicker]="picker"
+        >
+          <input
+            matStartDate
+            formControlName="start"
+            placeholder="Start date"
+          />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        <mat-error
+          *ngIf="
+            form.get('range')['controls'].start.hasError('matStartDateInvalid')
+          "
+          >Invalid start date</mat-error
+        >
+        <mat-error
+          *ngIf="
+            form.get('range')['controls'].end.hasError('matEndDateInvalid')
+          "
+          >Invalid end date</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div class="info w-100">
+      <p class="font-w-bold font-size-18 gray">Hiring manager</p>
+      <div class="hiring-manager d-flex align-items-center">
+        <img [src]="currManager.icon" alt="" />
+        <p class="font-size-18 font-w-bold white">
+          {{ currManager.name }}
+        </p>
+      </div>
+    </div>
+    <div class="info w-100">
+      <p class="font-w-bold font-size-18 gray">Recruitment Quota</p>
+      <input
+        formControlName="quota"
+        [class.invalid]="getFormControl('quota').invalid"
+        class="editFormInput font-size-18 font-w-bold"
+        type="number"
+      />
+    </div>
+    <div class="info w-100">
+      <p class="font-w-bold font-size-18 gray">Job Type</p>
+      <mat-form-field
+        class="edit-info position-relative"
+        [class.invalid]="getFormControl('jobType').invalid"
+      >
+        <!-- <mat-label></mat-label> -->
+        <mat-select class="h-100" [formControlName]="'jobType'">
+          <mat-option *ngFor="let type of jobTypes" [value]="type">
+            {{ type.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <p class="font-w-bold font-size-18 white"> Fulltime </p> -->
+    </div>
+    <div class="info w-100">
+      <p class="font-w-bold font-size-18 gray">Expirience</p>
+      <input
+        formControlName="expirience"
+        [class.invalid]="getFormControl('expirience').invalid"
+        class="editFormInput font-size-18 font-w-bold"
+        type="text"
+        placeholder="5 Years+"
+      />
+    </div>
+    <div class="info w-100">
+      <p class="font-w-bold font-size-18 gray">Location</p>
+      <div class="w-100 d-flex align-items-center justify-content-between">
+        <p class="font-w-bold font-size-18 white">
+          <mat-icon>location_on</mat-icon>
+          {{ form.get("location").value }}
+        </p>
+        <button class="btn" (click)="openLocationModal()">
+          Set a location
+        </button>
+      </div>
+    </div>
+    <div class="info w-100">
+      <p class="font-w-bold font-size-18 gray">Salary</p>
+      <div
+        class="salary-control d-flex w-100 align-items-center"
+        [formGroupName]="'salary'"
+      >
+        <mat-form-field
+          class="edit-info position-relative"
+          [class.invalid]="getFormControl('salary').invalid"
+        >
+          <!-- <mat-label></mat-label> -->
+          <mat-select-trigger>
+            <div class="w-100 h-100 d-flex align-items-center pl-2">
+              <mat-icon>{{ getSelectedValue }}</mat-icon>
+            </div>
+          </mat-select-trigger>
+          <mat-select
+            class="h-100 position-absolute top-0"
+            [formControlName]="'currency'"
+          >
+            <mat-option *ngFor="let currency of currencies" [value]="currency">
+              <div class="currency-option">
+                <mat-icon>
+                  {{ currency.icon }}
+                </mat-icon>
+                <!-- <span class="font-size-18 font-w-bold">- {{ currency.name }}</span> -->
+              </div>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <input
+          [formControlName]="'value'"
+          [class.invalid]="getFormControl('salary').invalid"
+          class="editFormInput w-79 font-size-18 font-w-bold ml-2"
+          type="number"
+          placeholder="10000"
+        />
+      </div>
+      <!-- <p class="font-w-bold font-size-18 white"> <mat-icon>attach_money</mat-icon> 10000</p> -->
+    </div>
+    <div class="info w-100">
+      <p class="font-w-bold font-size-18 gray">Skils</p>
+      <mat-form-field
+        class="edit-info"
+        [class.invalid]="getFormControl('skill').invalid"
+      >
+        <!-- <mat-label></mat-label> -->
+        <mat-select
+          class="h-100 position-absolute top-0"
+          [formControlName]="'skill'"
+          multiple
+        >
+          <mat-option *ngFor="let topping of skills" [value]="topping">{{
+            topping
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
