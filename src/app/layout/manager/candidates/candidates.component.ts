@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
 import { IOptions } from 'src/app/shared/interfaces/options.interface';
 
 @Component({
@@ -121,5 +122,9 @@ export class CandidatesComponent implements OnInit {
     this.router.navigate([candidate.name], {
       relativeTo: this.route,
     });
+  }
+
+  onAddCandidate() {
+    this.router.navigate([CommonUrls.Manager, 'candidates', 'Creation']);
   }
 }

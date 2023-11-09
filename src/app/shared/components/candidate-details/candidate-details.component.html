@@ -1,0 +1,33 @@
+<app-ui-page [defaultBreadcrumb]="defaultBreadcrumb">
+  <ng-container pageName>{{ title | translate }}</ng-container>
+  <ng-container pageContent>
+    <div class="w-100 h-100 position-relative">
+      <mat-tab-group #stepper>
+        <mat-tab label="General info">
+          <app-candidate-profile [id]="id"></app-candidate-profile>
+        </mat-tab>
+        <mat-tab label="Interviewing stage">
+          <app-inteviewing-stage></app-inteviewing-stage>
+        </mat-tab>
+      </mat-tab-group>
+      <div
+        class="action position-absolute top--50 right-50 d-flex align-items-center justify-content-center"
+      >
+        <button
+          class="default-stepper-button btn-default-green w-100 mt-0"
+          (click)="onSave()"
+          *ngIf="isCreation"
+        >
+          Save
+        </button>
+        <button
+          class="default-stepper-button btn-default-red w-100 mt-0"
+          (click)="onDelete()"
+          *ngIf="!isCreation"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</app-ui-page>

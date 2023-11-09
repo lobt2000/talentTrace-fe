@@ -1,0 +1,44 @@
+@import "../../../../assets/style/ui";
+
+:host {
+  @include size(100%, 100%);
+  background-color: #344c51;
+  border-radius: 5px;
+  @include flex-box(column, nowrap, space-between, center);
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+
+  .header {
+    @include size(100%, 70px);
+    background-color: #fdb75a;
+    padding: 0px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  }
+
+  .comments-block {
+    padding: 20px;
+    @include size(100%, calc(100% - 170px));
+  }
+
+  .comments-input {
+    @include size(100%, 80px);
+    padding-top: 10px;
+    border-top: 1px solid gray;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+
+    .default-stepper-button {
+      @include size(40px, 40px);
+    }
+
+    input {
+      height: 40px;
+      border-radius: 5px;
+      background-color: transparent;
+      border: unset;
+      outline: unset;
+      border: 1px solid gray;
+      color: white;
+      padding-left: 10px;
+    }
+  }
+}

@@ -1,23 +1,5 @@
 @import "../../../../../assets/style/ui";
 
-::ng-deep {
-  .mdc-tab__text-label {
-    width: 100%;
-    color: white !important;
-  }
-
-  .mat-mdc-tab-nav-bar,
-  .mat-mdc-tab-header {
-    // 1px solid #fdb75a
-    border-bottom: 1px solid #3f585d;
-  }
-
-  .mdc-tab-indicator
-    .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
-    border-color: #fdb75a !important;
-  }
-}
-
 .action {
   width: 130px;
 }

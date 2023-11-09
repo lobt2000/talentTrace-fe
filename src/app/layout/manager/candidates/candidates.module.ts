@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UiFilterComponent } from 'src/app/shared/components/ui/ui-filter/ui-filter.component';
 import { UiSortComponent } from 'src/app/shared/components/ui/ui-sort/ui-sort.component';
 import { CandidateCardComponent } from 'src/app/shared/components/candidate-card/candidate-card.component';
-import { CandidateProfileComponent } from 'src/app/shared/components/candidate-profile/candidate-profile.component';
+import { CandidateDetailsComponent } from 'src/app/shared/components/candidate-details/candidate-details.component';
 
 @NgModule({
   declarations: [CandidatesComponent],
@@ -29,7 +29,7 @@ import { CandidateProfileComponent } from 'src/app/shared/components/candidate-p
     UiFilterComponent,
     UiSortComponent,
     CandidateCardComponent,
-    CandidateProfileComponent,
+    CandidateDetailsComponent,
     CandidatesRoutes,
   ],
 })

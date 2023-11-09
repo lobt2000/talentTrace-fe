@@ -1,24 +1,25 @@
-@import "../../../../assets/style/ui";
+@import "../../../../../assets/style/ui";
+
+:host {
+  @include size(100%, 100%);
+}
 
 .tab-container {
-  @include size(100%, 100%);
+  @include size(100%, calc(100vh - 225px));
   padding: 20px;
   transition: all ease-in-out 0.3s;
 
-  .candidates-header {
+  .header {
     @include size(100%, 60px);
     background-color: #fdb75a;
     margin-bottom: 20px;
     padding: 0px 20px;
+    border-radius: 5px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
 
-    .count {
-      font-size: 14px;
-      font-weight: bold;
-    }
     .actions {
-      @include size(165px, auto);
-      .compare {
+      @include size(fit-content, auto);
+      .add {
         outline: unset;
         background-color: white;
         border-radius: 5px;
@@ -37,26 +38,12 @@
             color: #17a2b8;
           }
         }
-        .comparing-count {
-          @include size(17px, 17px);
-          border-radius: 17px;
-          background-color: red;
-          color: white;
-          top: -5px;
-          right: -10px;
-          font-size: 10px;
-          line-height: 17px;
-        }
       }
     }
   }
 
-  .candidates-body {
-    @include size(100%, calc(100vh - 320px));
+  .stage-block {
+    @include size(100%, calc(100% - 80px));
     overflow-y: auto;
-
-    .card-add {
-      @include size(30%, 385px!important);
-    }
   }
 }

@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { CandidatesComponent } from './candidates.component';
-import { CandidateProfileComponent } from 'src/app/shared/components/candidate-profile/candidate-profile.component';
+import { CandidateDetailsComponent } from 'src/app/shared/components/candidate-details/candidate-details.component';
 
 const routes: Routes = [
   {
@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: CandidateProfileComponent,
+    component: CandidateDetailsComponent,
   },
 ];
 

@@ -1,0 +1,22 @@
+<div class="tab-container d-flex justify-content-between">
+  <div class="w-60 h-100">
+    <div class="header d-flex align-items-center justify-content-between">
+      <h3>Stages</h3>
+
+      <div class="actions d-flex align-items-center justify-content-between">
+        <button
+          class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative"
+        >
+          <mat-icon> add </mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="stage-block">
+      <app-ui-derfault-accordion
+        *ngFor="let item of [0, 1, 2]"
+      ></app-ui-derfault-accordion>
+    </div>
+  </div>
+  <app-comments class="w-30 h-100 d-flex"></app-comments>
+</div>

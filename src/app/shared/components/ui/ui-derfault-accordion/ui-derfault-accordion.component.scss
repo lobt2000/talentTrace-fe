@@ -1,0 +1,7 @@
+@import "../../../../../assets/style/ui";
+
+:host {
+  margin-bottom: 10px;
+  @include size(100%, auto);
+  display: block;
+}
