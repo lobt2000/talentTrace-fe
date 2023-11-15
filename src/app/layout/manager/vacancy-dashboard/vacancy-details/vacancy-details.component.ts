@@ -30,30 +30,7 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
     value: 'dashboard',
     link: '/manager/vacancy-dashboard',
   };
-  select: number = 0;
-
-  currVacancy = {
-    name: 'Middle Front-End Angular Developer',
-    employment: 'Remote',
-    country: 'Ukraine',
-    city: 'Lviv',
-    active: true,
-    manager: {
-      name: 'Jona Mickle',
-      icon: 'assets/img/logo2.0.png',
-    },
-    candidates: [
-      {
-        name: 'Josef Monit',
-
-        image: 'assets/img/images.jpeg',
-      },
-      {
-        name: 'Rober Nodur',
-        image: 'assets/img/logo2.0.png',
-      },
-    ],
-  };
+  select: number = null;
 
   managers: Array<any> = [];
 
@@ -75,22 +52,19 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
 
   initPage(id?: string) {
     if (id) this.id = id;
-
+    this.setActiveBreadCrumbs(this.id);
     if (!this.isCreation) this.getVacancyDetails();
 
-    this.breadcrumbsService.removeActiveBreadcrumb();
-    setTimeout(() => {
-      this.breadcrumbsService.addBreadcrumbs({
-        label:
-          this.id == PageActions.CREATION
-            ? this.id
-            : this.vacancy_details['name'],
-        value: this.id,
-        link: `/manager/vacancy-dashboard/${this.id}`,
-      });
-    }, 1000);
-
     this.getAllManagers();
+  }
+
+  setActiveBreadCrumbs(name) {
+    this.breadcrumbsService.removeActiveBreadcrumb();
+    this.breadcrumbsService.addBreadcrumbs({
+      label: name,
+      value: this.id,
+      link: `/manager/vacancy-dashboard/${this.id}`,
+    });
   }
 
   getVacancyDetails() {
@@ -98,6 +72,7 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
       .onGetVacancyDetails(this.id)
       .subscribe((res: IRequest) => {
         this.vacancy_details = res.data;
+        this.setActiveBreadCrumbs(this.vacancy_details['name']);
       });
   }
 
@@ -112,6 +87,8 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.stepper.selectedIndexChange.subscribe((el) => {
       this.select = el;
+
+      console.log(this.selectNotANull && this.select === 0);
     });
     this.stepper.selectedIndex = 1;
   }
@@ -123,10 +100,6 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
       link: `/manager/vacancy-dashboard/${this.id}/${item.name}`,
     });
     this.navigateToItem(item.name);
-  }
-
-  get selectNotANull() {
-    return typeof this.select !== 'undefined';
   }
 
   onChangeFormValue(val) {
@@ -154,12 +127,6 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
       this.loadingService.setLoading(false);
       this.initPage(res.data.id);
     });
-  }
-
-  get title(): string {
-    return this.id == PageActions.CREATION
-      ? this.id
-      : this.vacancy_details['name'];
   }
 
   onEditForm(form) {
@@ -234,6 +201,16 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
       })
       .afterClosed()
       .subscribe();
+  }
+
+  get title(): string {
+    return this.id == PageActions.CREATION
+      ? this.id
+      : this.vacancy_details['name'];
+  }
+
+  get selectNotANull() {
+    return typeof this.select !== 'undefined';
   }
 
   get isCreation(): boolean {

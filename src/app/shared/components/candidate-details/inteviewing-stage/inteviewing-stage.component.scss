@@ -2,6 +2,10 @@
 
 :host {
   @include size(100%, 100%);
+
+  .title {
+    font-size: 16px !important;
+  }
 }
 
 .tab-container {
@@ -16,34 +20,85 @@
     padding: 0px 20px;
     border-radius: 5px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
-
-    .actions {
-      @include size(fit-content, auto);
-      .add {
-        outline: unset;
-        background-color: white;
-        border-radius: 5px;
-        transition: all 0.6s ease-in-out;
-        border: 3px solid white;
-        mat-icon {
-          color: #17a2b8;
-        }
-
-        &:focus {
-          border: 3px solid gray;
-        }
-
-        &:hover {
-          mat-icon {
-            color: #17a2b8;
-          }
-        }
-      }
-    }
   }
 
   .stage-block {
-    @include size(100%, calc(100% - 80px));
+    @include size(100%, calc(100% - 75px));
     overflow-y: auto;
+  }
+}
+
+.actions {
+  @include size(fit-content, auto);
+  button {
+    outline: unset;
+    border-radius: 5px;
+    transition: all 0.6s linear;
+    background-color: white;
+    border: 3px solid white;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  }
+  .add {
+    mat-icon {
+      color: #17a2b8;
+    }
+
+    &:focus {
+      border: 3px solid gray;
+    }
+
+    &:hover {
+      background-color: #17a2b8;
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+  .remove {
+    mat-icon {
+      color: red;
+    }
+
+    &:focus {
+      border: 3px solid gray;
+    }
+
+    &:hover {
+      background-color: red;
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+}
+
+.add-stage {
+  border-radius: 5px;
+  transition: all ease-in-out 0.3s;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+#video-tag {
+  height: 300px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+:host ::ng-deep {
+  .mat-expansion-panel-body {
+    padding: 0 24px 24px;
+  }
+
+  transition: all ease-in-out 0.3s;
+  .mat-mdc-form-field-subscript-wrapper {
+    transition: all ease-in-out 0.3s;
+    height: 0 !important;
+  }
+  .mat-mdc-form-field:has(.mdc-text-field--invalid) {
+    .mat-mdc-form-field-subscript-wrapper {
+      height: 24px !important;
+      .mat-mdc-form-field-error-wrapper {
+        padding: 0px !important;
+      }
+    }
   }
 }

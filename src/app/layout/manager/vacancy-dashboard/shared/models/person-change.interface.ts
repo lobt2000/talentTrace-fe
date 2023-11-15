@@ -9,6 +9,8 @@ export interface IPersonChange {
   member?: any;
   members?: any[];
   managers?: any[];
+  items?: any[];
+  itemTitle?: string;
 }
 
 export enum PersonEventTitle {

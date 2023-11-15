@@ -42,3 +42,8 @@
     overflow-x: hidden !important;
   }
 }
+
+.default-input {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}

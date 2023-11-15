@@ -1,5 +1,5 @@
 <div class="tab-container d-flex align-items-start justify-content-between">
-  <ng-container *ngIf="isCreation && !pdfCv; else defaultScrean">
+  <ng-container *ngIf="!getCvValue?.hasOwnProperty('data'); else defaultScrean">
     <div
       class="uploading-file d-flex colDir align-items-center justify-content-around"
     >
@@ -25,12 +25,13 @@
     <ng-container *ngIf="candidateImg || !isCreation">
       <img
         class="candidate-img"
-        src="../../../../../assets/img/images.jpeg"
+        [src]="candidateImg?.data || candidateImg"
         alt=""
       />
       <button
+        *ngIf="isCreation ? true : candidate_form.enabled"
         class="short-info-edit d-flex align-items-center cursor-pointer mr-2 position-absolute top-20 right-15"
-        (click)="candidateImg = ''"
+        (click)="candidateImg = {}; candidate_form.get('icon').reset()"
       >
         <mat-icon>close</mat-icon>
       </button>
@@ -53,11 +54,12 @@
         </button>
       </div>
     </div>
-    <form class="candidate-form" [formGroup]="candidate_form">
-      <div class="row justify-content-around">
-        <div class="default-formField col-5 p-0 mb-20">
+    <form class="candidate-form w-100" [formGroup]="candidate_form">
+      <div class="w-80 row justify-content-around nowrap">
+        <div class="default-formField col-6 p-0 mb-20 mr-2">
           <input
             class="default-input w-100"
+            [disabled]="candidate_form.disabled"
             [formControlName]="'firstName'"
             matInput
           />
@@ -76,31 +78,36 @@
             First name is <strong>required</strong>
           </div>
         </div>
-        <div class="default-formField col-5 p-0 mb-20">
+        <div class="default-formField col-6 p-0 mb-20 ml-2">
           <input
             class="default-input w-100"
-            [formControlName]="'secondName'"
+            [disabled]="candidate_form.disabled"
+            [formControlName]="'surName'"
             matInput
           />
           <label class="default-label"
             >{{ "Second name" | translate }}
             <span
-              *ngIf="candidate_form.get('secondName').hasError('required')"
+              *ngIf="candidate_form.get('surName').hasError('required')"
               class="position-absolute"
               >*</span
             >
           </label>
           <div
             class="default-input-error-message"
-            *ngIf="candidate_form.get('secondName').hasError('required')"
+            *ngIf="candidate_form.get('surName').hasError('required')"
           >
             Second name is <strong>required</strong>
           </div>
         </div>
       </div>
-      <div class="row justify-content-around">
-        <div class="default-formField col-5 p-0 mb-20">
-          <input class="default-input w-100" [formControlName]="'email'" />
+      <div class="w-80 row justify-content-around nowrap">
+        <div class="default-formField col-6 p-0 mb-20 mr-2">
+          <input
+            class="default-input w-100"
+            [disabled]="candidate_form.disabled"
+            [formControlName]="'email'"
+          />
           <label class="default-label"
             >{{ "Email" | translate }}
             <span
@@ -116,9 +123,10 @@
             Email is <strong>required</strong>
           </div>
         </div>
-        <div class="default-formField col-5 p-0 mb-20">
+        <div class="default-formField col-6 p-0 mb-20 ml-2">
           <input
             class="default-input w-100"
+            [disabled]="candidate_form.disabled"
             [formControlName]="'position'"
             matInput
           />
@@ -144,15 +152,20 @@
   <ng-template #defaultScrean>
     <div class="w-50 position-relative">
       <pdf-viewer
-        [src]="'../../../../../assets/pdf/Bohdan_Kolodii_CV.pdf'"
+        [src]="getCvValue?.data"
         [render-text]="true"
         [original-size]="false"
-        style="width: 100%; height: calc(100vh - 240px)"
+        style="
+          width: 100%;
+          height: calc(100vh - 240px);
+          box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+        "
       >
       </pdf-viewer>
       <button
+        *ngIf="isCreation ? true : candidate_form.enabled"
         class="short-info-edit d-flex align-items-center cursor-pointer mr-2 position-absolute top-0 right--65"
-        (click)="pdfCv = ''"
+        (click)="removeFile()"
       >
         <mat-icon>close</mat-icon>
       </button>

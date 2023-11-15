@@ -68,6 +68,7 @@ export class PersonCardComponent implements OnDestroy {
   };
   @Input() isChangingMember: boolean = false;
   @Input() person;
+  @Input() itemTitle: string = 'team';
   @Output() triggerEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(

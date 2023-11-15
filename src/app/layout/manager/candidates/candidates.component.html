@@ -29,6 +29,7 @@
           [moreOptions]="candidateOption"
           *ngFor="let item of candidates"
           (goToItem)="onGoToCandidate($event)"
+          (triggerAction)="onDelete(item)"
         ></app-candidate-card>
         <div class="card-add" (click)="onAddCandidate()">
           <mat-icon

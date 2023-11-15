@@ -2,3 +2,18 @@
 .action {
   width: 130px;
 }
+
+.short-info-edit {
+  @include size(30px, 30px);
+  color: #fdb75a;
+  justify-content: space-evenly;
+  background-color: transparent;
+  border: 1px solid #fdb75a;
+  border-radius: 10px;
+  animation: 0.5s ease-in-out;
+  transition: all ease-in-out 0.3s;
+  mat-icon {
+    font-size: 16px;
+    @include size(16px, 16px);
+  }
+}

@@ -15,6 +15,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UiLoaderComponent } from './shared/components/ui/ui-loader/ui-loader.component';
 import { ManagerRegistrationComponent } from './manager-registration/manager-registration.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
 
 function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(
@@ -39,6 +40,7 @@ function createTranslateLoader(http: HttpClient) {
     }),
     BrowserAnimationsModule,
     UiLoaderComponent,
+    MatDialogModule,
     // AgmCoreModule.forRoot({
     //   apiKey: "AIzaSyD95W0lvAu6jV03YXxotXvBKI7EXC3VOPk",
     //   libraries: ["places"]

@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UiPageComponent } from '../ui-page/ui-page.component';
 import { SharedModule } from '../../shared.module';
@@ -17,6 +23,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
 import { PageActions } from '../../constansts/page-actions.model';
 import { InteviewingStageComponent } from './inteviewing-stage/inteviewing-stage.component';
+import { ConfirmationModalComponent } from '../modals/confirmation-modal/confirmation-modal.component';
+import { CandidatesService } from 'src/app/layout/manager/candidates/services/candidates.service';
+import { CommonUrls } from '../../constansts/common/common.constants';
+import { Subject, filter, switchMap, takeUntil, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-candidate-details',
@@ -31,69 +43,229 @@ import { InteviewingStageComponent } from './inteviewing-stage/inteviewing-stage
     TranslateModule,
     CandidateProfileComponent,
     InteviewingStageComponent,
+    MatIconModule,
   ],
   templateUrl: './candidate-details.component.html',
   styleUrls: ['./candidate-details.component.scss'],
 })
-export class CandidateDetailsComponent implements OnInit {
+export class CandidateDetailsComponent implements OnInit, AfterViewInit {
   @Input() id = '';
+  @ViewChild('stepper') stepper: MatStepper;
+
   defaultBreadcrumb: IBreadcrumb = {
-    label: 'Dashboard',
-    value: 'dashboard',
+    label: 'Candidates',
+    value: 'candidates',
     link: '/manager/candidates',
   };
   select: number = 0;
-
-  currVacancy = {
-    name: 'Middle Front-End Angular Developer',
-    employment: 'Remote',
-    country: 'Ukraine',
-    city: 'Lviv',
-    active: true,
-    manager: {
-      name: 'Jona Mickle',
-      icon: 'assets/img/logo2.0.png',
-    },
-    candidates: [
-      {
-        name: 'Josef Monit',
-
-        image: 'assets/img/images.jpeg',
-      },
-      {
-        name: 'Rober Nodur',
-        image: 'assets/img/logo2.0.png',
-      },
-    ],
-  };
 
   managers: Array<any> = [];
 
   candidate_form: UntypedFormGroup;
   candidate_details = {};
+  stages: any[];
 
-  @ViewChild('stepper') stepper: MatStepper;
+  destroy$ = new Subject();
+  firstInit: boolean = true;
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private dialog: MatDialog,
     private loadingService: LoadingService,
+    private candidatesService: CandidatesService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
+    this.initPage();
+  }
+
+  ngAfterViewInit(): void {
+    this.stepper.selectedIndexChange.subscribe((el) => {
+      this.select = el;
+      console.log(el);
+
+      if (typeof el === 'number' && el === 1 && this.firstInit) {
+        this.getInterviewStages();
+        this.firstInit = false;
+      }
+    });
+    this.stepper.selectedIndex = 0;
+  }
+
+  initPage(id?) {
+    if (id) this.id = id;
+
+    this.setActiveBreadcrumbs(this.id);
+    if (!this.isCreation) {
+      this.getCandidate();
+    }
+  }
+
+  getCandidate() {
+    this.loadingService.setLoading(true);
+    this.candidatesService
+      .getCandidate(this.id, 'form')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.candidate_details = res.data;
+        this.setActiveBreadcrumbs(this.candidate_details['name']);
+        setTimeout(() => {
+          this.loadingService.setLoading(false);
+        }, 1000);
+      });
+  }
+
+  getInterviewStages() {
+    this.loadingService.setLoading(true);
+    this.candidatesService
+      .getCandidate(this.id, 'stages')
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((el) => {
+          if (el.status) this.loadingService.setLoading(false);
+        }),
+      )
+      .subscribe((res) => {
+        console.log(res);
+        this.stages = res.data.stages;
+        if (res.status) this.loadingService.setLoading(false);
+      });
+  }
+
+  setActiveBreadcrumbs(name) {
+    this.breadcrumbsService.removeActiveBreadcrumb();
     this.breadcrumbsService.addBreadcrumbs({
-      label:
-        this.id == PageActions.CREATION
-          ? this.id
-          : this.candidate_details['name'],
+      label: name,
       value: this.id,
       link: `/manager/candidates/${this.id}`,
     });
   }
 
-  onDelete() {}
+  onDelete() {
+    this.dialog.closeAll();
+    this.candidatesService
+      .onDelete()
+      .pipe(
+        filter((res) => !!res),
+        switchMap((el) => {
+          this.loadingService.setLoading(true);
+          return this.candidatesService.deleteCandidate(
+            this.candidate_details['id'],
+          );
+        }),
+      )
+      .subscribe((res) => {
+        this.loadingService.setLoading(false);
+        const router = [CommonUrls.Manager, 'candidates'];
+        this.router.navigate(router);
+      });
+  }
 
-  onSave() {}
+  onSave() {
+    if (!this.candidate_form || this.candidate_form?.invalid) {
+      this.openErrorModal('Cabdidate form is invalid ');
+      return;
+    }
+
+    this.loadingService.setLoading(true);
+    this.candidatesService
+      .createCandidate(this.getFormBody)
+      .subscribe((res) => {
+        const router = [CommonUrls.Manager, 'candidates', res.data.id];
+        this.router.navigate(router);
+        this.loadingService.setLoading(false);
+        this.initPage(res.data.id);
+      });
+  }
+
+  onEditForm() {
+    if (!this.candidate_form?.valid) {
+      this.openErrorModal('Candidate form is invalid ');
+      return;
+    }
+    this.onUpdateCandidate(this.getFormBody);
+  }
+
+  onEditStages() {
+    this.onUpdateCandidate(this.getInterviewStagesBody);
+  }
+
+  openErrorModal(message) {
+    this.dialog.closeAll();
+    this.dialog
+      .open(ConfirmationModalComponent, {
+        width: '40vw',
+        height: '300px',
+        position: {
+          left: 'calc(50% - 15vw)',
+        },
+        panelClass: 'confirmation-modal',
+        data: {
+          text: message,
+          title: 'Error',
+          withoutButtonCancel: true,
+        },
+      })
+      .afterClosed()
+      .subscribe();
+  }
+
+  updateCandidateForm(form) {
+    this.candidate_form = form;
+  }
+
+  updateInterviewStages(stages) {
+    this.stages = stages;
+  }
+
+  onUpdateCandidate(body) {
+    this.loadingService.setLoading(true);
+    this.candidatesService.updateCandidate(this.id, body).subscribe(() => {
+      this.loadingService.setLoading(false);
+      if (this.select !== 1) {
+        this.candidate_form.disable();
+      } else {
+        this.stages = [...this.stages];
+      }
+    });
+  }
+
+  resetFormChanges() {
+    this.candidate_details = { ...this.candidate_details };
+    this.candidate_form.disable();
+  }
+
+  get getFormBody() {
+    const formData = new FormData();
+    const icon =
+      this.candidate_details['icon']?.data ===
+      this.candidate_form.get('icon').value?.data;
+    const body = {
+      ...this.candidate_form?.getRawValue(),
+      cv: {},
+      icon: icon ? {} : this.candidate_form.get('icon').value.data,
+    };
+
+    if (
+      this.candidate_form.value.cv.data !== this.candidate_details['cv']?.data
+    ) {
+      formData.append('data', this.candidate_form.get('cv').value.data);
+    }
+    delete body.cv.data;
+    if (icon) delete body.icon;
+    formData.append('candidate', JSON.stringify(body));
+
+    return formData;
+  }
+
+  get getInterviewStagesBody() {
+    const formData = new FormData();
+    const body = { stages: this.stages };
+    formData.append('candidate', JSON.stringify(body));
+
+    return formData;
+  }
 
   get isCreation(): boolean {
     return this.id === PageActions.CREATION;

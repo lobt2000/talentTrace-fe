@@ -23,6 +23,15 @@
       [candidate]="item"
       [moreOptions]="candidateOption"
       *ngFor="let item of candidates"
+      (goToItem)="onGoToCandidate($event)"
+      (triggerAction)="actionTrigger($event, item)"
     ></app-candidate-card>
+    <div class="card-add" (click)="onAddCandidate()">
+      <mat-icon
+        class="font-size-160 w-100 h-100 d-flex align-items-center justify-content-center white"
+      >
+        add
+      </mat-icon>
+    </div>
   </div>
 </div>

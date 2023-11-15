@@ -3,11 +3,58 @@
   <ng-container pageContent>
     <div class="w-100 h-100 position-relative">
       <mat-tab-group #stepper>
-        <mat-tab label="General info">
-          <app-candidate-profile [id]="id"></app-candidate-profile>
+        <mat-tab class="position-relative">
+          <ng-template mat-tab-label>
+            <ng-container *ngIf="!isCreation">
+              <div class="d-flex position-absolute top-8 right--100">
+                <button
+                  class="short-info-edit d-flex align-items-center cursor-pointer"
+                  (click)="candidate_form.enable()"
+                  *ngIf="candidate_form?.disabled"
+                >
+                  <mat-icon>border_color</mat-icon>
+                </button>
+                <button
+                  *ngIf="candidate_form?.enabled"
+                  class="short-info-edit d-flex align-items-center cursor-pointer mr-2"
+                  (click)="onEditForm()"
+                >
+                  <mat-icon class="save-style">done</mat-icon>
+                </button>
+                <button
+                  class="short-info-edit d-flex align-items-center cursor-pointer"
+                  (click)="resetFormChanges()"
+                  *ngIf="candidate_form?.enabled"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+            General info
+          </ng-template>
+          <app-candidate-profile
+            [id]="id"
+            [candidate_details]="candidate_details"
+            (formUpdate)="updateCandidateForm($event)"
+          ></app-candidate-profile>
         </mat-tab>
-        <mat-tab label="Interviewing stage">
-          <app-inteviewing-stage></app-inteviewing-stage>
+        <mat-tab class="position-relative" *ngIf="!isCreation">
+          <ng-template mat-tab-label>
+            <div class="d-flex position-absolute top-8 right--100">
+              <button
+                class="short-info-edit d-flex align-items-center cursor-pointer mr-2"
+                (click)="onEditStages()"
+              >
+                <mat-icon class="save-style">done</mat-icon>
+              </button>
+            </div>
+            Interviewing stage
+          </ng-template>
+          <app-inteviewing-stage
+            *ngIf="select && select === 1"
+            [stages]="stages"
+            (updateStages)="updateInterviewStages($event)"
+          ></app-inteviewing-stage>
         </mat-tab>
       </mat-tab-group>
       <div

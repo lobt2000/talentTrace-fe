@@ -51,7 +51,7 @@
         (click)="onTriggerEvent('DELETE')"
       >
         <mat-icon> person_remove </mat-icon>
-        <div class="ml-3">Remove from team</div>
+        <div class="ml-3">Remove from {{ itemTitle }}</div>
       </div>
       <div
         class="action d-flex align-items-center justify-content-center w-100 p-4 font-size-20"
@@ -68,7 +68,7 @@
         (click)="onTriggerEvent('ADD')"
       >
         <mat-icon> add </mat-icon>
-        <div class="ml-3">Add to the team</div>
+        <div class="ml-3">Add to the {{ itemTitle }}</div>
       </div>
     </ng-template>
   </div>

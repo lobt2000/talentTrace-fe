@@ -1,11 +1,15 @@
 <mat-accordion>
   <mat-expansion-panel (opened)="(true)" (closed)="(false)">
-    <mat-expansion-panel-header>
-      <mat-panel-title> Self aware panel </mat-panel-title>
-      <mat-panel-description>
-        Currently I am {{ true ? "open" : "closed" }}
-      </mat-panel-description>
+    <mat-expansion-panel-header class="position-relative">
+      <ng-content select="[expansion-header]"></ng-content>
+
+      <mat-icon
+        *ngIf="wihtClose"
+        class="position-absolute close-icon"
+        (click)="onClose()"
+        >close</mat-icon
+      >
     </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
+    <ng-content select="[expansion-body]"></ng-content>
   </mat-expansion-panel>
 </mat-accordion>

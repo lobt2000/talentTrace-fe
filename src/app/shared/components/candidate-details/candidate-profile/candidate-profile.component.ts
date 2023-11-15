@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnChanges,
+  ChangeDetectorRef,
+} from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -27,15 +35,17 @@ import { PageActions } from 'src/app/shared/constansts/page-actions.model';
     ReactiveFormsModule,
   ],
 })
-export class CandidateProfileComponent implements OnInit {
+export class CandidateProfileComponent implements OnInit, OnChanges {
   @Input() id = '';
+  @Input() candidate_details;
+  @Output() formUpdate: EventEmitter<any> = new EventEmitter();
 
-  pdfCv: string;
-  candidateImg: string;
+  candidateImg;
   candidate_form: UntypedFormGroup;
   constructor(
     private fb: FormBuilder,
     private loadingService: LoadingService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   get isCreation(): boolean {
@@ -46,52 +56,85 @@ export class CandidateProfileComponent implements OnInit {
     this.createCandidateForm();
   }
 
+  ngOnChanges(): void {
+    console.log('asfasdas');
+
+    if (!this.isCreation) {
+      this.updateForm();
+    }
+  }
+
   createCandidateForm() {
     this.candidate_form = this.fb.group({
       firstName: this.fb.control(null, [Validators.required]),
-      secondName: this.fb.control(null, [Validators.required]),
-      email: this.fb.control(null, [Validators.required]),
+      surName: this.fb.control(null, [Validators.required]),
+      email: this.fb.control(null, [Validators.required, Validators.email]),
       position: this.fb.control(null, [Validators.required]),
+      cv: this.fb.control(null, [Validators.required]),
+      icon: this.fb.control(null),
+    });
+
+    this.candidate_form.valueChanges.pipe().subscribe(() => {
+      this.formUpdate.emit(this.candidate_form);
     });
   }
 
+  updateForm() {
+    if (this.candidate_form) {
+      this.candidate_form.patchValue({ ...this.candidate_details });
+      this.candidateImg = this.candidate_details.icon;
+      this.candidate_form.disable();
+    }
+  }
+
   onUploadFile(event) {
-    const file: File = event.target.files[0];
-    this.loadingService.setLoading(true);
-    if (file) {
-      this.pdfCv = file.name;
-      console.log(file);
-
+    if (event.target.files && event.target.files[0]) {
+      const file: File = event.target.files[0];
       const formData = new FormData();
-
       formData.append('thumbnail', file);
 
-      // const upload$ = this.http.post('/api/thumbnail-upload', formData);
+      let reader = new FileReader();
+      this.loadingService.setLoading(true);
+      reader.onload = (e) => {
+        this.candidate_form.get('cv').patchValue({
+          type: file,
+          data: e.target.result,
+        });
 
-      // upload$.subscribe();
+        this.loadingService.setLoading(false);
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
     }
-    setTimeout(() => {
-      this.loadingService.setLoading(false);
-    }, 500);
   }
 
   onUploadCandidateImg(event) {
-    const file: File = event.target.files[0];
-    this.loadingService.setLoading(true);
-    if (file) {
-      this.candidateImg = event.target.value;
-      console.log(file);
-
+    if (event.target.files && event.target.files[0]) {
+      const file: File = event.target.files[0];
       const formData = new FormData();
-
       formData.append('thumbnail', file);
 
-      // const upload$ = this.http.post('/api/thumbnail-upload', formData);
+      let reader = new FileReader();
+      this.loadingService.setLoading(true);
+      reader.onload = (e) => {
+        this.candidateImg = {
+          type: file,
+          data: e.target.result,
+        };
+        this.candidate_form.get('icon').patchValue(this.candidateImg);
+        this.loadingService.setLoading(false);
+      };
 
-      // upload$.subscribe();
+      reader.readAsDataURL(event.target.files[0]);
     }
-    setTimeout(() => {
-      this.loadingService.setLoading(false);
-    }, 500);
+  }
+
+  removeFile() {
+    this.cdr.detectChanges();
+    this.candidate_form.get('cv').reset();
+  }
+
+  get getCvValue() {
+    return this.candidate_form.get('cv').value;
   }
 }

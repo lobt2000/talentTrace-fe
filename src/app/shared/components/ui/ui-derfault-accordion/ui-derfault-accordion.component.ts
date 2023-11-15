@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -26,4 +26,11 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
   ],
 })
-export class UiDerfaultAccordionComponent {}
+export class UiDerfaultAccordionComponent {
+  @Input() wihtClose: boolean = false;
+  @Output() close: EventEmitter<boolean> = new EventEmitter();
+
+  onClose() {
+    this.close.emit(true);
+  }
+}

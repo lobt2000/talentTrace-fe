@@ -1,0 +1,21 @@
+<header
+  class="d-flex align-items-center justify-content-center position-relative"
+>
+  <h3>{{ data.title }}</h3>
+  <div
+    class="position-absolute right-10 top-10 cursor-pointer"
+    (click)="onClose()"
+  >
+    <mat-icon class="font-size-25 font-w-bold">close</mat-icon>
+  </div>
+</header>
+<main class="mt-20 d-flex align-items-start justify-content-between">
+  <app-person-card
+    *ngFor="let item of filteredItems"
+    class="d-flex"
+    [isChangingMember]="true"
+    [person]="item"
+    [itemTitle]="data.itemTitle"
+    (triggerEvent)="onTriggerEvent($event)"
+  ></app-person-card>
+</main>

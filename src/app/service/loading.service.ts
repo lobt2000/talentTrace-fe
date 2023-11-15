@@ -17,4 +17,8 @@ export class LoadingService {
   get getLoadingValue(): boolean {
     return this.loadingBS.value;
   }
+
+  get loadingObservable() {
+    return this.loadingBS;
+  }
 }

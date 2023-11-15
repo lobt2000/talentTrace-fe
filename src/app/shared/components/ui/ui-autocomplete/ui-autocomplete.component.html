@@ -1,0 +1,22 @@
+<form class="w-100">
+  <mat-form-field class="w-100">
+    <mat-label>{{ title }}</mat-label>
+    <input
+      type="text"
+      placeholder="Pick one"
+      matInput
+      [formControl]="form"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete
+      autoActiveFirstOption
+      #auto="matAutocomplete"
+      [displayWith]="displayFn"
+    >
+      <mat-option *ngFor="let option of options" [value]="option">{{
+        getOptionValue(option)
+      }}</mat-option>
+    </mat-autocomplete>
+    <mat-error> Please choose an option </mat-error>
+  </mat-form-field>
+</form>

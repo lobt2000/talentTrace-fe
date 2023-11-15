@@ -13,7 +13,7 @@
           <span class="gray">Status:&nbsp;</span>
           <p>Passed</p>
         </div>
-        <div class="d-flex ml-2">
+        <div class="d-flex">
           <span class="gray">SCORE:&nbsp;</span>
           <p>98%</p>
         </div>
@@ -23,19 +23,31 @@
     <app-more-options
       *ngIf="moreOptions && moreOptions.length"
       [optionsList]="moreOptions"
+      (onTriggerAction)="onGoToAction($event)"
     ></app-more-options>
   </div>
   <div class="skill-scores pb-3 mt-5">
     <h3>Skills score</h3>
-    <app-ui-progress [totalValue]="70" [progressValue]="30"></app-ui-progress>
-    <app-ui-progress [totalValue]="70" [progressValue]="20"></app-ui-progress>
-    <app-ui-progress [totalValue]="70" [progressValue]="50"></app-ui-progress>
-    <app-ui-progress [totalValue]="70" [progressValue]="60"></app-ui-progress>
+    <ng-container *ngIf="getScores?.length; else noScores">
+      <app-ui-progress
+        *ngFor="let score of getScores"
+        [totalValue]="100"
+        [progressValue]="score.value"
+      ></app-ui-progress>
+    </ng-container>
+
+    <ng-template #noScores>
+      <div
+        class="mt-10 w-100 h-90 d-flex align-items-center justify-content-center"
+      >
+        <p class="font-size-18 font-w-bold">Candidate has no scores for now</p>
+      </div>
+    </ng-template>
   </div>
   <div class="history-action mt-5">
     <p class="history-action--title">Stage:</p>
     <div class="history-action--last-action">
-      <strong>Interviewed</strong> by <strong>Marian Serediak</strong>
+      <strong>{{ getStageTitle }}</strong>
     </div>
   </div>
 </div>

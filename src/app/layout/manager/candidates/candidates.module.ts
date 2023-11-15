@@ -13,6 +13,7 @@ import { UiFilterComponent } from 'src/app/shared/components/ui/ui-filter/ui-fil
 import { UiSortComponent } from 'src/app/shared/components/ui/ui-sort/ui-sort.component';
 import { CandidateCardComponent } from 'src/app/shared/components/candidate-card/candidate-card.component';
 import { CandidateDetailsComponent } from 'src/app/shared/components/candidate-details/candidate-details.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [CandidatesComponent],
@@ -31,6 +32,7 @@ import { CandidateDetailsComponent } from 'src/app/shared/components/candidate-d
     CandidateCardComponent,
     CandidateDetailsComponent,
     CandidatesRoutes,
+    MatDialogModule,
   ],
 })
 export class CandidatesModule {}

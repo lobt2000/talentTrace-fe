@@ -30,9 +30,18 @@ export class CandidateCardComponent implements OnInit {
   @Input() moreOptions: Array<IOptions> = [];
 
   @Output() goToItem: EventEmitter<any> = new EventEmitter();
+  @Output() triggerAction: EventEmitter<any> = new EventEmitter();
 
   ngOnInit(): void {
     console.log(this.moreOptions);
+  }
+
+  get getScores() {
+    return this.candidate?.stages[0]?.scores;
+  }
+
+  get getStageTitle() {
+    return this.candidate?.stages[0]?.name ?? 'No stages';
   }
 
   onGoToItem(event) {
@@ -42,5 +51,10 @@ export class CandidateCardComponent implements OnInit {
     )
       return;
     this.goToItem.emit(this.candidate);
+  }
+
+  onGoToAction(action) {
+    console.log(action);
+    this.triggerAction.emit(action);
   }
 }
