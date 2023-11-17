@@ -25,6 +25,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { GenerationUrlComponent } from './components/modals/generation-url/generation-url.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
+import { PerfomanceCardComponent } from './components/perfomance-card/perfomance-card.component';
+import { PerfomanceDetailsComponent } from './components/perfomance-details/perfomance-details.component';
 
 @NgModule({
   declarations: [

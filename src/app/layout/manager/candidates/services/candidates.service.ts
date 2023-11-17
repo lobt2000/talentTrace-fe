@@ -1,17 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ConfirmationModalComponent } from 'src/app/shared/components/modals/confirmation-modal/confirmation-modal.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidatesService {
+  private vacancyIdBS = new BehaviorSubject<string>('');
+  vacancyId$ = this.vacancyIdBS.asObservable();
+
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
   ) {}
+
+  setVacancyId(id: string) {
+    this.vacancyIdBS.next(id);
+  }
+
+  get getVacancyIdBSValue(): string {
+    return this.vacancyIdBS.value;
+  }
 
   getAllScoreOptions(): Observable<any> {
     return this.http.get('/api/v1/options/score');
@@ -61,6 +72,10 @@ export class CandidatesService {
     return this.http.patch(`/api/v1/candidates/${id}`, body);
   }
 
+  updateAllCandidates(id: string, body): Observable<any> {
+    return this.http.patch(`/api/v1/candidates`, { vacancyId: id, ...body });
+  }
+
   onDelete(message?) {
     this.dialog.closeAll();
     return this.dialog
@@ -74,6 +89,25 @@ export class CandidatesService {
         data: {
           text: message || 'Are you sure you want to delete this candidate?',
           title: 'Confirmation',
+        },
+      })
+      .afterClosed();
+  }
+
+  openErrorModal(message) {
+    this.dialog.closeAll();
+    return this.dialog
+      .open(ConfirmationModalComponent, {
+        width: '40vw',
+        height: '300px',
+        position: {
+          left: 'calc(50% - 15vw)',
+        },
+        panelClass: 'confirmation-modal',
+        data: {
+          text: message,
+          title: 'Error',
+          withoutButtonCancel: true,
         },
       })
       .afterClosed();

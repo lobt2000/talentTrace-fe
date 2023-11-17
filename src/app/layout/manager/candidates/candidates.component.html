@@ -8,37 +8,45 @@
         <app-ui-search></app-ui-search>
         <div class="actions d-flex align-items-center justify-content-between">
           <button
-            class="compare d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative"
+            class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative ml-2 mr-2"
+            (click)="onAddCandidate()"
           >
+            <mat-icon> add </mat-icon>
+          </button>
+          <!-- <button
+            class="compare d-flex align-items-center justify-content-center p-1 ml-2 mr-2 cursor-pointer position-relative">
             <mat-icon> widgets </mat-icon>
             <div class="comparing-count position-absolute">2</div>
           </button>
-          <app-ui-filter [filtersList]="filterList"></app-ui-filter>
 
-          <app-ui-sort [sortsList]="sortsList"></app-ui-sort>
-        </div>
-        <!-- <div class="count">
-                    {{'Candidates' | translate}}: {{candidates.length}}
-                </div> -->
-      </div>
-      <div
-        class="candidates-body d-flex align-items-start justify-content-start"
-      >
-        <app-candidate-card
-          [candidate]="item"
-          [moreOptions]="candidateOption"
-          *ngFor="let item of candidates"
-          (goToItem)="onGoToCandidate($event)"
-          (triggerAction)="onDelete(item)"
-        ></app-candidate-card>
-        <div class="card-add" (click)="onAddCandidate()">
-          <mat-icon
-            class="font-size-160 w-100 h-100 d-flex align-items-center justify-content-center white"
-          >
-            add
-          </mat-icon>
+          <app-ui-filter class="mr-2" [filtersList]="filterList"></app-ui-filter>
+
+          <app-ui-sort class="mr-2" [sortsList]="sortsList"></app-ui-sort> -->
         </div>
       </div>
+      <ng-container *ngIf="candidates?.length; else noItems">
+        <div
+          class="candidates-body d-flex align-items-start justify-content-start"
+        >
+          <app-candidate-card
+            [candidate]="item"
+            [moreOptions]="candidateOption"
+            *ngFor="let item of candidates"
+            (goToItem)="onGoToCandidate($event)"
+            (triggerAction)="onDelete(item)"
+          ></app-candidate-card>
+        </div>
+      </ng-container>
+
+      <ng-template #noItems>
+        <div
+          class="noItem card-add white d-flex align-items-center colDir justify-content-center position-relative"
+        >
+          <mat-icon class="position-absolute">reply</mat-icon>
+          <h3 class="mb-3">For now you have no item!!!</h3>
+          <h3>Please click on PLUS button above</h3>
+        </div>
+      </ng-template>
     </div>
   </ng-container>
 </app-ui-page>

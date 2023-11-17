@@ -170,6 +170,19 @@ h3 {
   }
 }
 
+.noItem {
+  @include size(100%, 40%);
+  padding: 170px 0;
+  mat-icon {
+    top: -30px;
+    right: 1.5%;
+    font-size: 47px;
+    @include size(50px, 50px);
+    color: #fdb75a;
+    transform: rotate(90deg);
+  }
+}
+
 .nowrap {
   flex-wrap: nowrap;
 }

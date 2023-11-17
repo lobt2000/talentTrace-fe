@@ -46,9 +46,10 @@ export class SignInComponent implements OnInit {
     console.log(this.form.valid);
 
     if (this.form.valid) {
-      this.formValue.emit({
-        ...this.form.getRawValue(),
-      });
+      const body = { ...this.form.getRawValue() };
+      if (!this.form.get('companyEmail').hasValidator(Validators.required))
+        delete body.companyEmail;
+      this.formValue.emit(body);
     }
   }
 }

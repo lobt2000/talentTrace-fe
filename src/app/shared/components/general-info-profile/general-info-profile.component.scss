@@ -115,6 +115,35 @@
     left: 12px;
   }
 
+  .startDateForm {
+    .mat-mdc-text-field-wrapper {
+      background-color: transparent !important;
+      outline: 2px solid white;
+      border-radius: 4px;
+      padding-left: 10px;
+      .mdc-floating-label {
+        color: white;
+      }
+      .mat-datepicker-input {
+        color: white;
+      }
+    }
+    &.mat-form-field-invalid {
+      .mat-mdc-text-field-wrapper {
+        background-color: transparent !important;
+        outline: 2px solid red;
+        border-radius: 4px;
+        padding-left: 10px;
+        .mdc-floating-label {
+          color: red;
+        }
+        .mat-datepicker-input {
+          color: red;
+        }
+      }
+    }
+  }
+
   .edit-info {
     .mat-mdc-form-field-subscript-wrapper {
       display: none !important;

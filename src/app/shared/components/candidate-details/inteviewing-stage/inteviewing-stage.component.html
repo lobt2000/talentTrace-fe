@@ -3,10 +3,20 @@
     <div class="header d-flex align-items-center justify-content-between">
       <h3>Stages</h3>
 
+      <mat-form-field class="vacancy-select position-relative">
+        <!-- <mat-label></mat-label> -->
+        <mat-select class="h-100" [formControl]="vacancyForm">
+          <mat-option *ngFor="let type of vacanciesIds" [value]="type">
+            {{ type?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <div class="actions d-flex align-items-center justify-content-between">
         <button
           class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative"
           (click)="addNewStage()"
+          *ngIf="isAvailableUpdating"
         >
           <mat-icon> add </mat-icon>
         </button>
@@ -41,7 +51,7 @@
 
     <div class="stage-block">
       <app-ui-derfault-accordion
-        [wihtClose]="true"
+        [wihtClose]="isAvailableUpdating"
         (close)="deleteStage(stage)"
         *ngFor="let stage of stages; let i = index"
       >
@@ -83,6 +93,7 @@
 
               <div
                 class="actions d-flex align-items-center justify-content-between position-absolute top-0 right--17"
+                *ngIf="isAvailableUpdating"
               >
                 <button
                   class="remove d-flex align-items-center justify-content-center p-1 cursor-pointer"
@@ -125,10 +136,11 @@
 
                 <div
                   class="actions d-flex align-items-center justify-content-between"
+                  *ngIf="isAvailableUpdating"
                 >
                   <button
                     class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative"
-                    (click)="isAddScoreAvailable = true"
+                    (click)="isAddScoreAvailable = i"
                   >
                     <mat-icon> add </mat-icon>
                   </button>
@@ -137,7 +149,7 @@
 
               <div
                 class="add-stage w-100 d-flex align-items-center justify-content-between bg-white p-3 mb-20"
-                *ngIf="isAddScoreAvailable"
+                *ngIf="isAddScoreAvailable !== null"
                 [formGroup]="addScoreForm"
               >
                 <app-ui-autocomplete
@@ -192,7 +204,7 @@
                   </button>
                   <button
                     class="remove d-flex align-items-center justify-content-center p-2 cursor-pointer position-relative ml-1 mr-1 bg-orange"
-                    (click)="isAddStageAvailable = false"
+                    (click)="isAddScoreAvailable = null"
                   >
                     <mat-icon> close </mat-icon>
                   </button>

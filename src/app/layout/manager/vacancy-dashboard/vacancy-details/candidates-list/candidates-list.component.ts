@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, of, switchMap } from 'rxjs';
+import { filter, of, switchMap, tap } from 'rxjs';
 import { LoadingService } from 'src/app/service/loading.service';
 import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
 import { IOptions } from 'src/app/shared/interfaces/options.interface';
@@ -9,7 +9,6 @@ import { PageActions } from 'src/app/shared/constansts/page-actions.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddItemToComponent } from 'src/app/shared/components/modals/add-item-to/add-item-to.component';
 import { OptionType } from 'src/app/shared/constansts/optionType.model';
-import { IPersonChange } from '../../shared/models/person-change.interface';
 import { CandidatesService } from '../../../candidates/services/candidates.service';
 
 @Component({
@@ -114,7 +113,9 @@ export class CandidatesListComponent {
   }
 
   onGoToCandidate(candidate) {
-    this.router.navigate([CommonUrls.Manager, 'candidates', candidate.id]);
+    this.router.navigate([CommonUrls.Manager, 'candidates', candidate.id], {
+      queryParams: { vacancyId: this.id },
+    });
   }
 
   actionTrigger(action, candidate) {
@@ -136,6 +137,19 @@ export class CandidatesListComponent {
               : this.vacancyService.onUpdateVacancy(this.id, {
                   candidates: this.candidates.map((el) => el.id),
                 });
+          }),
+          switchMap((res) => {
+            if (typeof res === 'object') {
+              const vacanciesIds = (candidate.vacanciesIds ?? []).filter(
+                (el) => el.id !== this.id,
+              );
+              return this.candidatesService.updateCandidate(candidate.id, {
+                candidate: {
+                  vacanciesIds: vacanciesIds,
+                },
+              });
+            }
+            return of('');
           }),
         )
         .subscribe(() => this.loadingService.setLoading(false));
@@ -176,15 +190,29 @@ export class CandidatesListComponent {
       .afterClosed()
       .pipe(
         filter((el) => !!el),
-        switchMap((el) => {
+        tap((el) => {
           if (el.type === OptionType[OptionType.ADD]) {
             this.loadingService.setLoading(true);
             this.candidates.push(el.member);
-            return this.id === PageActions.CREATION
-              ? of(this.updateCandidate.emit(this.candidates))
-              : this.vacancyService.onUpdateVacancy(this.id, {
-                  candidates: this.candidates.map((el) => el.id),
-                });
+            this.id === PageActions.CREATION
+              ? this.updateCandidate.emit(this.candidates)
+              : this.vacancyService
+                  .onUpdateVacancy(this.id, {
+                    candidates: this.candidates.map((el) => el.id),
+                  })
+                  .subscribe();
+          }
+        }),
+        switchMap((el) => {
+          if (el.type === OptionType[OptionType.ADD]) {
+            if (this.id === PageActions.CREATION) return of('');
+            const vacanciesIds = el.vacanciesIds || [];
+            vacanciesIds.push(this.id);
+            return this.candidatesService.updateCandidate(el.member.id, {
+              candidate: {
+                vacanciesIds: vacanciesIds,
+              },
+            });
           }
         }),
       )

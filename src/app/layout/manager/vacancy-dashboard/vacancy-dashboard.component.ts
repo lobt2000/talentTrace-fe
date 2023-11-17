@@ -4,6 +4,7 @@ import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { IOptions } from 'src/app/shared/interfaces/options.interface';
 import { VacancyDashboardService } from './services/vacancy-dashboard.service';
 import { LoadingService } from 'src/app/service/loading.service';
+import { CandidatesService } from '../candidates/services/candidates.service';
 
 @Component({
   selector: 'app-vacancy-dashboard',
@@ -12,6 +13,7 @@ import { LoadingService } from 'src/app/service/loading.service';
 })
 export class VacancyDashboardComponent implements OnInit {
   vacancy_list: any[] = [];
+  candidates_list: any[] = [];
   defaultBreadcrumb = {
     label: 'Dashboard',
     value: 'dashboard',
@@ -50,18 +52,28 @@ export class VacancyDashboardComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private vacancyService: VacancyDashboardService,
+    private candidatesService: CandidatesService,
     private loadingService: LoadingService,
   ) {}
 
   ngOnInit(): void {
     this.breadcrumbsService.removeActiveBreadcrumb();
     this.getAllVacancies();
+    this.getAllCandidatesWithoutVacancies();
   }
 
   getAllVacancies() {
     this.loadingService.setLoading(true);
     this.vacancyService.onGetAllVacancies().subscribe((res) => {
       this.vacancy_list = res.data;
+      this.loadingService.setLoading(false);
+    });
+  }
+
+  getAllCandidatesWithoutVacancies() {
+    this.loadingService.setLoading(true);
+    this.candidatesService.getAllCandidates().subscribe((res) => {
+      this.candidates_list = res.data.filter((el) => !el.vacanciesIds?.length);
       this.loadingService.setLoading(false);
     });
   }
@@ -83,4 +95,6 @@ export class VacancyDashboardComponent implements OnInit {
       this.onAddItem();
     }
   }
+
+  onAddCandidate() {}
 }

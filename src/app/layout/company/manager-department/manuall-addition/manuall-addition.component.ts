@@ -95,7 +95,7 @@ export class ManuallAdditionComponent implements OnInit {
       : this.managerDepartmentService.createManager(body);
 
     apiRequest.subscribe((res: { status: string; data: any }) => {
-      this.currManager = res.data;
+      this.currManager = 'id' in res.data ? this.currManager : res.data;
       const notifficationId =
         this.route.snapshot.queryParams['notifficationId'];
 

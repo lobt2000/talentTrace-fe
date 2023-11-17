@@ -69,6 +69,7 @@ export class PersonCardComponent implements OnDestroy {
   @Input() isChangingMember: boolean = false;
   @Input() person;
   @Input() itemTitle: string = 'team';
+  @Input() isAvailableUpdate: boolean = true;
   @Output() triggerEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -91,6 +92,10 @@ export class PersonCardComponent implements OnDestroy {
       };
     }
     this.triggerEvent.emit(body);
+  }
+
+  get currUserId() {
+    return JSON.parse(localStorage.getItem('userData')).id;
   }
 
   ngOnDestroy(): void {}

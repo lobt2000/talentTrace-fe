@@ -38,21 +38,24 @@
     [ngClass]="{ 'rotate-side': !isOpenOption }"
   >
     <ng-container *ngIf="!isChangingMember; else changingMember">
-      <div
-        class="action d-flex align-items-center justify-content-center w-100 p-4 font-size-20"
-        (click)="onTriggerEvent('CHANGE')"
-      >
-        <mat-icon> autorenew </mat-icon>
-        <div class="ml-3">Change to another</div>
-      </div>
+      <ng-container *ngIf="isAvailableUpdate">
+        <div
+          class="action d-flex align-items-center justify-content-center w-100 p-4 font-size-20"
+          (click)="onTriggerEvent('CHANGE')"
+        >
+          <mat-icon> autorenew </mat-icon>
+          <div class="ml-3">Change to another</div>
+        </div>
 
-      <div
-        class="action d-flex align-items-center justify-content-center w-100 p-4 font-size-20"
-        (click)="onTriggerEvent('DELETE')"
-      >
-        <mat-icon> person_remove </mat-icon>
-        <div class="ml-3">Remove from {{ itemTitle }}</div>
-      </div>
+        <div
+          class="action d-flex align-items-center justify-content-center w-100 p-4 font-size-20"
+          (click)="onTriggerEvent('DELETE')"
+        >
+          <mat-icon> person_remove </mat-icon>
+          <div class="ml-3">Remove from {{ itemTitle }}</div>
+        </div>
+      </ng-container>
+
       <div
         class="action d-flex align-items-center justify-content-center w-100 p-4 font-size-20"
         (click)="onTriggerEvent('SEND_MESSAGE')"

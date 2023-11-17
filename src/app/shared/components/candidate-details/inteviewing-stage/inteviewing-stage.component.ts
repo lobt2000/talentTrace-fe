@@ -15,7 +15,6 @@ import { UiDerfaultAccordionComponent } from '../../ui/ui-derfault-accordion/ui-
 import { TranslateModule } from '@ngx-translate/core';
 import { UiProgressComponent } from '../../ui/ui-progress/ui-progress.component';
 import { UiAutocompleteComponent } from '../../ui/ui-autocomplete/ui-autocomplete.component';
-import { defaultStages } from 'src/app/shared/constansts/stages.model';
 import {
   FormBuilder,
   FormControl,
@@ -38,6 +37,9 @@ import {
 import { LoadingService } from 'src/app/service/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from '../../modals/confirmation-modal/confirmation-modal.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute } from '@angular/router';
+import { PermissionService } from 'src/app/service/permission.service';
 
 @Component({
   selector: 'app-inteviewing-stage',
@@ -56,17 +58,19 @@ import { ConfirmationModalComponent } from '../../modals/confirmation-modal/conf
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
   ],
 })
 export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild('videoPlayer') videoplayer: any;
   @Input() stages: any[] = [];
+  @Input() vacanciesIds: any[] = [];
   @Output() updateStages: EventEmitter<Array<any>> = new EventEmitter();
   addStageOptions: Array<any> = [];
   addScoreOptions: Array<any> = [];
 
   isAddStageAvailable: boolean = false;
-  isAddScoreAvailable: boolean = false;
+  isAddScoreAvailable: number = null;
   isAvailableStageAdding: boolean = true;
 
   addStageForm = new FormControl('', [Validators.required]);
@@ -81,14 +85,34 @@ export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
   private destroy$ = new Subject();
   videoSource;
 
+  vacancyForm = new FormControl(null, [Validators.required]);
+
   constructor(
     private fb: FormBuilder,
     private candidatesService: CandidatesService,
+    private permissionService: PermissionService,
     private loadingService: LoadingService,
     private dialog: MatDialog,
+    private route: ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.vacancyForm.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        if (res) {
+          const canUpdateInterviewStage =
+            this.permissionService.canUpdateInterviewStage(res.managers);
+          this.permissionService.setCanUpdateInterviewStage(
+            canUpdateInterviewStage,
+          );
+          if (!canUpdateInterviewStage)
+            this.candidatesService
+              .openErrorModal('You are not in hiring team')
+              .subscribe();
+        }
+      });
+  }
 
   ngOnChanges() {
     if (this.stages) {
@@ -110,6 +134,16 @@ export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
         });
       this.isAvailableStageAdding = true;
     }
+    if (this.vacanciesIds?.length) {
+      const vacancyId = this.route.snapshot.queryParams['vacancyId'];
+      this.vacancyForm.patchValue(
+        vacancyId
+          ? this.vacanciesIds.find((el) => el.id === vacancyId)
+          : this.vacanciesIds[0],
+      );
+    } else {
+      this.permissionService.setCanUpdateInterviewStage(false);
+    }
   }
 
   onAddStage() {
@@ -120,6 +154,7 @@ export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
       let newStage = {
         name: this.addStageForm.value,
         type: this.addStageForm.value.toUpperCase().replace(' ', '_'),
+        vacancyId: this.vacancyForm.value?.id,
       };
       this.loadingService.setLoading(true);
       this.candidatesService.createStageOption(newStage).subscribe((res) => {
@@ -133,6 +168,7 @@ export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
         ...(this.addStageForm.value as Object),
         scores: [],
         file: '',
+        vacancyId: this.vacancyForm.value?.id,
       });
 
     this.isAvailableStageAdding = false;
@@ -164,8 +200,8 @@ export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
       });
 
     this.updateStages.emit(this.stages);
-
-    this.isAddScoreAvailable = false;
+    this.addScoreForm.reset();
+    this.isAddScoreAvailable = null;
   }
 
   getFileTitle(stage): string {
@@ -246,6 +282,14 @@ export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
 
   onGetFileType(type): boolean {
     return type?.data?.includes('video');
+  }
+
+  get currUserId() {
+    return JSON.parse(localStorage.getItem('userData'))?.id;
+  }
+
+  get isAvailableUpdating() {
+    return this.permissionService.getCanUpdateInterviewStageValue;
   }
 
   ngOnDestroy(): void {

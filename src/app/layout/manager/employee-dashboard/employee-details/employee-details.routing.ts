@@ -6,6 +6,15 @@ const routes: Routes = [
   {
     path: '',
     component: EmployeeDetailsComponent,
+    children: [
+      {
+        path: 'perfomance/:id',
+        loadComponent: () =>
+          import(
+            '../../../../shared/components/perfomance-details/perfomance-details.component'
+          ).then((m) => m.PerfomanceDetailsComponent),
+      },
+    ],
   },
 ];
 

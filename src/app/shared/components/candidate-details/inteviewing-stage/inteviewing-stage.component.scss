@@ -83,6 +83,10 @@
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
 }
 
+.vacancy-select {
+  @include size(50%, 70%);
+}
+
 :host ::ng-deep {
   .mat-expansion-panel-body {
     padding: 0 24px 24px;
@@ -99,6 +103,29 @@
       .mat-mdc-form-field-error-wrapper {
         padding: 0px !important;
       }
+    }
+  }
+
+  .vacancy-select {
+    .mdc-text-field {
+      border-radius: 5px !important;
+
+      .mat-mdc-form-field-infix {
+        min-height: 42px;
+        height: 42px;
+        padding: 0 !important;
+
+        .mat-mdc-select-trigger {
+          height: 100%;
+
+          .mat-mdc-select-value {
+            @include flex-box(row, nowrap, center, center);
+          }
+        }
+      }
+    }
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
     }
   }
 }

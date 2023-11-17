@@ -1,0 +1,70 @@
+<mat-tab-group #stepper class="w-100 h-100 mt-15">
+  <mat-tab class="position-relative" *ngFor="let feedback of feedbacks">
+    <ng-template mat-tab-label>
+      <div class="d-flex position-absolute top-8 right--100">
+        <ng-container *ngIf="!isCreation">
+          <button
+            class="short-info-edit d-flex align-items-center cursor-pointer"
+            (click)="candidate_form.enable()"
+            *ngIf="candidate_form?.disabled"
+          >
+            <mat-icon>border_color</mat-icon>
+          </button>
+          <button
+            *ngIf="candidate_form?.enabled"
+            class="short-info-edit d-flex align-items-center cursor-pointer mr-2"
+            (click)="onEditForm()"
+          >
+            <mat-icon class="save-style">done</mat-icon>
+          </button>
+          <button
+            class="short-info-edit d-flex align-items-center cursor-pointer"
+            (click)="resetFormChanges()"
+            *ngIf="candidate_form?.enabled"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </ng-container>
+        <button
+          class="short-info-edit d-flex align-items-center cursor-pointer"
+          *ngIf="isCreation"
+          (click)="removeFeedback(feedback)"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      {{ feedback.name }}
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+<div
+  class="position-absolute d-flex align-items-end justify-content-between top-80 right-20"
+>
+  <div class="d-flex colDir align-items-center justify-content-between">
+    <p class="white font-size-12 w-100 mb-2">Adding</p>
+    <mat-form-field class="feedback-stage-select w-100 position-relative">
+      <!-- <mat-label></mat-label> -->
+      <mat-select class="h-100" [formControl]="feedbackStageControl">
+        <mat-option *ngFor="let type of defaultFeedbackStage" [value]="type">
+          {{ type?.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <button
+    class="add d-flex align-items-center justify-content-center cursor-pointer position-relative ml-2 mr-2"
+    (click)="addFeedbackStage()"
+  >
+    <mat-icon> add </mat-icon>
+  </button>
+</div>
+
+<ng-template #hrFeedback> </ng-template>
+
+<ng-template #englishFeedback> </ng-template>
+
+<ng-template #techFeedback> </ng-template>
+
+<ng-template #evidenceFeedback> </ng-template>

@@ -19,7 +19,7 @@
       >
         <img
           *ngIf="showContent(item, 'icon')"
-          [src]="item.icon"
+          [src]="item.icon.hasOwnProperty('data') ? item.icon.data : item.icon"
           class="item-icon"
           alt=""
         />
@@ -72,7 +72,7 @@
 
   <ng-template #noItem>
     <div class="noItems item d-flex align-items-center justify-content-center">
-      {{ 'You have no {{noItems}} yet' | translate }}
+      You have no {{ noItems }} yet
     </div>
     <div
       class="position-absolute bottom-20 w-93 d-flex align-items-center justify-content-center"

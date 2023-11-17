@@ -6,7 +6,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UiPageComponent } from '../ui-page/ui-page.component';
 import { SharedModule } from '../../shared.module';
 import { IBreadcrumb } from '../../interfaces/ui-breadcrumbs.interface';
 import {
@@ -29,6 +28,7 @@ import { CommonUrls } from '../../constansts/common/common.constants';
 import { Subject, filter, switchMap, takeUntil, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { PermissionService } from 'src/app/service/permission.service';
 
 @Component({
   selector: 'app-candidate-details',
@@ -73,6 +73,7 @@ export class CandidateDetailsComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private loadingService: LoadingService,
     private candidatesService: CandidatesService,
+    private permissionService: PermissionService,
     private router: Router,
   ) {}
 
@@ -83,7 +84,6 @@ export class CandidateDetailsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.stepper.selectedIndexChange.subscribe((el) => {
       this.select = el;
-      console.log(el);
 
       if (typeof el === 'number' && el === 1 && this.firstInit) {
         this.getInterviewStages();
@@ -127,7 +127,6 @@ export class CandidateDetailsComponent implements OnInit, AfterViewInit {
         }),
       )
       .subscribe((res) => {
-        console.log(res);
         this.stages = res.data.stages;
         if (res.status) this.loadingService.setLoading(false);
       });
@@ -271,9 +270,17 @@ export class CandidateDetailsComponent implements OnInit, AfterViewInit {
     return this.id === PageActions.CREATION;
   }
 
+  get vacanciesIds(): Array<any> {
+    return this.candidate_details['vacanciesIds'] ?? [];
+  }
+
   get title(): string {
     return this.id == PageActions.CREATION
       ? this.id
       : this.candidate_details['name'];
+  }
+
+  get isAvailableUpdating() {
+    return this.permissionService.getCanUpdateInterviewStageValue;
   }
 }

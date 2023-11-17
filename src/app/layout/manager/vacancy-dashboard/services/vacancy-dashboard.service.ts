@@ -42,6 +42,10 @@ export class VacancyDashboardService {
     return this.http.get<IRequest>(`api/v1/vacancies/${id}/candidates`);
   }
 
+  onGetVacancyManager(id: string): Observable<IRequest> {
+    return this.http.get<IRequest>(`api/v1/vacancies/${id}/hiring_team`);
+  }
+
   navigateToItem(route?) {
     const router = [CommonUrls.Manager, 'vacancy-dashboard'];
     if (route) router.push(route);

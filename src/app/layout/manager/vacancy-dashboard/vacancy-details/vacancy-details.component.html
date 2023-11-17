@@ -6,6 +6,7 @@
         <mat-tab label="Candidates">
           <app-candidates-list
             *ngIf="selectNotANull && select === 0"
+            (updateCandidate)="vacancy_details.candidates = $event"
             [id]="id"
           ></app-candidates-list>
         </mat-tab>

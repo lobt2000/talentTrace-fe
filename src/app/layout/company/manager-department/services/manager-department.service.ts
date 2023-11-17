@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { IRequest } from 'src/app/shared/interfaces/common/common.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -7,8 +9,8 @@ import { Injectable } from '@angular/core';
 export class ManagerDepartmentService {
   constructor(private http: HttpClient) {}
 
-  getAllManagers() {
-    return this.http.get('/api/v1/managers');
+  getAllManagers(): Observable<IRequest> {
+    return this.http.get<IRequest>('/api/v1/managers');
   }
 
   getManager(id: string) {

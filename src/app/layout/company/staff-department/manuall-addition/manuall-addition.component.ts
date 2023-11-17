@@ -81,7 +81,7 @@ export class ManuallAdditionComponent implements OnInit {
       : this.staffDepartmentService.createEmployee(body);
 
     apiRequest.subscribe((res: { status: string; data: any }) => {
-      this.currEmployee = res.data;
+      this.currEmployee = 'id' in res.data ? this.currEmployee : res.data;
 
       this.router.navigate(
         [CommonUrls.Company, 'company-members', 'add-manually'],

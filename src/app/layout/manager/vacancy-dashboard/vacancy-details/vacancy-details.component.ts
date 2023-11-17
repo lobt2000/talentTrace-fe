@@ -16,7 +16,8 @@ import { IBreadcrumb } from 'src/app/shared/interfaces/ui-breadcrumbs.interface'
 import { VacancyDashboardService } from '../services/vacancy-dashboard.service';
 import { IRequest } from 'src/app/shared/interfaces/common/common.interface';
 import { LoadingService } from 'src/app/service/loading.service';
-import { filter, switchMap } from 'rxjs';
+import { filter, of, switchMap } from 'rxjs';
+import { CandidatesService } from '../../candidates/services/candidates.service';
 
 @Component({
   selector: 'app-vacancy-details',
@@ -43,6 +44,7 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
     private breadcrumbsService: BreadcrumbsService,
     private dialog: MatDialog,
     private vacancyService: VacancyDashboardService,
+    private candidateService: CandidatesService,
     private loadingService: LoadingService,
   ) {}
 
@@ -54,6 +56,10 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
     if (id) this.id = id;
     this.setActiveBreadCrumbs(this.id);
     if (!this.isCreation) this.getVacancyDetails();
+    else {
+      const user = JSON.parse(localStorage.getItem('userData'));
+      this.vacancy_details['managers'] = [user];
+    }
 
     this.getAllManagers();
   }
@@ -122,11 +128,25 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
     };
 
     this.loadingService.setLoading(true);
-    this.vacancyService.onCreateVacancy(body).subscribe((res) => {
-      this.navigateToItem(res.data.id);
-      this.loadingService.setLoading(false);
-      this.initPage(res.data.id);
-    });
+    this.vacancyService
+      .onCreateVacancy(body)
+      .pipe(
+        switchMap((res) => {
+          if (this.vacancy_details['candidates']?.length) {
+            this.candidateService
+              .updateAllCandidates(res.data.id, {
+                candidates: this.vacancy_details['candidates'],
+              })
+              .subscribe();
+          }
+          return of(res);
+        }),
+      )
+      .subscribe((res) => {
+        this.navigateToItem(res.data.id);
+        this.loadingService.setLoading(false);
+        this.initPage(res.data.id);
+      });
   }
 
   onEditForm(form) {

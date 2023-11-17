@@ -1,10 +1,17 @@
 <app-ui-page [defaultBreadcrumb]="defaultBreadcrumb">
-  <ng-container pageName>{{ id | translate }}</ng-container>
+  <ng-container pageName>{{ title | translate }}</ng-container>
   <ng-container pageContent>
     <div class="w-100 h-100">
-      <mat-tab-group #stepper class="w-100 h-100">
+      <!-- <ng-container *ngIf="!isPerfomance; else router"> -->
+      <mat-tab-group
+        [style.display]="isPerfomance ? 'none' : 'block'"
+        #stepper
+        class="w-100 h-100"
+      >
         <mat-tab label="General info">
           <app-general-info-profile
+            [hideActionButton]="!isAvailableUpdate"
+            [person]="employee"
             *ngIf="selectNotANull && select === 0"
           ></app-general-info-profile>
         </mat-tab>
@@ -16,9 +23,16 @@
         <mat-tab label="Managers">
           <app-managers-team
             *ngIf="selectNotANull && select === 2"
+            [managers]="managers"
+            [emploee_details]="employee"
+            [manager_team]="employee?.managers_team"
           ></app-managers-team>
         </mat-tab>
       </mat-tab-group>
+      <!-- </ng-container> -->
+      <!-- <ng-template #router> -->
+      <router-outlet *ngIf="isPerfomance"></router-outlet>
+      <!-- </ng-template> -->
     </div>
   </ng-container>
 </app-ui-page>

@@ -40,7 +40,10 @@
         </mat-tab>
         <mat-tab class="position-relative" *ngIf="!isCreation">
           <ng-template mat-tab-label>
-            <div class="d-flex position-absolute top-8 right--100">
+            <div
+              class="d-flex position-absolute top-8 right--100"
+              *ngIf="isAvailableUpdating"
+            >
               <button
                 class="short-info-edit d-flex align-items-center cursor-pointer mr-2"
                 (click)="onEditStages()"
@@ -53,6 +56,7 @@
           <app-inteviewing-stage
             *ngIf="select && select === 1"
             [stages]="stages"
+            [vacanciesIds]="vacanciesIds"
             (updateStages)="updateInterviewStages($event)"
           ></app-inteviewing-stage>
         </mat-tab>
