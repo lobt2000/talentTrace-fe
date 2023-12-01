@@ -1,5 +1,12 @@
-<mat-tab-group #stepper class="w-100 h-100 mt-15">
-  <mat-tab class="position-relative" *ngFor="let feedback of feedbacks">
+<mat-tab-group
+  #stepper
+  class="w-100 mt-15"
+  [class]="feedbacks?.length ? 'h-100' : 'h-0'"
+>
+  <mat-tab
+    class="position-relative"
+    *ngFor="let feedback of feedbacks; let i = index"
+  >
     <ng-template mat-tab-label>
       <div class="d-flex position-absolute top-8 right--100">
         <ng-container *ngIf="!isCreation">
@@ -30,22 +37,36 @@
           *ngIf="isCreation"
           (click)="removeFeedback(feedback)"
         >
-          <mat-icon>close</mat-icon>
+          <mat-icon>delete</mat-icon>
         </button>
       </div>
       {{ feedback.name }}
     </ng-template>
+    <div class="w-100 position-relative p-3" [ngSwitch]="feedback?.type">
+      <ng-container *ngSwitchCase="'TECH'">
+        <ng-container
+          *ngTemplateOutlet="techFeedback; context: { $implicit: feedback }"
+        ></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="'ENGLISH'">
+        <ng-container
+          *ngTemplateOutlet="englishFeedback; context: { $implicit: feedback }"
+        ></ng-container>
+      </ng-container>
+    </div>
   </mat-tab>
 </mat-tab-group>
 
 <div
-  class="position-absolute d-flex align-items-end justify-content-between top-80 right-20"
+  class="position-absolute d-flex align-items-end justify-content-between top-82 right-20"
 >
   <div class="d-flex colDir align-items-center justify-content-between">
-    <p class="white font-size-12 w-100 mb-2">Adding</p>
     <mat-form-field class="feedback-stage-select w-100 position-relative">
-      <!-- <mat-label></mat-label> -->
-      <mat-select class="h-100" [formControl]="feedbackStageControl">
+      <mat-select
+        class="h-100"
+        [formControl]="feedbackStageControl"
+        placeholder="Choose feedback"
+      >
         <mat-option *ngFor="let type of defaultFeedbackStage" [value]="type">
           {{ type?.name }}
         </mat-option>
@@ -61,10 +82,28 @@
   </button>
 </div>
 
+<ng-container *ngIf="!feedbacks?.length">
+  <ng-container *ngTemplateOutlet="noItems"></ng-container>
+</ng-container>
+
 <ng-template #hrFeedback> </ng-template>
 
-<ng-template #englishFeedback> </ng-template>
+<ng-template #englishFeedback let-feedback>
+  <app-english-feedback [feedback]="feedback"></app-english-feedback>
+</ng-template>
 
-<ng-template #techFeedback> </ng-template>
+<ng-template #techFeedback let-data>
+  <app-tech-feedback [feedback]="data"></app-tech-feedback>
+</ng-template>
 
 <ng-template #evidenceFeedback> </ng-template>
+
+<ng-template #noItems>
+  <div
+    class="noItem card-add white d-flex align-items-center colDir justify-content-center position-relative"
+  >
+    <mat-icon class="position-absolute">reply</mat-icon>
+    <h3 class="mb-3">For now you have no Feedback!!!</h3>
+    <h3>Please choose feedback and click on PLUS button above</h3>
+  </div>
+</ng-template>

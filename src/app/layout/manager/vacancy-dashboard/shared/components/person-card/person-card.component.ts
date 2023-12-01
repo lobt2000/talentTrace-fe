@@ -1,11 +1,9 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   Output,
-  Renderer2,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -72,10 +70,7 @@ export class PersonCardComponent implements OnDestroy {
   @Input() isAvailableUpdate: boolean = true;
   @Output() triggerEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private renderer: Renderer2,
-    private el: ElementRef,
-  ) {}
+  constructor() {}
 
   onTriggerChangeSide(value?) {
     this.isOpenOption = value || !this.isOpenOption;

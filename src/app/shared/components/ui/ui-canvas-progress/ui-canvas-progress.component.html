@@ -1,0 +1,14 @@
+<div class="canvas-wrap">
+  <canvas
+    #refCan
+    class="canvas"
+    [width]="settings.radius * 2 + 20"
+    [height]="settings.radius * 2 + 20"
+  ></canvas>
+  <span
+    class="percent"
+    [style.font-size]="settings.fontSize + 'px'"
+    [style.color]="settings.color"
+    >{{ spanPercent }}{{ settings.label }}</span
+  >
+</div>

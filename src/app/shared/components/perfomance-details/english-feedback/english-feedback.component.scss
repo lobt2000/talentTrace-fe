@@ -1,0 +1,118 @@
+@import "../../../../../assets/style/ui";
+
+.actions {
+  @include size(fit-content, auto);
+  button {
+    outline: unset;
+    border-radius: 5px;
+    transition: all 0.6s linear;
+    background-color: white;
+    border: 3px solid white;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  }
+  .add {
+    mat-icon {
+      color: #17a2b8;
+    }
+
+    &:focus {
+      border: 3px solid gray;
+    }
+
+    &:hover {
+      background-color: #17a2b8;
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+  .remove {
+    mat-icon {
+      color: red;
+    }
+
+    &:focus {
+      border: 3px solid gray;
+    }
+
+    &:hover {
+      background-color: red;
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+}
+
+.header {
+  @include size(100%, 60px);
+  background-color: #fdb75a;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+.stage-block {
+  @include size(100%, calc(100% - 75px));
+  overflow-y: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+
+  .stage-header {
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+    border-bottom: 3px solid #344c51;
+  }
+
+  .test-result-header {
+    background-color: #e4ecfc;
+  }
+  .color-pointer {
+    @include size(15px, 15px);
+    border-radius: 15px;
+    display: inline-block;
+  }
+
+  .progress-info {
+    @include size(90px, 50px);
+    background-color: #000499;
+    border-radius: 10px;
+  }
+
+  // .noItem {
+  //   padding: 0 !important;
+  // }
+
+  .text-feedback {
+    display: none;
+  }
+
+  .visible {
+    display: block;
+  }
+
+  .isEmpty {
+    border: 1px solid #f3f6f9;
+  }
+
+  .description {
+    display: block;
+  }
+}
+
+:host ::ng-deep {
+  dl,
+  ol,
+  ul {
+    margin-left: 20px;
+  }
+
+  .ck-editor__editable_inline {
+    min-height: 250px;
+    color: black;
+    padding: 20px;
+  }
+  .mdc-form-field > label {
+    margin-bottom: 0px !important;
+  }
+}

@@ -27,6 +27,7 @@
       <app-candidate-card
         [candidate]="item"
         [moreOptions]="candidateOption"
+        [vacancyId]="id"
         *ngFor="let item of candidates"
         (goToItem)="onGoToCandidate($event)"
         (triggerAction)="actionTrigger($event, item)"

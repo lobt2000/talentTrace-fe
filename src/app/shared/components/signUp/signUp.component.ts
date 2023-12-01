@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormGroup,
   ValidationErrors,
@@ -8,11 +10,24 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserType } from '../../constansts/user-type.model';
+import { CommonModule } from '@angular/common';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-signUp',
   templateUrl: './signUp.component.html',
   styleUrls: ['./signUp.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatStepperModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
 })
 export class SignUpComponent implements OnInit {
   formEmail: UntypedFormGroup;

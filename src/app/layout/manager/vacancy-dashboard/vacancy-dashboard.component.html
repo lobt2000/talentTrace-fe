@@ -23,8 +23,9 @@
       <div class="conversation-list">
         <app-collapse-item-list
           [title]="'My conversation'"
-          [itemsList]="vacancy_list"
+          [itemsList]="[]"
           (goToItem)="onGoToItem($event)"
+          [noItems]="'conversation'"
         ></app-collapse-item-list>
       </div>
     </div>

@@ -4,6 +4,7 @@ import {
   Input,
   ViewChild,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +17,7 @@ import { IBreadcrumb } from 'src/app/shared/interfaces/ui-breadcrumbs.interface'
 import { VacancyDashboardService } from '../services/vacancy-dashboard.service';
 import { IRequest } from 'src/app/shared/interfaces/common/common.interface';
 import { LoadingService } from 'src/app/service/loading.service';
-import { filter, of, switchMap } from 'rxjs';
+import { Subject, filter, of, switchMap, takeUntil } from 'rxjs';
 import { CandidatesService } from '../../candidates/services/candidates.service';
 
 @Component({
@@ -24,8 +25,11 @@ import { CandidatesService } from '../../candidates/services/candidates.service'
   templateUrl: './vacancy-details.component.html',
   styleUrls: ['./vacancy-details.component.scss'],
 })
-export class VacancyDetailsComponent implements OnInit, AfterViewInit {
+export class VacancyDetailsComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() id = '';
+  @ViewChild('stepper') stepper: MatStepper;
   defaultBreadcrumb: IBreadcrumb = {
     label: 'Dashboard',
     value: 'dashboard',
@@ -38,7 +42,7 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
   vacancy_form: UntypedFormGroup;
   vacancy_details = {};
 
-  @ViewChild('stepper') stepper: MatStepper;
+  destroy$ = new Subject();
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
@@ -76,6 +80,7 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
   getVacancyDetails() {
     this.vacancyService
       .onGetVacancyDetails(this.id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res: IRequest) => {
         this.vacancy_details = res.data;
         this.setActiveBreadCrumbs(this.vacancy_details['name']);
@@ -84,18 +89,21 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
 
   getAllManagers() {
     this.loadingService.setLoading(true);
-    this.vacancyService.onGetAllManagers().subscribe((res: IRequest) => {
-      this.managers = res.data;
-      this.loadingService.setLoading(false);
-    });
+    this.vacancyService
+      .onGetAllManagers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res: IRequest) => {
+        this.managers = res.data;
+        this.loadingService.setLoading(false);
+      });
   }
 
   ngAfterViewInit(): void {
-    this.stepper.selectedIndexChange.subscribe((el) => {
-      this.select = el;
-
-      console.log(this.selectNotANull && this.select === 0);
-    });
+    this.stepper.selectedIndexChange
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((el) => {
+        this.select = el;
+      });
     this.stepper.selectedIndex = 1;
   }
 
@@ -131,6 +139,7 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
     this.vacancyService
       .onCreateVacancy(body)
       .pipe(
+        takeUntil(this.destroy$),
         switchMap((res) => {
           if (this.vacancy_details['candidates']?.length) {
             this.candidateService
@@ -150,7 +159,6 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
   }
 
   onEditForm(form) {
-    console.log(form);
     if (!form?.valid) {
       this.openErrorModal('Vacancy form is invalid ');
       return;
@@ -162,6 +170,7 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
         ...this.vacancy_details,
         ...form.getRawValue(),
       })
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.loadingService.setLoading(false);
         form.disable();
@@ -235,5 +244,10 @@ export class VacancyDetailsComponent implements OnInit, AfterViewInit {
 
   get isCreation(): boolean {
     return this.id == PageActions.CREATION;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -89,15 +89,10 @@ export class CandidateProfileComponent implements OnInit, OnChanges {
 
   onUploadFile(event) {
     if (event.target.files && event.target.files[0]) {
-      const file: File = event.target.files[0];
-      const formData = new FormData();
-      formData.append('thumbnail', file);
-
       let reader = new FileReader();
       this.loadingService.setLoading(true);
       reader.onload = (e) => {
         this.candidate_form.get('cv').patchValue({
-          type: file,
           data: e.target.result,
         });
 
@@ -110,15 +105,10 @@ export class CandidateProfileComponent implements OnInit, OnChanges {
 
   onUploadCandidateImg(event) {
     if (event.target.files && event.target.files[0]) {
-      const file: File = event.target.files[0];
-      const formData = new FormData();
-      formData.append('thumbnail', file);
-
       let reader = new FileReader();
       this.loadingService.setLoading(true);
       reader.onload = (e) => {
         this.candidateImg = {
-          type: file,
           data: e.target.result,
         };
         this.candidate_form.get('icon').patchValue(this.candidateImg);

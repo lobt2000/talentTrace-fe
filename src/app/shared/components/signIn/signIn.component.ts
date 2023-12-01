@@ -1,15 +1,32 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { UserType } from '../../constansts/user-type.model';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-signIn',
   templateUrl: './signIn.component.html',
   styleUrls: ['./signIn.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatStepperModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule,
+  ],
 })
 export class SignInComponent implements OnInit {
   form: UntypedFormGroup;

@@ -2,13 +2,23 @@
   <div class="job-main-info colDir d-flex align-items-center">
     <div class="job-header mb-4">
       <p class="font-w-bold font-size-20 ml-1">Header</p>
-      <div class="header-img position-relative">
+      <div
+        class="header-img position-relative"
+        [style]="{
+          'background-image':
+            'url(' + getFormControl('bgIcon')?.value?.data + ')'
+        }"
+      >
         <button
           class="change-image position-absolute d-flex align-items-center"
         >
           <mat-icon>image</mat-icon>
           Change
-          <input class="change-image-input cursor-pointer" type="file" />
+          <input
+            class="change-image-input cursor-pointer"
+            type="file"
+            (change)="onUploadBgImg($event)"
+          />
         </button>
       </div>
     </div>

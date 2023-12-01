@@ -25,7 +25,9 @@
         />
         <img
           *ngIf="showContent(item, 'bgIcon')"
-          [src]="item.bgIcon"
+          [src]="
+            item.bgIcon.hasOwnProperty('data') ? item.bgIcon.data : item.bgIcon
+          "
           class="item-icon"
           alt=""
         />
@@ -58,7 +60,7 @@
             <img
               *ngFor="let candidate of item.candidates"
               class="item-icon"
-              [src]="candidate"
+              [src]="candidate?.icon?.data"
               alt=""
             />
           </div>

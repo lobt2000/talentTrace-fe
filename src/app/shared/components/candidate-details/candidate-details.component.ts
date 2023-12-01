@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -48,7 +49,9 @@ import { PermissionService } from 'src/app/service/permission.service';
   templateUrl: './candidate-details.component.html',
   styleUrls: ['./candidate-details.component.scss'],
 })
-export class CandidateDetailsComponent implements OnInit, AfterViewInit {
+export class CandidateDetailsComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() id = '';
   @ViewChild('stepper') stepper: MatStepper;
 
@@ -170,6 +173,7 @@ export class CandidateDetailsComponent implements OnInit, AfterViewInit {
     this.loadingService.setLoading(true);
     this.candidatesService
       .createCandidate(this.getFormBody)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         const router = [CommonUrls.Manager, 'candidates', res.data.id];
         this.router.navigate(router);
@@ -220,14 +224,17 @@ export class CandidateDetailsComponent implements OnInit, AfterViewInit {
 
   onUpdateCandidate(body) {
     this.loadingService.setLoading(true);
-    this.candidatesService.updateCandidate(this.id, body).subscribe(() => {
-      this.loadingService.setLoading(false);
-      if (this.select !== 1) {
-        this.candidate_form.disable();
-      } else {
-        this.stages = [...this.stages];
-      }
-    });
+    this.candidatesService
+      .updateCandidate(this.id, body)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadingService.setLoading(false);
+        if (this.select !== 1) {
+          this.candidate_form.disable();
+        } else {
+          this.stages = [...this.stages];
+        }
+      });
   }
 
   resetFormChanges() {
@@ -282,5 +289,10 @@ export class CandidateDetailsComponent implements OnInit, AfterViewInit {
 
   get isAvailableUpdating() {
     return this.permissionService.getCanUpdateInterviewStageValue;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

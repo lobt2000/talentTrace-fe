@@ -11,6 +11,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
   UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,8 +23,16 @@ import { ICommon } from '../../interfaces/common/common.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { PageActions } from '../../constansts/page-actions.model';
 import { EmployeeDashboardService } from 'src/app/layout/manager/employee-dashboard/services/employee-dashboard.service';
-import { filter } from 'rxjs';
+import { Subject, filter } from 'rxjs';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
+import { PermissionService } from 'src/app/service/permission.service';
+import { LoadingService } from 'src/app/service/loading.service';
+import { UiProgressComponent } from '../ui/ui-progress/ui-progress.component';
+import { UiAutocompleteComponent } from '../ui/ui-autocomplete/ui-autocomplete.component';
+import { MatInputModule } from '@angular/material/input';
+import { EnglishFeedbackComponent } from './english-feedback/english-feedback.component';
+import { GeneralFeedbackComponent } from './general-feedback/general-feedback.component';
+import { TechFeedbackComponent } from './tech-feedback/tech-feedback.component';
 
 @Component({
   selector: 'app-perfomance-details',
@@ -38,6 +48,12 @@ import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
     MatSelectModule,
     MatFormFieldModule,
     MatIconModule,
+    UiProgressComponent,
+    UiAutocompleteComponent,
+    MatInputModule,
+    EnglishFeedbackComponent,
+    GeneralFeedbackComponent,
+    TechFeedbackComponent,
   ],
 })
 export class PerfomanceDetailsComponent implements OnInit, AfterViewInit {
@@ -67,15 +83,23 @@ export class PerfomanceDetailsComponent implements OnInit, AfterViewInit {
     },
   ];
 
+  employee_details;
   feedbacks: Array<any> = [];
 
-  feedbackStageControl: UntypedFormControl = this.fb.control(null);
   select: number = 0;
+
+  feedbackStageControl: UntypedFormControl = this.fb.control(null, [
+    Validators.required,
+  ]);
+
+  private destroy$ = new Subject();
 
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeDashboardService,
     private breadcrumbsService: BreadcrumbsService,
+    private permissionService: PermissionService,
+    private loadingService: LoadingService,
   ) {}
   ngOnInit(): void {
     setTimeout(() => {
@@ -96,9 +120,13 @@ export class PerfomanceDetailsComponent implements OnInit, AfterViewInit {
   addFeedbackStage() {
     if (this.feedbackStageControl.invalid) return;
     const feedback = this.feedbackStageControl.value;
-    this.feedbacks.push(this.feedbackStageControl.value);
+    this.feedbacks.push({
+      ...this.feedbackStageControl.value,
+      scores: [],
+      file: {},
+    });
     this.defaultFeedbackStage = this.defaultFeedbackStage.filter(
-      (el) => el.id !== feedback.id,
+      (el) => el?.id !== feedback?.id,
     );
     this.feedbackStageControl.reset();
   }
@@ -122,5 +150,12 @@ export class PerfomanceDetailsComponent implements OnInit, AfterViewInit {
 
   get isCreation(): boolean {
     return this.id === PageActions.CREATION;
+  }
+
+  get isAvailableUpdating() {
+    // return this.permissionService.canUpdateInterviewStage(
+    //   this.employee_details?.managers_team ?? []
+    // );
+    return true;
   }
 }

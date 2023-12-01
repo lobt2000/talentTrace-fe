@@ -7,15 +7,16 @@ import {
   HTTP_INTERCEPTORS,
   HttpClient,
   HttpClientModule,
+  HttpHeaders,
 } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UiLoaderComponent } from './shared/components/ui/ui-loader/ui-loader.component';
-import { ManagerRegistrationComponent } from './manager-registration/manager-registration.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { MatDialogModule } from '@angular/material/dialog';
+import { tap } from 'rxjs';
 
 function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(

@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MoreOptionsComponent } from '../more-options/more-options.component';
 import { UiProgressComponent } from '../ui/ui-progress/ui-progress.component';
+import { PageActions } from '../../constansts/page-actions.model';
 
 @Component({
   selector: 'app-candidate-card',
@@ -27,6 +28,7 @@ import { UiProgressComponent } from '../ui/ui-progress/ui-progress.component';
 })
 export class CandidateCardComponent implements OnInit {
   @Input() candidate;
+  @Input() vacancyId: string = '';
   @Input() moreOptions: Array<IOptions> = [];
 
   @Output() goToItem: EventEmitter<any> = new EventEmitter();
@@ -37,11 +39,19 @@ export class CandidateCardComponent implements OnInit {
   }
 
   get getScores() {
-    return this.candidate?.stages[0]?.scores;
+    if (this.vacancyId === PageActions.CREATION) return [];
+    const vacancyScore = (this.candidate?.stages ?? []).find(
+      (el) => el.vacancyId === this.vacancyId,
+    )?.scores;
+    return vacancyScore ?? this.candidate?.stages[0]?.scores;
   }
 
   get getStageTitle() {
-    return this.candidate?.stages[0]?.name ?? 'No stages';
+    if (this.vacancyId === PageActions.CREATION) return 'No stages';
+    const vacancyStage = (this.candidate?.stages ?? []).find(
+      (el) => el.vacancyId === this.vacancyId,
+    );
+    return vacancyStage?.name ?? this.candidate?.stages[0]?.name ?? 'No stages';
   }
 
   onGoToItem(event) {

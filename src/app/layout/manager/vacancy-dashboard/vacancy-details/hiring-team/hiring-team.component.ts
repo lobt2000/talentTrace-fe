@@ -1,11 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeMemberModalComponent } from '../../shared/components/change-member-modal/change-member-modal.component';
 import {
   IPersonChange,
   PersonEventTitle,
 } from '../../shared/models/person-change.interface';
-import { filter } from 'rxjs';
+import { Subject, filter, takeUntil } from 'rxjs';
 import {
   OptionType,
   OptionTypeKeys,
@@ -17,11 +23,13 @@ import { VacancyDashboardService } from '../../services/vacancy-dashboard.servic
   templateUrl: './hiring-team.component.html',
   styleUrls: ['./hiring-team.component.scss'],
 })
-export class HiringTeamComponent {
+export class HiringTeamComponent implements OnDestroy {
   @Input() hiringTeam: Array<any> = [];
   @Input() managers: Array<any> = [];
   @Output() changeHiringTeam: EventEmitter<Array<any>> = new EventEmitter();
   isOpenOption: boolean = false;
+
+  destroy$ = new Subject();
 
   constructor(private dialog: MatDialog) {}
 
@@ -59,7 +67,10 @@ export class HiringTeamComponent {
         },
       })
       .afterClosed()
-      .pipe(filter((el) => el))
+      .pipe(
+        filter((el) => el),
+        takeUntil(this.destroy$),
+      )
       .subscribe((el: IPersonChange) => {
         if (value.type === OptionType[OptionType.CHANGE]) {
           this.hiringTeam.push(el.member);
@@ -85,5 +96,10 @@ export class HiringTeamComponent {
       title: PersonEventTitle['ADD'],
     };
     this.onTriggerEvent(body);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

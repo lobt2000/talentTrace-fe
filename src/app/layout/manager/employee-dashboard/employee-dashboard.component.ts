@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { ColumnModel } from 'src/app/shared/models/column.model';
 import { EmployeeDashboardService } from './services/employee-dashboard.service';
 import { LoadingService } from 'src/app/service/loading.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-employee-dashboard',
   templateUrl: './employee-dashboard.component.html',
   styleUrls: ['./employee-dashboard.component.scss'],
 })
-export class EmployeeDashboardComponent {
+export class EmployeeDashboardComponent implements OnDestroy {
   employee_list: any[];
   defaultBreadcrumb = {
     label: 'Dashboard',
@@ -41,6 +42,8 @@ export class EmployeeDashboardComponent {
     },
   ];
 
+  destroy$ = new Subject();
+
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private router: Router,
@@ -56,15 +59,23 @@ export class EmployeeDashboardComponent {
 
   getEmployees() {
     this.loadingService.setLoading(true);
-    this.employeeService.getAllEmployees().subscribe((res) => {
-      this.employee_list = res.data;
-      this.loadingService.setLoading(false);
-    });
+    this.employeeService
+      .getAllEmployees()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.employee_list = res.data;
+        this.loadingService.setLoading(false);
+      });
   }
 
   onGoToItem(item) {
     this.router.navigate([item.id], {
       relativeTo: this.route,
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

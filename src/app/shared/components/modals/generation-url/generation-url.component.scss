@@ -1,10 +1,12 @@
 @import "../../../../../assets/style/ui";
 :host {
   @include size(100%, 100%);
-
+  background-color: #344c51;
+  display: block;
   .header {
     @include size(100%, 50px);
     margin-bottom: 20px;
+    background-color: #fdb75a;
   }
 
   .url-container {
@@ -32,6 +34,13 @@
       padding: 10px;
       border-radius: 5px;
       line-height: 40px;
+      border-color: white;
+      transition: all 0.3s ease-in-out;
+
+      mat-icon {
+        color: white;
+        transition: all 0.3s ease-in-out;
+      }
 
       &:focus {
         outline: unset;
@@ -42,5 +51,11 @@
         }
       }
     }
+  }
+}
+
+::ng-deep {
+  .mdc-dialog__surface {
+    padding: 0 !important;
   }
 }

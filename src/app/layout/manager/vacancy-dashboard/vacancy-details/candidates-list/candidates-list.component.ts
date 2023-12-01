@@ -1,6 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, of, switchMap, tap } from 'rxjs';
+import { Subject, filter, of, switchMap, takeUntil, tap } from 'rxjs';
 import { LoadingService } from 'src/app/service/loading.service';
 import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
 import { IOptions } from 'src/app/shared/interfaces/options.interface';
@@ -16,11 +22,11 @@ import { CandidatesService } from '../../../candidates/services/candidates.servi
   templateUrl: './candidates-list.component.html',
   styleUrls: ['./candidates-list.component.scss'],
 })
-export class CandidatesListComponent {
+export class CandidatesListComponent implements OnDestroy {
   @Input() id;
   @Output() updateCandidate: EventEmitter<any> = new EventEmitter();
-  candidates: any[];
-  allCandidates: any[];
+  candidates: any[] = [];
+  allCandidates: any[][];
   candidateOption: Array<IOptions> = [
     {
       type: 'message',
@@ -100,6 +106,8 @@ export class CandidatesListComponent {
     },
   ];
 
+  destroy$ = new Subject();
+
   constructor(
     private loadingService: LoadingService,
     private router: Router,
@@ -158,16 +166,22 @@ export class CandidatesListComponent {
 
   getAllVacancyCandidates() {
     this.loadingService.setLoading(true);
-    this.vacancyService.onGetAllVacancyCandidates(this.id).subscribe((res) => {
-      this.candidates = res.data;
-      this.loadingService.setLoading(false);
-    });
+    this.vacancyService
+      .onGetAllVacancyCandidates(this.id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.candidates = res.data;
+        this.loadingService.setLoading(false);
+      });
   }
 
   async onAddCandidate() {
     this.loadingService.setLoading(true);
     this.allCandidates = (
-      await this.candidatesService.getAllCandidates().toPromise()
+      await this.candidatesService
+        .getAllCandidates()
+        .pipe(takeUntil(this.destroy$))
+        .toPromise()
     ).data;
     this.loadingService.setLoading(false);
 
@@ -183,13 +197,14 @@ export class CandidatesListComponent {
           title: 'Add candidate to vacancy',
           type: OptionType[OptionType.ADD],
           items: this.allCandidates,
-          members: this.candidates,
+          members: this.candidates ?? [],
           itemTitle: 'vacancy',
         },
       })
       .afterClosed()
       .pipe(
         filter((el) => !!el),
+        takeUntil(this.destroy$),
         tap((el) => {
           if (el.type === OptionType[OptionType.ADD]) {
             this.loadingService.setLoading(true);
@@ -200,6 +215,7 @@ export class CandidatesListComponent {
                   .onUpdateVacancy(this.id, {
                     candidates: this.candidates.map((el) => el.id),
                   })
+                  .pipe(takeUntil(this.destroy$))
                   .subscribe();
           }
         }),
@@ -217,5 +233,10 @@ export class CandidatesListComponent {
         }),
       )
       .subscribe(() => this.loadingService.setLoading(false));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

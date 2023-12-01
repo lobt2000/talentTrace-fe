@@ -94,7 +94,9 @@ export class VacancyFormComponent implements OnInit, OnChanges {
       }),
       location: this.fb.control(''),
       skill: this.fb.control('', [Validators.required]),
-      bgIcon: this.fb.control('assets/img/vacation-header-background.jpeg'),
+      bgIcon: this.fb.control({
+        data: 'assets/img/vacation-header-background.jpeg',
+      }),
       name: this.fb.control('', [Validators.required]),
       description: this.fb.control('', [Validators.required]),
       hiring_manger: this.fb.control(this.currManager.name),
@@ -109,9 +111,11 @@ export class VacancyFormComponent implements OnInit, OnChanges {
 
   updateForm() {
     if (this.form) {
+      console.log(this.vacancy_details);
+
       this.form?.patchValue({
         ...this.vacancy_details,
-        description: this.vacancy_details.description
+        description: this.vacancy_details?.description
           .replace(/&lt;/gm, '<')
           .replace(/&nbsp;/gm, ' '),
         jobType: this.jobTypes.find(
@@ -125,7 +129,7 @@ export class VacancyFormComponent implements OnInit, OnChanges {
         },
       });
 
-      this.editorData = this.vacancy_details.description
+      this.editorData = this.vacancy_details?.description
         .replace(/&lt;/gm, '<')
         .replace(/&nbsp;/gm, ' ');
     }
@@ -174,6 +178,17 @@ export class VacancyFormComponent implements OnInit, OnChanges {
     } else {
       this.editMode = 'save';
       this.form.disable();
+    }
+  }
+
+  onUploadBgImg(event) {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.form.get('bgIcon').patchValue({ data: e.target.result });
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
     }
   }
 

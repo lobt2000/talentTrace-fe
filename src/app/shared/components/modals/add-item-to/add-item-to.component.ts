@@ -23,7 +23,9 @@ export class AddItemToComponent extends BaseModalComponent implements OnInit {
     super(translate, dialogRef);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.data);
+  }
 
   onTriggerEvent(value: IPersonChange) {
     const body: IPersonChange = {

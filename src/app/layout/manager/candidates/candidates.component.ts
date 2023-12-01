@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { CommonUrls } from 'src/app/shared/constansts/common/common.constants';
 import { IOptions } from 'src/app/shared/interfaces/options.interface';
 import { CandidatesService } from './services/candidates.service';
 import { LoadingService } from 'src/app/service/loading.service';
-import { filter, switchMap } from 'rxjs';
+import { Subject, filter, switchMap, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-candidates',
   templateUrl: './candidates.component.html',
   styleUrls: ['./candidates.component.scss'],
 })
-export class CandidatesComponent implements OnInit {
+export class CandidatesComponent implements OnInit, OnDestroy {
   defaultBreadcrumb = {
     label: 'Candidates',
     value: 'candidates',
@@ -100,6 +100,8 @@ export class CandidatesComponent implements OnInit {
     },
   ];
 
+  destroy$ = new Subject();
+
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private router: Router,
@@ -114,7 +116,6 @@ export class CandidatesComponent implements OnInit {
   }
 
   onGoToCandidate(candidate) {
-    console.log(candidate);
     this.router.navigate([candidate.id], {
       relativeTo: this.route,
     });
@@ -139,13 +140,21 @@ export class CandidatesComponent implements OnInit {
 
   getAllCandidates() {
     this.loadingService.setLoading(true);
-    this.candidatesService.getAllCandidates().subscribe((res) => {
-      this.candidates = res.data;
-      this.loadingService.setLoading(false);
-    });
+    this.candidatesService
+      .getAllCandidates()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.candidates = res.data;
+        this.loadingService.setLoading(false);
+      });
   }
 
   onAddCandidate() {
     this.router.navigate([CommonUrls.Manager, 'candidates', 'Creation']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

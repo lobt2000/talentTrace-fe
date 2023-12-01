@@ -1,0 +1,391 @@
+<div class="header d-flex align-items-center justify-content-between">
+  <h3>Feedbacks</h3>
+
+  <div class="actions d-flex align-items-center justify-content-between">
+    <button
+      class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative"
+      [disabled]="feedback['scores']?.length > 1"
+      (click)="isAddStageAvailable = true"
+      *ngIf="isAvailableUpdating"
+    >
+      <mat-icon> add </mat-icon>
+    </button>
+  </div>
+</div>
+
+<div
+  class="add-stage w-100 d-flex align-items-center justify-content-between bg-lightmain p-3 mb-20"
+  *ngIf="isAddStageAvailable"
+  [formGroup]="addEnglishForm"
+>
+  <app-ui-autocomplete
+    class="w-50"
+    [formControlName]="'type'"
+    [options]="defaultEnglishStage"
+    [title]="'Add stage'"
+  ></app-ui-autocomplete>
+
+  <ng-container *ngIf="isEnglishTestFeedback">
+    <mat-form-field class="">
+      <mat-label>Write total points</mat-label>
+      <input
+        type=" text"
+        [formControlName]="'totalPoints'"
+        min="0"
+        max="100"
+        placeholder="Write total points"
+        matInput
+      />
+      <mat-error
+        *ngIf="addEnglishForm.get('totalPoints')?.hasError('required')"
+      >
+        Please choose an option
+      </mat-error>
+      <mat-error
+        *ngIf="
+          addEnglishForm.get('totalPoints')?.hasError('min') &&
+          !addEnglishForm.get('totalPoints')?.hasError('required')
+        "
+      >
+        Min value = 0
+      </mat-error>
+      <mat-error
+        *ngIf="
+          addEnglishForm.get('totalPoints')?.hasError('max') &&
+          !addEnglishForm.get('totalPoints')?.hasError('required')
+        "
+      >
+        Max value = 100
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="">
+      <mat-label>Write user points</mat-label>
+      <input
+        type="text"
+        [formControlName]="'correctPoints'"
+        placeholder="Write user points"
+        matInput
+      />
+      <mat-error
+        *ngIf="addEnglishForm.get('correctPoints')?.hasError('required')"
+      >
+        Please choose an option
+      </mat-error>
+      <mat-error
+        *ngIf="
+          addEnglishForm.get('correctPoints')?.hasError('min') &&
+          !addEnglishForm.get('correctPoints')?.hasError('required')
+        "
+      >
+        Min value = 0
+      </mat-error>
+      <mat-error
+        *ngIf="
+          addEnglishForm.get('correctPoints')?.hasError('max') &&
+          !addEnglishForm.get('correctPoints')?.hasError('required')
+        "
+      >
+        Max value = {{ addEnglishFormControl("totalPoints").value }}
+      </mat-error>
+    </mat-form-field>
+  </ng-container>
+
+  <div class="actions d-flex align-items-center justify-content-between">
+    <button
+      class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative ml-1 mr-1"
+      (click)="onAddEnglishStage(); isAddStageAvailable = false"
+    >
+      <mat-icon> add </mat-icon>
+    </button>
+    <button
+      class="remove d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative ml-1 mr-1"
+      (click)="isAddStageAvailable = false; addEnglishForm.reset()"
+    >
+      <mat-icon> close </mat-icon>
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="feedback?.scores?.length && isContainLevel">
+  <div class="stage-block bg-white mb-20">
+    <div
+      class="stage-header w-100 p-4 d-flex align-items-center justify-content-between"
+    >
+      <h3 class="font-w-bold font-size-18">Overall stage</h3>
+    </div>
+    <div
+      class="w-100 position-relative d-flex"
+      style="border-bottom: 3px solid #344c51"
+    >
+      <div
+        class="d-flex align-items-center w-50 colDir"
+        style="border-right: 3px solid #344c51"
+      >
+        <div
+          class="test-result-header p-4 w-100 d-flex justify-content-between"
+        >
+          <div class="w-50">
+            <h3 class="font-w-bold font-size-24">General Result</h3>
+            <p class="font-w-bold font-size-18">
+              Your average english level based on test is:
+            </p>
+          </div>
+          <div class="w-50">
+            <div
+              class="d-flex w-100 h-100 align-items-center justify-content-center"
+            >
+              <div
+                class="progress-info d-flex align-items-center justify-content-center"
+              >
+                <p class="white font-size-22 font-w-bold">
+                  {{ feedback.averageLevel }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container [formGroup]="testTypeForm">
+  <div
+    class="stage-block bg-white mb-20"
+    *ngFor="let stage of feedback?.scores ?? []; let i = index"
+    [ngSwitch]="stage.type"
+    formArrayName="testTypeFormArray"
+  >
+    <div
+      class="stage-header w-100 p-4 d-flex align-items-center justify-content-between"
+    >
+      <h3 class="font-w-bold font-size-18">{{ stage.name }} stage</h3>
+
+      <div class="actions d-flex align-items-center justify-content-between">
+        <button
+          class="remove d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative ml-1 mr-1"
+          (click)="onRemoveEnglishStag(stage, i)"
+        >
+          <mat-icon> close </mat-icon>
+        </button>
+      </div>
+    </div>
+    <ng-container *ngSwitchCase="'SPEAK'">
+      <ng-container
+        *ngTemplateOutlet="speakFeedback; context: { $implicit: stage }"
+      ></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'TEST'">
+      <ng-container [formGroupName]="i">
+        <div
+          class="w-100 position-relative d-flex"
+          style="border-bottom: 3px solid #344c51"
+        >
+          <div
+            class="d-flex align-items-center w-50 colDir"
+            style="border-right: 3px solid #344c51"
+          >
+            <div class="w-100 test-result-header p-4">
+              <h3 class="font-w-bold font-size-24">Result</h3>
+              <p class="font-w-bold font-size-18">
+                Your percentege of correct answers
+              </p>
+            </div>
+            <div
+              class="d-flex w-100 align-items-center justify-content-between"
+            >
+              <app-ui-canvas-progress
+                [value]="calculatePercentOfcorrectPoints(stage)"
+                [options]="{
+                  color: setColorByValue(calculatePercentOfcorrectPoints(stage))
+                }"
+              ></app-ui-canvas-progress>
+              <div class="w-50">
+                <div class="d-flex align-items-center">
+                  <span
+                    class="color-pointer mr-2"
+                    [style]="{
+                      backgroundColor: setColorByValue(
+                        calculatePercentOfcorrectPoints(stage)
+                      )
+                    }"
+                  ></span>
+                  <p class="font-size-18">
+                    Correct points - {{ stage?.correctPoints }}
+                  </p>
+                </div>
+                <div class="d-flex align-items-center">
+                  <span
+                    class="color-pointer mr-2"
+                    [style]="{ backgroundColor: '#e2e2e2' }"
+                  ></span>
+                  <p class="font-size-18">
+                    Total points - {{ stage?.totalPoints }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="d-flex align-items-center w-50 colDir"
+            style="border-left: 3px solid #344c51"
+          >
+            <div
+              class="test-result-header p-4 w-100 d-flex justify-content-between"
+            >
+              <div class="w-50">
+                <h3 class="font-w-bold font-size-24">General Result</h3>
+                <p class="font-w-bold font-size-18">
+                  Your english level based on test is:
+                </p>
+              </div>
+              <div class="w-50">
+                <mat-form-field
+                  class="feedback-stage-select w-100 position-relative"
+                >
+                  <mat-select
+                    class="h-100"
+                    [formControlName]="'testTypeControl'"
+                  >
+                    <mat-option
+                      *ngFor="let type of defaultEnglishTest"
+                      [value]="type"
+                    >
+                      {{ type?.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <ng-container *ngIf="stage?.testType; else noTestType">
+              <div
+                class="d-flex w-100 h-100 align-items-center justify-content-center"
+              >
+                <div
+                  class="progress-info d-flex align-items-center justify-content-center"
+                >
+                  <p class="white font-size-22 font-w-bold">
+                    {{ stage.level }}
+                  </p>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="w-100 position-relative d-flex test-result-header colDir">
+          <div
+            class="w-100 p-4 d-flex align-items-center justify-content-between"
+          >
+            <h3 class="font-w-bold font-size-24">Test Text Feedback</h3>
+            <div>
+              <mat-checkbox
+                class="mb-0"
+                [formControlName]="'isTextFeedback'"
+                [color]="'primary'"
+              >
+                Available text feedback
+              </mat-checkbox>
+            </div>
+          </div>
+          <ng-container *ngIf="stage.isTextFeedback">
+            <ckeditor
+              class="w-100 description p-4"
+              [editor]="editor"
+              [data]="stage?.textFeedback"
+            >
+            </ckeditor>
+          </ng-container>
+
+          <div
+            class="text-feedback cursor-pointer mt-20 white"
+            [ngClass]="{ visible: false, isEmpty: false }"
+            [matTooltip]="'Click here for edit the Text Feedback' | translate"
+            [matTooltipPosition]="'above'"
+            matTooltipClass="mat-custom-tooltip"
+            matTooltipClass="mat-custom-tooltip"
+            [innerHTML]="stage?.textFeedback"
+          ></div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #speakFeedback let-stage>
+  <div class="w-100 position-relative d-flex test-result-header colDir">
+    <div class="w-100 d-flex align-items-center justify-content-between p-4">
+      <h3 class="w-50 font-w-bold font-size-24">Test Text Feedback</h3>
+
+      <div class="w-25">
+        <mat-form-field class="feedback-stage-select w-100 position-relative">
+          <!-- <mat-label></mat-label> -->
+          <mat-select
+            class="h-100"
+            [formControl]="speakLevelControl"
+            placeholder="Choose specking level"
+          >
+            <mat-option
+              *ngFor="let type of defaultEnglishLevels"
+              [value]="type"
+            >
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div
+        class="w-15 h-100 d-flex align-items-center justify-content-center"
+        *ngIf="stage?.level"
+      >
+        <div
+          class="progress-info d-flex align-items-center justify-content-center"
+        >
+          <p class="white font-size-22 font-w-bold">
+            {{ stage.level }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="!stage?.textFeedback">
+      <ckeditor
+        class="w-100 description p-4"
+        [editor]="editor"
+        [data]="stage?.textFeedback"
+      >
+      </ckeditor>
+    </ng-container>
+    <div
+      class="text-feedback cursor-pointer mt-20 white"
+      [ngClass]="{
+        visible: stage?.textFeedback,
+        isEmpty: false
+      }"
+      [matTooltip]="'Click here for edit the Text Feedback' | translate"
+      [matTooltipPosition]="'above'"
+      matTooltipClass="mat-custom-tooltip"
+      matTooltipClass="mat-custom-tooltip"
+      [innerHTML]="stage?.textFeedback"
+    ></div>
+  </div>
+</ng-template>
+<ng-template #noTestType>
+  <div
+    class="noItem w-100 h-100 d-flex align-items-center justify-content-center position-relative p-0"
+  >
+    <mat-icon class="position-absolute">reply</mat-icon>
+    <h3>Please choose test type</h3>
+  </div>
+</ng-template>
+
+<!-- B1-B1+
+40-60% (A2+)
+60-70% - B1
+70-80- B1+
+80+ - B2 
+
+CEFR
+Перше спікінг + оцінка - тоді роздізейблити тест
+-->

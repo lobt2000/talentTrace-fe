@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs';
+import { Subject, filter, takeUntil } from 'rxjs';
 import { ChangeMemberModalComponent } from 'src/app/layout/manager/vacancy-dashboard/shared/components/change-member-modal/change-member-modal.component';
 import {
   IPersonChange,
@@ -22,11 +22,13 @@ import { PersonCardComponent } from 'src/app/layout/manager/vacancy-dashboard/sh
   standalone: true,
   imports: [MatIconModule, CommonModule, PersonCardComponent],
 })
-export class ManagersTeamComponent {
+export class ManagersTeamComponent implements OnDestroy {
   isOpenOption: boolean = false;
   @Input() manager_team: Array<any> = [];
   @Input() emploee_details;
   @Input() managers: Array<any> = [];
+
+  destroy$ = new Subject();
 
   constructor(
     private dialog: MatDialog,
@@ -67,7 +69,10 @@ export class ManagersTeamComponent {
         },
       })
       .afterClosed()
-      .pipe(filter((el) => el))
+      .pipe(
+        filter((el) => el),
+        takeUntil(this.destroy$),
+      )
       .subscribe((el: IPersonChange) => {
         if (value.type === OptionType[OptionType.CHANGE]) {
           this.manager_team.push(el.member);
@@ -103,6 +108,7 @@ export class ManagersTeamComponent {
       .updateEmployee(this.emploee_details.id, {
         managers_team: this.manager_team.map((res) => res.id),
       })
+      .pipe(takeUntil(this.destroy$))
       .subscribe();
   }
 
@@ -114,5 +120,10 @@ export class ManagersTeamComponent {
 
   isCurrManager(manager) {
     return this.employeeDashboardService.currUser?.id === manager.id;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

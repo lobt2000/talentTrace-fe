@@ -16,6 +16,13 @@
         {{ "Save" | translate }}
       </button>
       <button
+        class="default-stepper-button btn-default-red"
+        *ngIf="isCreationScrean && defaultQueryParams.id"
+        (click)="onCancel()"
+      >
+        {{ "Cancel" | translate }}
+      </button>
+      <button
         class="default-stepper-button btn-default-green"
         *ngIf="!isCreationScrean"
         (click)="changeScrean()"
