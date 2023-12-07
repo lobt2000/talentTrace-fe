@@ -1,13 +1,28 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { IOptions } from '../../interfaces/options.interface';
 import { CommonModule } from '@angular/common';
+import { MoreOptionsComponent } from '../more-options/more-options.component';
+import { MatIconModule } from '@angular/material/icon';
+import { UiProgressComponent } from '../ui/ui-progress/ui-progress.component';
 
 @Component({
   selector: 'app-perfomance-card',
   templateUrl: './perfomance-card.component.html',
   styleUrls: ['./perfomance-card.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MoreOptionsComponent,
+    UiProgressComponent,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PerfomanceCardComponent {
   @Input() perfomance;
@@ -27,6 +42,8 @@ export class PerfomanceCardComponent {
 
   onGoToAction(action) {
     console.log(action);
-    this.triggerAction.emit(action);
+    this.triggerAction.emit({ ...action, id: this.perfomance.id });
   }
+
+  getScore;
 }

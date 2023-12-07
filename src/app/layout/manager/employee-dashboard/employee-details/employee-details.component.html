@@ -17,6 +17,7 @@
         </mat-tab>
         <mat-tab label="Perfomance">
           <app-perfomance
+            [id]="id"
             *ngIf="selectNotANull && select === 1"
           ></app-perfomance>
         </mat-tab>

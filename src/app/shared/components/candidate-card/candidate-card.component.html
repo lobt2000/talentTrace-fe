@@ -33,6 +33,7 @@
         *ngFor="let score of getScores"
         [totalValue]="100"
         [progressValue]="score.value"
+        [title]="score.name"
       ></app-ui-progress>
     </ng-container>
 

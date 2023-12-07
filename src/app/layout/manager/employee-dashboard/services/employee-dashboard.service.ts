@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ConfirmationModalComponent } from 'src/app/shared/components/modals/confirmation-modal/confirmation-modal.component';
+import { IRequest } from 'src/app/shared/interfaces/common/common.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,12 @@ export class EmployeeDashboardService {
     return this.http.patch(`/api/v1/employees/${id}`, body);
   }
 
+  deleteEmployeePerfomance(id: string, perfomanceId): Observable<any> {
+    return this.http.delete(
+      `/api/v1/employees/${id}/perfomances/${perfomanceId}`,
+    );
+  }
+
   onDelete(message?) {
     this.dialog.closeAll();
     return this.dialog
@@ -36,7 +43,7 @@ export class EmployeeDashboardService {
         },
         panelClass: 'confirmation-modal',
         data: {
-          text: message || 'Are you sure you want to delete this candidate?',
+          text: message || 'Are you sure you want to delete this employee?',
           title: 'Confirmation',
         },
       })
@@ -60,6 +67,28 @@ export class EmployeeDashboardService {
         },
       })
       .afterClosed();
+  }
+
+  createEmployeePerfomace(id: string, body: Array<any>): Observable<IRequest> {
+    return this.http.post<IRequest>(
+      `/api/v1/employees/${id}/perfomances`,
+      body,
+    );
+  }
+
+  uploadFileForPerfomance(id: string, body: any) {
+    return this.http.post<IRequest>(
+      `/api/v1/employees/${id}/perfomances/files`,
+      body,
+    );
+  }
+
+  getAllFeedBacks(id: string): Observable<IRequest> {
+    return this.http.get<IRequest>(`/api/v1/employees/${id}/perfomances/${id}`);
+  }
+
+  getAllPerfomance(id: string): Observable<IRequest> {
+    return this.http.get<IRequest>(`/api/v1/employees/${id}/perfomances`);
   }
 
   get currUser() {

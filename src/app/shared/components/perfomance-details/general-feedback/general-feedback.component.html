@@ -1,1 +1,47 @@
-<p>general-feedback works!</p>
+<div class="tab-container d-flex align-items-center justify-content-center">
+  <ng-container
+    *ngIf="!feedback?.file?.hasOwnProperty('data'); else defaultScrean"
+  >
+    <div
+      class="w-100 uploading-file d-flex colDir align-items-center justify-content-around"
+    >
+      <mat-icon class="cloud_upload">cloud_upload</mat-icon>
+
+      <div class="title">
+        <p>{{ "Please upload the candidate CV" | translate }}</p>
+        <p>{{ "File should be PDF extention" | translate }}</p>
+      </div>
+      <input type="file" (change)="onUploadFile($event)" />
+      <div
+        class="upload-immitation d-flex align-items-center justify-content-center"
+      >
+        <button class="upload-button">
+          {{ "Browse the file" | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #defaultScrean>
+    <div class="w-50 position-relative">
+      <pdf-viewer
+        [src]="feedback?.file?.data"
+        [render-text]="true"
+        [original-size]="false"
+        style="
+          width: 100%;
+          height: calc(100vh - 240px);
+          box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+        "
+      >
+      </pdf-viewer>
+      <button
+        *ngIf="isCreation ? true : feedback?.file?.hasOwnProperty('data')"
+        class="short-info-edit d-flex align-items-center cursor-pointer mr-2 position-absolute top-0 right--65"
+        (click)="removeFile()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </ng-template>
+</div>

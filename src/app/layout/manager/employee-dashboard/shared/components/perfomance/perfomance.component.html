@@ -20,8 +20,13 @@
 </div>
 <ng-container *ngIf="perfomances?.length; else noItems">
   <div class="perfomances-body d-flex align-items-start justify-content-start">
-    <!-- <app-candidate-card [candidate]="item" [moreOptions]="candidateOption"
-      *ngFor="let item of perfomances"></app-candidate-card> -->
+    <app-perfomance-card
+      [perfomance]="item"
+      [moreOptions]="perfomanceOption"
+      (goToItem)="onGoToPerfomance($event)"
+      (triggerAction)="onDelete(item)"
+      *ngFor="let item of perfomances"
+    ></app-perfomance-card>
   </div>
 </ng-container>
 

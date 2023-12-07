@@ -67,11 +67,7 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('here1');
-
     this.stepper.selectedIndexChange.subscribe((el) => {
-      console.log('here2');
-
       this.select = el;
       if (this.breadcrumbsService.getBreadcrumbs.length > 2) {
         this.breadcrumbsService.removeActiveBreadcrumb();

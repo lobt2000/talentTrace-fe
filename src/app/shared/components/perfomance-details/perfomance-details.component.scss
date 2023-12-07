@@ -2,6 +2,11 @@
 
 :host {
   transition: all 0.3s ease-in-out;
+
+  .tab-container {
+    @include size(100%, 100%);
+    transition: all ease-in-out 0.3s;
+  }
 }
 
 :host::ng-deep {
