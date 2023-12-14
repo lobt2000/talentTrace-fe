@@ -63,12 +63,9 @@ import { v4 as uuidv4 } from 'uuid';
     PdfViewerModule,
   ],
 })
-export class PerfomanceDetailsComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class PerfomanceDetailsComponent implements OnInit, OnDestroy {
   @Input() id = '';
   @Input() idem;
-  @ViewChild('stepper') stepper: MatStepper;
 
   defaultFeedbackStage: Array<any> = [
     {
@@ -96,12 +93,18 @@ export class PerfomanceDetailsComponent
   employee_details;
   employee_id: string;
   feedbacks: Array<any> = [];
+  perfomance;
 
   select: number = 0;
 
   feedbackStageControl: UntypedFormControl = this.fb.control(null, [
     Validators.required,
   ]);
+  titleControl: UntypedFormControl = this.fb.control(null, [
+    Validators.required,
+  ]);
+
+  editMode: Array<boolean> = [];
 
   private destroy$ = new Subject();
 
@@ -116,39 +119,39 @@ export class PerfomanceDetailsComponent
   ) {}
   ngOnInit(): void {
     this.employee_id = this.route.snapshot.parent.params['id'];
-    setTimeout(() => {
-      this.breadcrumbsService.addBreadcrumbs({
-        label: this.id,
-        value: this.id,
-        link: '/manager/employee-dashboard',
-      });
-    }, 1000);
+    if (this.id !== PageActions.CREATION) {
+      this.getFeedbacks();
+      return;
+    }
 
-    if (this.id !== PageActions.CREATION) this.getFeedbacks();
+    this.setBreadCrumbs(this.id);
   }
 
   getFeedbacks() {
     this.loadingService.setLoading(true);
     this.employeeService
-      .getAllFeedBacks(this.employee_id)
+      .getAllFeedBacks(this.employee_id, this.id)
       .pipe(
         takeUntil(this.destroy$),
         tap((res) => {
-          this.feedbacks = res.data;
-          this.breadcrumbsService.addBreadcrumbs({
-            label: 'Perfomance',
-            value: this.id,
-            link: '/manager/employee-dashboard',
+          this.perfomance = res.data;
+          this.titleControl.setValue(res.data.name);
+          // this.breadcrumbsService.removeActiveBreadcrumb();
+          this.feedbacks = this.perfomance.feedbacks.map((res) => {
+            this.defaultFeedbackStage = this.defaultFeedbackStage.filter(
+              (el) => el?.id !== res?.id,
+            );
+            return {
+              ...res,
+              editMode: false,
+            };
           });
         }),
       )
-      .subscribe(() => this.loadingService.setLoading(false));
-  }
-
-  ngAfterViewInit(): void {
-    this.stepper?.selectedIndexChange?.subscribe((el) => {
-      this.select = el;
-    });
+      .subscribe(() => {
+        this.setBreadCrumbs(this.perfomance.name);
+        this.loadingService.setLoading(false);
+      });
   }
 
   addFeedbackStage() {
@@ -158,10 +161,12 @@ export class PerfomanceDetailsComponent
       ...this.feedbackStageControl.value,
       scores: [],
       file: {},
+      ...(!this.isCreation && { editMode: true }),
     });
     this.defaultFeedbackStage = this.defaultFeedbackStage.filter(
       (el) => el?.id !== feedback?.id,
     );
+    this.select = this.feedbacks.length - 1;
     this.feedbackStageControl.reset();
   }
 
@@ -175,15 +180,21 @@ export class PerfomanceDetailsComponent
           (a, b) => a.id - b.id,
         );
         this.feedbacks = this.feedbacks.filter((el) => el.id !== feedback.id);
+        if (!this.isCreation) {
+          this.onUpdate();
+        }
       });
   }
 
   resetFeedback(i: number) {
-    this.feedbacks[i] = this.feedbacks[i];
+    this.feedbacks[i] = { ...this.feedbacks[i], editMode: false };
   }
 
   onCreate() {
-    if (!this.feedbacks.length) return;
+    if (!this.feedbacks.length || this.titleControl.invalid) {
+      this.employeeService.openErrorModal('Title and one stage is required');
+      return;
+    }
     this.loadingService.setLoading(true);
     const transformFeedbacks: Array<any> = this.feedbacks.map((res) => {
       return 'data' in res.file
@@ -193,8 +204,12 @@ export class PerfomanceDetailsComponent
           }
         : res;
     });
+    const body = {
+      name: this.titleControl.getRawValue(),
+      feedbacks: transformFeedbacks,
+    };
     this.employeeService
-      .createEmployeePerfomace(this.employee_id, transformFeedbacks)
+      .createEmployeePerfomace(this.employee_id, body)
       .pipe(
         takeUntil(this.destroy$),
         tap((perfomance) => {
@@ -224,6 +239,7 @@ export class PerfomanceDetailsComponent
         ];
         this.router.navigate(router);
         this.loadingService.setLoading(false);
+        window.location.reload();
       });
   }
 
@@ -235,7 +251,92 @@ export class PerfomanceDetailsComponent
     });
   }
 
-  prepareBodyForRequest() {}
+  setBreadCrumbs(value) {
+    setTimeout(() => {
+      this.breadcrumbsService.addBreadcrumbs({
+        label: value,
+        value: value,
+        link: `/manager/employee-dashboard/${this.employee_id}/perfomance/${value}`,
+      });
+    }, 1000);
+  }
+
+  onEditFeedback(index: number) {
+    if (!this.feedbacks.length || this.titleControl.invalid)
+      return this.employeeService.openErrorModal(
+        'Title and one stage is required',
+      );
+
+    this.loadingService.setLoading(true);
+    const feedback = this.feedbacks[index];
+    if (feedback.type === 'TECH') {
+      if (
+        typeof feedback.file === 'undefined' ||
+        !(feedback?.file && 'data' in feedback?.file)
+      )
+        return this.employeeService
+          .openErrorModal('Title and one stage is required')
+          .subscribe(() => this.loadingService.setLoading(false));
+
+      const formData = new FormData();
+      const body = {
+        id: feedback.file.id || uuidv4(),
+        data: feedback.file.data,
+        perfomanceId: this.id,
+      };
+      formData.append('file', JSON.stringify(body));
+      if (feedback.file.id) {
+        this.employeeService
+          .updateFileForPerfomance(feedback.file.id, formData)
+          .subscribe();
+      } else {
+        feedback.file.id = body.id;
+        this.employeeService
+          .uploadFileForPerfomance(this.employee_id, formData)
+          .subscribe();
+      }
+    }
+    if (feedback.type === 'HR') {
+      if (typeof feedback.file === 'undefined' || !('data' in feedback?.file))
+        return this.employeeService
+          .openErrorModal('Title and one stage is required')
+          .subscribe(() => this.loadingService.setLoading(false));
+      const formData = new FormData();
+      const body = {
+        data: feedback.file.data,
+      };
+      formData.append('file', JSON.stringify(body));
+      this.employeeService
+        .updateFileForPerfomance(feedback.file.id, formData)
+        .subscribe();
+
+      feedback.editMode = false;
+      this.loadingService.setLoading(false);
+
+      return;
+    }
+
+    this.onUpdate(feedback);
+  }
+
+  onUpdate(feedback?) {
+    const body = {
+      name: this.titleControl.getRawValue(),
+      feedbacks: this.feedbacks.map((res) => {
+        if (typeof res.file !== 'undefined' && 'data' in res.file)
+          delete res.file.data;
+        return res;
+      }),
+    };
+
+    this.employeeService
+      .updateEmployeePerfomace(this.employee_id, this.id, body)
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => (feedback ? (feedback.editMode = false) : '')),
+      )
+      .subscribe((res) => this.loadingService.setLoading(false));
+  }
 
   get selectNotANull() {
     return typeof this.select !== 'undefined';

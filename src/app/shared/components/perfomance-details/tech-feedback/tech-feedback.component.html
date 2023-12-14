@@ -1,27 +1,23 @@
 <div class="w-60 position-relative">
-  <ng-container *ngIf="feedback?.file">
+  <ng-container *ngIf="feedback?.file?.data">
     <video controls class="w-100" id="video-tag" #videoPlayer>
-      <source
-        id="video-source"
-        [src]="feedback?.file?.feedback"
-        type="video/mp4"
-      />
+      <source id="video-source" [src]="feedback?.file?.data" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
 
     <div
       class="actions d-flex align-items-center justify-content-between position-absolute top-20 right-17"
-      *ngIf="isAvailableUpdating"
+      *ngIf="isAllowToChange"
     >
       <button
         class="remove d-flex align-items-center justify-content-center p-1 cursor-pointer"
-        (click)="feedback.file = null"
+        (click)="removeFile()"
       >
         <mat-icon>close</mat-icon>
       </button>
     </div>
   </ng-container>
-  <ng-container *ngIf="!feedback?.file">
+  <ng-container *ngIf="!feedback?.file?.data">
     <div
       class="uploading-file d-flex colDir align-items-center justify-content-around w-100"
     >
@@ -47,7 +43,7 @@
 
       <div
         class="actions d-flex align-items-center justify-content-between"
-        *ngIf="isAvailableUpdating"
+        *ngIf="isAllowToChange"
       >
         <button
           class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative"
@@ -143,6 +139,7 @@
       class="w-100 description p-4"
       [editor]="editor"
       [data]="feedback?.textFeedback"
+      (change)="onChange($event)"
     >
     </ckeditor>
   </ng-container>

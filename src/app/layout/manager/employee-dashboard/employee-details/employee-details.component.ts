@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -11,17 +12,16 @@ import { LoadingService } from 'src/app/service/loading.service';
 import { IBreadcrumb } from 'src/app/shared/interfaces/ui-breadcrumbs.interface';
 import { EmployeeDashboardService } from '../services/employee-dashboard.service';
 import { ManagerDepartmentService } from 'src/app/layout/company/manager-department/services/manager-department.service';
-import { tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { Subject, filter, of, takeUntil, tap } from 'rxjs';
+import { EventType, Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-details',
   templateUrl: './employee-details.component.html',
   styleUrls: ['./employee-details.component.scss'],
 })
-export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
+export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   @Input() id = '';
-  @ViewChild('stepper') stepper: MatStepper;
   defaultBreadcrumb: IBreadcrumb = {
     label: 'Dashboard',
     value: 'dashboard',
@@ -31,6 +31,8 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
 
   employee;
   managers;
+
+  private destroy$ = new Subject();
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
@@ -42,6 +44,21 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getEmployee();
+    this.route.events
+      .pipe(
+        filter((res) => res.type === EventType.NavigationEnd),
+        takeUntil(this.destroy$),
+      )
+      .subscribe((res) => {
+        if (!res['url'].includes('perfomance')) {
+          if (this.breadcrumbsService.getBreadcrumbs.length > 2) {
+            console.log('here');
+
+            this.breadcrumbsService.removeActiveBreadcrumb();
+          }
+          this.select = 1;
+        }
+      });
   }
 
   getEmployee() {
@@ -49,6 +66,7 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
     this.employeeService
       .getEmployee(this.id)
       .pipe(
+        takeUntil(this.destroy$),
         tap(() => {
           this.managersService
             .getAllManagers()
@@ -56,6 +74,7 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
         }),
       )
       .subscribe((res) => {
+        this.breadcrumbsService.removeActiveBreadcrumb();
         this.employee = res.data;
         this.breadcrumbsService.addBreadcrumbs({
           label: this.employee['name'],
@@ -64,15 +83,6 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
         });
         this.loadingService.setLoading(false);
       });
-  }
-
-  ngAfterViewInit(): void {
-    this.stepper.selectedIndexChange.subscribe((el) => {
-      this.select = el;
-      if (this.breadcrumbsService.getBreadcrumbs.length > 2) {
-        this.breadcrumbsService.removeActiveBreadcrumb();
-      }
-    });
   }
 
   get selectNotANull() {
@@ -89,5 +99,10 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
 
   get isPerfomance() {
     return this.route.url.includes('perfomance');
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

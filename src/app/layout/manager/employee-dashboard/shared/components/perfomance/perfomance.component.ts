@@ -85,8 +85,8 @@ export class PerfomanceComponent implements OnInit, OnDestroy {
     });
   }
 
-  onGoToCandidate(candidate) {
-    this.router.navigate([candidate.id], {
+  onGoToPerfomance(perfomance) {
+    this.router.navigate(['perfomance', perfomance.id], {
       relativeTo: this.route,
     });
   }

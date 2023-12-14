@@ -41,7 +41,6 @@ export class PerfomanceCardComponent {
   }
 
   onGoToAction(action) {
-    console.log(action);
     this.triggerAction.emit({ ...action, id: this.perfomance.id });
   }
 

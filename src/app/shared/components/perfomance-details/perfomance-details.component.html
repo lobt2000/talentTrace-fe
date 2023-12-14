@@ -1,40 +1,40 @@
 <mat-tab-group
-  #stepper
   class="w-100 mt-15"
   [class]="feedbacks?.length ? 'h-100' : 'h-0'"
 >
   <mat-tab
     class="position-relative"
+    [(selectedIndex)]="select"
     *ngFor="let feedback of feedbacks; let i = index"
   >
     <ng-template mat-tab-label>
       <div class="d-flex position-absolute top-8 right--100">
         <ng-container *ngIf="!isCreation">
           <button
-            class="short-info-edit d-flex align-items-center cursor-pointer"
-            (click)="candidate_form.enable()"
-            *ngIf="candidate_form?.disabled"
+            class="short-info-edit d-flex align-items-center cursor-pointer mr-2"
+            (click)="feedback.editMode = true"
+            *ngIf="!feedback.editMode"
           >
             <mat-icon>border_color</mat-icon>
           </button>
           <button
-            *ngIf="candidate_form?.enabled"
             class="short-info-edit d-flex align-items-center cursor-pointer mr-2"
-            (click)="onEditFeedback()"
+            *ngIf="feedback.editMode"
+            (click)="onEditFeedback(i)"
           >
             <mat-icon class="save-style">done</mat-icon>
           </button>
           <button
             class="short-info-edit d-flex align-items-center cursor-pointer"
+            *ngIf="feedback.editMode"
             (click)="resetFeedback(i)"
-            *ngIf="candidate_form?.enabled"
           >
             <mat-icon>close</mat-icon>
           </button>
         </ng-container>
         <button
           class="short-info-edit d-flex align-items-center cursor-pointer"
-          *ngIf="isCreation"
+          *ngIf="isCreation ? true : !feedback.editMode"
           (click)="removeFeedback(feedback)"
         >
           <mat-icon>delete</mat-icon>
@@ -61,6 +61,18 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+
+<div
+  class="perfomance-title position-absolute d-flex align-items-center justify-content-center top-82"
+>
+  <input
+    class="perfomance-title-input text-align-center"
+    [formControl]="titleControl"
+    placeholder="Perfomance title"
+    [class.invalid]="titleControl.invalid"
+    type="text"
+  />
+</div>
 
 <div
   class="position-absolute d-flex align-items-end justify-content-between top-82 right-20"
@@ -99,18 +111,19 @@
 </ng-container>
 
 <ng-template #GeneralFeedback let-feedback>
-  <app-general-feedback [feedback]="feedback"></app-general-feedback>
+  <app-general-feedback [feedback]="feedback" [id]="id"></app-general-feedback>
 </ng-template>
 
 <ng-template #englishFeedback let-feedback>
   <app-english-feedback
     [feedback]="feedback"
+    [id]="id"
     (updateFeedback)="onUpdateFeedback($event)"
   ></app-english-feedback>
 </ng-template>
 
 <ng-template #techFeedback let-data>
-  <app-tech-feedback [feedback]="data"></app-tech-feedback>
+  <app-tech-feedback [feedback]="data" [id]="id"></app-tech-feedback>
 </ng-template>
 
 <ng-template #evidenceFeedback> </ng-template>

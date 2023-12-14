@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
@@ -28,6 +29,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PageActions } from 'src/app/shared/constansts/page-actions.model';
 
 @Component({
   selector: 'app-english-feedback',
@@ -53,6 +55,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 })
 export class EnglishFeedbackComponent implements OnInit, OnDestroy {
   @Input() feedback;
+  @Input() id;
   @Output() updateFeedback: EventEmitter<any> = new EventEmitter();
 
   editor = ClassicEditor;
@@ -138,9 +141,30 @@ export class EnglishFeedbackComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    if (!this.isCreation) this.initData();
     this.subscribeToAddEnglishChanges();
     this.subscribeToSpeakLevelChanges();
     this.subscribeToCorrectPoints();
+  }
+
+  initData() {
+    this.feedback.scores?.forEach((res) => {
+      if (res.type !== 'TEST') {
+        this.speakLevelControl.patchValue(
+          this.defaultEnglishLevels.find((el) => el === res.level),
+        );
+      }
+      if (res.textFeedback) {
+        res.textFeedback = res.textFeedback
+          .replace(/&lt;/gm, '<')
+          .replace(/&nbsp;/gm, ' ');
+      }
+      this.addTestLevelArrayGroups(res);
+
+      this.defaultEnglishStage = this.defaultEnglishStage.filter(
+        (el) => el.id !== res.id,
+      );
+    });
   }
 
   subscribeToAddEnglishChanges() {
@@ -209,6 +233,7 @@ export class EnglishFeedbackComponent implements OnInit, OnDestroy {
         const stage = this.feedback.scores.find((el) => el.type === 'SPEAK');
         stage.level = res;
         this.feedback.averageLevel = this.calculateAverageEnglishLevel();
+        this.updateFeedback.emit(this.feedback);
       });
   }
 
@@ -250,31 +275,52 @@ export class EnglishFeedbackComponent implements OnInit, OnDestroy {
     });
   }
 
-  addTestLevelArrayGroups() {
+  addTestLevelArrayGroups(data?) {
     const form = this.testTypeForm.controls[
       'testTypeFormArray'
     ] as UntypedFormArray;
+    let valueType;
+    if (data) {
+      valueType =
+        data.type === 'TEST'
+          ? this.defaultEnglishTest.find((el) => el.id === data?.testType?.id)
+          : this.defaultEnglishLevels.find((el) => el === data?.level);
+    }
     const group = this.fb.group({
-      testTypeControl: this.fb.control(null, [Validators.required]),
-      isTextFeedback: this.fb.control(null),
+      testTypeControl: this.fb.control(data ? valueType : null, [
+        Validators.required,
+      ]),
+      isTextFeedback: this.fb.control(data ? Boolean(data.textFeedback) : null),
     });
+
     form.push(group);
     const index = form.length - 1;
-    group.get('testTypeControl').valueChanges.subscribe((res) => {
-      const stage = this.feedback.scores[index];
-      stage.testType = res;
-      stage.level = this.calculateEnglishLevel(
-        this.calculatePercentOfcorrectPoints(stage),
-        stage?.testType,
-      );
-      console.log(this.calculateAverageEnglishLevel());
+    group
+      .get('testTypeControl')
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        const stage = this.feedback.scores[index];
+        stage.testType = res;
+        stage.level = this.calculateEnglishLevel(
+          this.calculatePercentOfcorrectPoints(stage),
+          stage?.testType,
+        );
 
-      this.feedback.averageLevel = this.calculateAverageEnglishLevel();
-    });
-    group.get('isTextFeedback').valueChanges.subscribe((res) => {
-      const stage = this.feedback.scores[index];
-      stage.isTextFeedback = res;
-    });
+        this.feedback.averageLevel = this.calculateAverageEnglishLevel();
+        this.updateFeedback.emit(this.feedback);
+      });
+    group
+      .get('isTextFeedback')
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        const stage = this.feedback.scores[index];
+        stage.isTextFeedback = res;
+        this.updateFeedback.emit(this.feedback);
+      });
+  }
+
+  onChange({ editor }, stage) {
+    stage.textFeedback = editor.getData();
   }
 
   get isAvailableUpdating() {
@@ -349,6 +395,13 @@ export class EnglishFeedbackComponent implements OnInit, OnDestroy {
       averageLevel.reduce((curr, next) => curr + next, 0) /
         (averageLevel.length || 0)
     ];
+  }
+
+  get isCreation(): boolean {
+    return this.id === PageActions.CREATION;
+  }
+  get isAllowToChange() {
+    return this.isCreation ? true : this.feedback.editMode;
   }
 
   ngOnDestroy(): void {

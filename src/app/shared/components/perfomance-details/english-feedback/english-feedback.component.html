@@ -6,7 +6,7 @@
       class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative"
       [disabled]="feedback['scores']?.length > 1"
       (click)="isAddStageAvailable = true"
-      *ngIf="isAvailableUpdating"
+      *ngIf="isAllowToChange"
     >
       <mat-icon> add </mat-icon>
     </button>
@@ -161,7 +161,10 @@
     >
       <h3 class="font-w-bold font-size-18">{{ stage.name }} stage</h3>
 
-      <div class="actions d-flex align-items-center justify-content-between">
+      <div
+        class="actions d-flex align-items-center justify-content-between"
+        *ngIf="isCreation ? true : feedback.editMode"
+      >
         <button
           class="remove d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative ml-1 mr-1"
           (click)="onRemoveEnglishStag(stage, i)"
@@ -289,22 +292,28 @@
               </mat-checkbox>
             </div>
           </div>
-          <ng-container *ngIf="stage.isTextFeedback">
+          <ng-container
+            *ngIf="isCreation ? stage.isTextFeedback : feedback.editMode"
+          >
             <ckeditor
               class="w-100 description p-4"
               [editor]="editor"
               [data]="stage?.textFeedback"
+              (change)="onChange($event, stage)"
             >
             </ckeditor>
           </ng-container>
 
           <div
-            class="text-feedback cursor-pointer mt-20 white"
-            [ngClass]="{ visible: false, isEmpty: false }"
-            [matTooltip]="'Click here for edit the Text Feedback' | translate"
-            [matTooltipPosition]="'above'"
-            matTooltipClass="mat-custom-tooltip"
-            matTooltipClass="mat-custom-tooltip"
+            class="text-feedback mt-10 pl-4 pr-4 pb-4"
+            [ngClass]="{
+              visible: isCreation
+                ? false
+                : stage?.textFeedback
+                  ? !feedback.editMode
+                  : false,
+              isEmpty: false
+            }"
             [innerHTML]="stage?.textFeedback"
           ></div>
         </div>
@@ -318,7 +327,7 @@
     <div class="w-100 d-flex align-items-center justify-content-between p-4">
       <h3 class="w-50 font-w-bold font-size-24">Test Text Feedback</h3>
 
-      <div class="w-25">
+      <div class="w-25" *ngIf="isCreation ? true : feedback.editMode">
         <mat-form-field class="feedback-stage-select w-100 position-relative">
           <!-- <mat-label></mat-label> -->
           <mat-select
@@ -349,24 +358,25 @@
         </div>
       </div>
     </div>
-    <ng-container *ngIf="!stage?.textFeedback">
+    <ng-container *ngIf="isCreation ? true : feedback.editMode">
       <ckeditor
         class="w-100 description p-4"
         [editor]="editor"
         [data]="stage?.textFeedback"
+        (change)="onChange($event, stage)"
       >
       </ckeditor>
     </ng-container>
     <div
-      class="text-feedback cursor-pointer mt-20 white"
+      class="text-feedback mt-10 pl-4 pr-4 pb-4"
       [ngClass]="{
-        visible: stage?.textFeedback,
+        visible: isCreation
+          ? false
+          : stage?.textFeedback
+            ? !feedback.editMode
+            : false,
         isEmpty: false
       }"
-      [matTooltip]="'Click here for edit the Text Feedback' | translate"
-      [matTooltipPosition]="'above'"
-      matTooltipClass="mat-custom-tooltip"
-      matTooltipClass="mat-custom-tooltip"
       [innerHTML]="stage?.textFeedback"
     ></div>
   </div>

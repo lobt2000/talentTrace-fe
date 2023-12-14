@@ -15,7 +15,7 @@
         </div>
         <div class="d-flex">
           <span class="gray">SCORE:&nbsp;</span>
-          <p>{{ candidate.totalScore || "No score" }}</p>
+          <p>{{ candidate?.stages[0]?.averageScore || "No score" }}</p>
         </div>
       </div>
     </div>

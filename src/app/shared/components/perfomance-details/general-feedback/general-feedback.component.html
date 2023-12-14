@@ -36,7 +36,11 @@
       >
       </pdf-viewer>
       <button
-        *ngIf="isCreation ? true : feedback?.file?.hasOwnProperty('data')"
+        *ngIf="
+          isCreation
+            ? true
+            : feedback?.editMode && feedback?.file?.hasOwnProperty('data')
+        "
         class="short-info-edit d-flex align-items-center cursor-pointer mr-2 position-absolute top-0 right--65"
         (click)="removeFile()"
       >

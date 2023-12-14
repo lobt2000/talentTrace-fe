@@ -36,11 +36,14 @@
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="'TECH'">
-            <div class="w-100 align-items-center justify-content-between mt-10">
-              <p class="font-w-bold font-size-18">English feedback:</p>
+            <div
+              class="w-100 d-flex align-items-end justify-content-between mt-10"
+            >
+              <p class="font-w-bold font-size-18">Tech feedback:</p>
               <app-ui-progress
+                class="w-50"
                 [totalValue]="100"
-                [progressValue]="perfomance.averageLevel"
+                [progressValue]="feedback.averageLevel"
               ></app-ui-progress>
             </div>
           </ng-container>
@@ -48,7 +51,7 @@
             <div
               class="d-flex w-100 align-items-center justify-content-between mt-10"
             >
-              <p class="font-w-bold font-size-18">Hr feedback:</p>
+              <p class="font-w-bold font-size-18">General feedback:</p>
               <p><mat-icon class="green">done</mat-icon></p>
             </div>
           </ng-container>

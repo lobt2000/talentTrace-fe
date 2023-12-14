@@ -69,26 +69,52 @@ export class EmployeeDashboardService {
       .afterClosed();
   }
 
-  createEmployeePerfomace(id: string, body: Array<any>): Observable<IRequest> {
+  createEmployeePerfomace(id: string, body: any): Observable<IRequest> {
     return this.http.post<IRequest>(
       `/api/v1/employees/${id}/perfomances`,
       body,
     );
   }
 
-  uploadFileForPerfomance(id: string, body: any) {
-    return this.http.post<IRequest>(
-      `/api/v1/employees/${id}/perfomances/files`,
+  updateEmployeePerfomace(
+    id: string,
+    perfomanceId: string,
+    body: any,
+  ): Observable<IRequest> {
+    return this.http.patch<IRequest>(
+      `/api/v1/perfomances/${perfomanceId}`,
       body,
     );
   }
 
-  getAllFeedBacks(id: string): Observable<IRequest> {
-    return this.http.get<IRequest>(`/api/v1/employees/${id}/perfomances/${id}`);
+  uploadFileForPerfomance(id: string, body: any): Observable<IRequest> {
+    return this.http.post<IRequest>(`/api/v1/perfomances/files`, body);
+  }
+
+  updateFileForPerfomance(id: string, body: any): Observable<any> {
+    return this.http.patch(`/api/v1/perfomances/files?id=${id}`, body);
+  }
+
+  getPerfomanceFile(id: string): Observable<any> {
+    return this.http.get(`/api/v1/perfomances/files?id=${id}`);
+  }
+
+  getAllFeedBacks(id: string, perfomanceId: string): Observable<IRequest> {
+    return this.http.get<IRequest>(
+      `/api/v1/employees/${id}/perfomances/${perfomanceId}`,
+    );
   }
 
   getAllPerfomance(id: string): Observable<IRequest> {
     return this.http.get<IRequest>(`/api/v1/employees/${id}/perfomances`);
+  }
+
+  getAllScoreOptions(): Observable<any> {
+    return this.http.get('/api/v1/options/score');
+  }
+
+  createScoreOption(body): Observable<any> {
+    return this.http.post('/api/v1/options/score', body);
   }
 
   get currUser() {

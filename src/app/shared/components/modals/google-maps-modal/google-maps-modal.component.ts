@@ -1,4 +1,3 @@
-import { MapsAPILoader } from '@agm/core';
 import { Component, NgZone, OnInit, Inject } from '@angular/core';
 import { BaseModalComponent } from '../base-modal.component';
 import { TranslateService } from '@ngx-translate/core';

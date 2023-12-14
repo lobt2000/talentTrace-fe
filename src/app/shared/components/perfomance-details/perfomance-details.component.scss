@@ -7,6 +7,35 @@
     @include size(100%, 100%);
     transition: all ease-in-out 0.3s;
   }
+
+  .perfomance-title {
+    left: calc(50% + 70px);
+    @include size(230px, 40px);
+
+    &-input {
+      border-radius: 5px;
+      background-color: #f3f6f9;
+      border: unset;
+      @include size(100%, 30px);
+      // padding-left: 10px;
+
+      &:focus {
+        outline: 3px solid #fdb75a;
+      }
+
+      &:disabled {
+        border: unset !important;
+        outline: unset;
+        color: white !important;
+        background-color: transparent !important;
+        padding-left: 2px;
+        border-bottom: 1px dotted black;
+      }
+      &:disabled::placeholder {
+        color: transparent;
+      }
+    }
+  }
 }
 
 :host::ng-deep {
@@ -149,4 +178,8 @@
       }
     }
   }
+}
+
+.invalid {
+  border: 2px solid red !important;
 }

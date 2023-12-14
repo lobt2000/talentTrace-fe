@@ -5,3 +5,9 @@
   padding: 20px;
   transition: all ease-in-out 0.3s;
 }
+
+:host ::ng-deep {
+  .mat-mdc-tab-body-wrapper {
+    height: 95%;
+  }
+}

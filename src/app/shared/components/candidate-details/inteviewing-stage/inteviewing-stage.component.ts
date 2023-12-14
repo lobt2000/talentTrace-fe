@@ -199,6 +199,8 @@ export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
         value: this.addScoreForm.value.value,
       });
 
+    stage.averageScore = this.calculateAverageLevel(stage);
+
     this.updateStages.emit(this.stages);
     this.addScoreForm.reset();
     this.isAddScoreAvailable = null;
@@ -282,6 +284,16 @@ export class InteviewingStageComponent implements OnInit, OnDestroy, OnChanges {
 
   onGetFileType(type): boolean {
     return type?.data?.includes('video');
+  }
+
+  calculateAverageLevel(stages) {
+    const averageLevel = stages.scores.reduce(
+      (a, b) => Number(a.value ?? 0) + Number(b.value ?? 0),
+    );
+    return (
+      (typeof averageLevel === 'number' ? averageLevel : averageLevel.value) /
+      stages.scores.length
+    );
   }
 
   get currUserId() {
