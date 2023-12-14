@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { permissionsIds } from '../shared/constansts/permissions';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PermissionService {
+  private canUpdateInterviewStageBS = new BehaviorSubject<boolean>(false);
+  canUpdateInterviewStage$ = this.canUpdateInterviewStageBS.asObservable();
+
   constructor() {}
 
   getCorrectPermissions(res) {
@@ -39,5 +43,20 @@ export class PermissionService {
       }
     }
     return Object.values(permissions).length ? permissions : null;
+  }
+
+  canUpdateInterviewStage(managers): boolean {
+    return managers?.some((manager) => manager.id === this.currUserId);
+  }
+  setCanUpdateInterviewStage(turn: boolean) {
+    this.canUpdateInterviewStageBS.next(turn);
+  }
+
+  get getCanUpdateInterviewStageValue(): boolean {
+    return this.canUpdateInterviewStageBS.value;
+  }
+
+  get currUserId() {
+    return JSON.parse(localStorage.getItem('userData'))?.id;
   }
 }

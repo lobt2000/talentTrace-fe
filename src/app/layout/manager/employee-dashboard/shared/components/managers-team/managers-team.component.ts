@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs';
+import { Subject, filter, takeUntil } from 'rxjs';
 import { ChangeMemberModalComponent } from 'src/app/layout/manager/vacancy-dashboard/shared/components/change-member-modal/change-member-modal.component';
 import {
   IPersonChange,
@@ -22,8 +22,13 @@ import { PersonCardComponent } from 'src/app/layout/manager/vacancy-dashboard/sh
   standalone: true,
   imports: [MatIconModule, CommonModule, PersonCardComponent],
 })
-export class ManagersTeamComponent {
+export class ManagersTeamComponent implements OnDestroy {
   isOpenOption: boolean = false;
+  @Input() manager_team: Array<any> = [];
+  @Input() emploee_details;
+  @Input() managers: Array<any> = [];
+
+  destroy$ = new Subject();
 
   constructor(
     private dialog: MatDialog,
@@ -39,6 +44,10 @@ export class ManagersTeamComponent {
     ) {
       this.openChangeModal(value);
     } else if (value.type === OptionType[OptionType.DELETE]) {
+      this.manager_team = this.manager_team.filter(
+        (res) => res.id !== value.member.id,
+      );
+      this.updateManagersTeam();
     } else if (value.type === OptionType[OptionType.SEND_MESSAGE]) {
     }
   }
@@ -55,11 +64,35 @@ export class ManagersTeamComponent {
         data: {
           title: value.title,
           type: value.type,
+          managers: this.managers,
+          members: this.manager_team,
         },
       })
       .afterClosed()
-      .pipe(filter((el) => el))
-      .subscribe((el: IPersonChange) => {});
+      .pipe(
+        filter((el) => el),
+        takeUntil(this.destroy$),
+      )
+      .subscribe((el: IPersonChange) => {
+        if (value.type === OptionType[OptionType.CHANGE]) {
+          this.manager_team.push(el.member);
+          this.manager_team = this.manager_team.filter(
+            (res) => res.id !== value.member.id,
+          );
+          this.updateManagersTeam();
+          // this.changeHiringTeam.emit(this.hiringTeam);
+        } else if (el.type === OptionType[OptionType.ADD]) {
+          this.manager_team.push(el.member);
+          this.updateManagersTeam();
+          // this.changeHiringTeam.emit(this.hiringTeam);
+        } else if (el.type === OptionType[OptionType.DELETE]) {
+          this.manager_team = this.manager_team.filter(
+            (res) => res.id !== el.member.id,
+          );
+          this.updateManagersTeam();
+          // this.changeHiringTeam.emit(this.hiringTeam);
+        }
+      });
   }
 
   onAddMember() {
@@ -68,5 +101,29 @@ export class ManagersTeamComponent {
       title: PersonEventTitle['ADD'],
     };
     this.onTriggerEvent(body);
+  }
+
+  updateManagersTeam() {
+    this.employeeDashboardService
+      .updateEmployee(this.emploee_details.id, {
+        managers_team: this.manager_team.map((res) => res.id),
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
+  }
+
+  get isAvailableUpdate() {
+    return (
+      this.emploee_details['hr'] === this.employeeDashboardService.currUser.name
+    );
+  }
+
+  isCurrManager(manager) {
+    return this.employeeDashboardService.currUser?.id === manager.id;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

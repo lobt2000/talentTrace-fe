@@ -15,13 +15,16 @@
       font-weight: bold;
     }
     .actions {
-      @include size(165px, auto);
-      .compare {
+      @include size(auto, auto);
+      button {
         outline: unset;
-        background-color: white;
         border-radius: 5px;
-        transition: all 0.6s ease-in-out;
+        transition: all 0.6s linear;
+        background-color: white;
         border: 3px solid white;
+        box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+      }
+      .compare {
         mat-icon {
           color: #17a2b8;
         }
@@ -46,9 +49,25 @@
           line-height: 17px;
         }
       }
+
+      .add {
+        mat-icon {
+          color: #17a2b8;
+        }
+
+        &:focus {
+          border: 3px solid gray;
+        }
+
+        &:hover {
+          background-color: #17a2b8;
+          mat-icon {
+            color: white;
+          }
+        }
+      }
     }
   }
-
   .candidates-body {
     @include size(100%, calc(100vh - 320px));
     overflow-y: auto;

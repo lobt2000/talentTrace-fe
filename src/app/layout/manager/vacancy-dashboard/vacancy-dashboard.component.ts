@@ -1,159 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbsService } from 'src/app/service/breadcrumbs.service';
 import { IOptions } from 'src/app/shared/interfaces/options.interface';
+import { VacancyDashboardService } from './services/vacancy-dashboard.service';
+import { LoadingService } from 'src/app/service/loading.service';
+import { CandidatesService } from '../candidates/services/candidates.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-vacancy-dashboard',
   templateUrl: './vacancy-dashboard.component.html',
   styleUrls: ['./vacancy-dashboard.component.scss'],
 })
-export class VacancyDashboardComponent implements OnInit {
-  vacancy_list: any[] = [
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-    {
-      name: 'Middle Front-End Angular Developer',
-      employment: 'Remote',
-      country: 'Ukraine',
-      city: 'Lviv',
-      active: true,
-      candidates: [
-        'assets/img/dev-company-logo.jpeg',
-        'assets/img/logo2.0.png',
-      ],
-    },
-  ];
+export class VacancyDashboardComponent implements OnInit, OnDestroy {
+  vacancy_list: any[] = [];
+  candidates_list: any[] = [];
   defaultBreadcrumb = {
     label: 'Dashboard',
     value: 'dashboard',
@@ -187,19 +48,69 @@ export class VacancyDashboardComponent implements OnInit {
     },
   ];
 
+  destroy$ = new Subject();
+
   constructor(
     private breadcrumbsService: BreadcrumbsService,
     private router: Router,
     private route: ActivatedRoute,
+    private vacancyService: VacancyDashboardService,
+    private candidatesService: CandidatesService,
+    private loadingService: LoadingService,
   ) {}
 
   ngOnInit(): void {
     this.breadcrumbsService.removeActiveBreadcrumb();
+    this.getAllVacancies();
+    this.getAllCandidatesWithoutVacancies();
+  }
+
+  getAllVacancies() {
+    this.loadingService.setLoading(true);
+    this.vacancyService
+      .onGetAllVacancies()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.vacancy_list = res.data;
+        this.loadingService.setLoading(false);
+      });
+  }
+
+  getAllCandidatesWithoutVacancies() {
+    this.loadingService.setLoading(true);
+    this.candidatesService
+      .getAllCandidates()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.candidates_list = res.data.filter(
+          (el) => !el.vacanciesIds?.length,
+        );
+        this.loadingService.setLoading(false);
+      });
   }
 
   onGoToItem(item) {
-    this.router.navigate([item.name], {
-      relativeTo: this.route,
-    });
+    this.navigateToItem(item.id);
+  }
+
+  onAddItem() {
+    this.navigateToItem('Creation');
+  }
+
+  navigateToItem(route?) {
+    this.vacancyService.navigateToItem(route);
+  }
+
+  triggerAction(event) {
+    if (event.type === 'create') {
+      this.onAddItem();
+    }
+  }
+
+  onAddCandidate() {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

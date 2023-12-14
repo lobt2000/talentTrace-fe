@@ -103,21 +103,39 @@
         </div>
       </div>
       <div class="col-8">
-        <div class="default-formField w-100" appearance="fill">
-          <input
-            class="default-input"
-            matInput
-            [formControlName]="'startDate'"
-            required
-          />
+        <!-- <div class="default-formField w-100" appearance="fill">
+          <input class="default-input" matInput [formControlName]="'startDate'" required />
           <label class="default-label">{{ "Start date" | translate }}</label>
-          <div
-            class="default-input-error-message"
-            *ngIf="employeeFrom.get('startDate').hasError('required')"
-          >
+          <div class="default-input-error-message" *ngIf="employeeFrom.get('startDate').hasError('required')">
             Start date is <strong>required</strong>
           </div>
-        </div>
+        </div> -->
+        <mat-form-field
+          class="startDateForm w-100"
+          [class.invalid]="employeeFrom.get('startDate').invalid"
+        >
+          <mat-label>Start date</mat-label>
+
+          <input
+            matInput
+            [formControlName]="'startDate'"
+            class="white"
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            class="white"
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker class="white" #picker></mat-datepicker>
+
+          <mat-error
+            *ngIf="
+              employeeFrom.get('startDate').hasError('matStartDateInvalid')
+            "
+            >Invalid start date</mat-error
+          >
+        </mat-form-field>
       </div>
       <div class="col-8 position-relative">
         <mat-form-field class="edit-info position-relative">
@@ -404,7 +422,9 @@
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
       >
         <div class="w-100 whitegray data-label bg-lightmain">Start date</div>
-        <div class="w-100 data-value">{{ getValueFromForm("startDate") }}</div>
+        <div class="w-100 data-value">
+          {{ getValueFromForm("startDate") | date: "dd.MM.yyyy" }}
+        </div>
       </div>
       <div
         class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
@@ -444,6 +464,14 @@
         <div class="w-100 whitegray data-label bg-lightmain">Position</div>
         <div class="w-100 data-value">
           {{ getValueFromForm("position", "name") }}
+        </div>
+      </div>
+      <div
+        class="d-flex align-items-center w-100 position-relative mt-10 mb-10"
+      >
+        <div class="w-100 whitegray data-label bg-lightmain">Level</div>
+        <div class="w-100 data-value">
+          {{ getValueFromForm("level", "name") }}
         </div>
       </div>
       <div

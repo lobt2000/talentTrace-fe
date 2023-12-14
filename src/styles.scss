@@ -63,6 +63,8 @@ $talentTrace-fe-theme: mat.define-light-theme(
 //   background: transparent;
 // }
 
+@import "./assets/style/ui";
+
 /* You can add global styles to this file, and also import other style files */
 * {
   padding: 0;
@@ -124,4 +126,197 @@ body {
 .mdc-dialog__surface {
   overflow: hidden !important;
   padding: 20px;
+}
+
+.component-background {
+  @include size(100%, 100vh);
+  @include flex-box(row, wrap, center, center);
+  background-color: $backgroundColor;
+  position: relative;
+  overflow: hidden;
+}
+
+.hide-password-button {
+  position: absolute;
+  right: 20px;
+  z-index: 3;
+}
+
+.login-block {
+  background-color: #302d2d;
+  border-radius: 25px;
+  z-index: 3;
+  @include size(500px, 720px);
+  @include flex-box(column, nowrap, center, center);
+  padding: 10px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-60 {
+  width: 60% !important;
+}
+
+.colDir {
+  flex-direction: column;
+}
+
+.sidebar-menu {
+  @include size(300px, 100%);
+}
+
+h3 {
+  margin: 0;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.page-content {
+  @include size(100%, calc(100% - 115px));
+  padding: 20px;
+}
+
+.scroll-block {
+  margin: 0 auto;
+  overflow-y: auto;
+  max-height: calc(100% - 375px);
+  transition: 150ms;
+  overflow-x: hidden;
+  width: 90%;
+}
+
+.ui-default-table {
+  margin: 10px 0;
+  font-family: "atlas-aaa";
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  td,
+  th {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+
+    // &:first-child {
+    border-right: 3px solid #213134;
+    // }
+  }
+  thead {
+    th {
+      background: #738ff7;
+      color: #fff;
+    }
+  }
+  tbody {
+    td {
+      background: #f7f9ff;
+      transition: all 0.4s;
+      font-weight: bold;
+    }
+  }
+
+  &.table-sort {
+    th {
+      min-height: 24px;
+      cursor: pointer;
+
+      .icon-dropdown-caret {
+        font-size: 7px;
+        &.up {
+          transform: rotate(180deg);
+        }
+      }
+      .icon-dropdown-caret,
+      .material-icons {
+        &.active {
+          color: #000;
+        }
+      }
+    }
+  }
+  .wrap-icon {
+    display: inline-flex;
+    align-items: center;
+    min-height: 16px;
+    position: relative;
+    padding-right: 20px;
+
+    .sort {
+      position: absolute;
+      right: 0;
+    }
+  }
+  .icon-col {
+    width: 50px;
+  }
+
+  .default-link {
+    text-decoration: underline !important;
+
+    &:hover {
+      color: #738ff7 !important;
+    }
+  }
+
+  .material-icons:after {
+    content: attr(data-icon);
+  }
+}
+
+.instruction {
+  @include size(48%, 100%);
+}
+
+// .orange {
+//   color: #fdb75a;
+// }
+
+// .gray {
+//   color: gray;
+// }
+
+// .white {
+//   color: gray;
+// }
+.card-add {
+  background-color: transparent;
+  @include size(30%, 350px);
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: position 0.3s 1s ease-in-out;
+
+  margin-right: 20px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  cursor: pointer;
+  border: 7px dashed white;
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    background-color: gray;
+  }
+}
+
+.noItem {
+  @include size(100%, 40%);
+  padding: 170px 0;
+  mat-icon {
+    top: -30px;
+    right: 1.5%;
+    font-size: 47px;
+    @include size(50px, 50px);
+    color: #fdb75a;
+    transform: rotate(90deg);
+  }
+}
+
+.nowrap {
+  flex-wrap: nowrap;
+}
+
+.box-shadow {
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+.text-align-center {
+  text-align: center;
 }

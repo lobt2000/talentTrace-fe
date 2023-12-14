@@ -1,0 +1,21 @@
+@import "../../../../../assets/style/ui";
+
+:host {
+  transition: all 0.3s ease-in-out;
+
+  .tab-container {
+    @include size(100%, 100%);
+    transition: all ease-in-out 0.3s;
+  }
+
+  .short-info-edit {
+    @include size(45px, 35px);
+    color: #fdb75a;
+    justify-content: space-evenly;
+    background-color: transparent;
+    border: 1px solid #fdb75a;
+    border-radius: 10px;
+    animation: 0.5s ease-in-out;
+    transition: all ease-in-out 0.3s;
+  }
+}

@@ -61,7 +61,7 @@ export class AuthService {
 
   loginUser(body): Observable<any> {
     return this.http
-      .post('/api/v1/loginUser', body)
+      .post('/api/v1/loginByUser', body)
       .pipe(switchMap((res) => this.setTokenValue(res)));
   }
 
@@ -69,8 +69,9 @@ export class AuthService {
     return this.http.get('/api/v1/users');
   }
 
-  setValueToLocalBase(role) {
-    localStorage.setItem('userType', role);
+  setValueToLocalBase(user) {
+    localStorage.setItem('userType', user.role);
+    localStorage.setItem('userData', JSON.stringify(user));
     this.router.navigate([CommonUrls.Manager]);
   }
 

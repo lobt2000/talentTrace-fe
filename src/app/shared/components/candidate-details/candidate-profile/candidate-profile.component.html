@@ -1,0 +1,174 @@
+<div class="tab-container d-flex align-items-start justify-content-between">
+  <ng-container *ngIf="!getCvValue?.hasOwnProperty('data'); else defaultScrean">
+    <div
+      class="uploading-file d-flex colDir align-items-center justify-content-around"
+    >
+      <mat-icon class="cloud_upload">cloud_upload</mat-icon>
+
+      <div class="title">
+        <p>{{ "Please upload the candidate CV" | translate }}</p>
+        <p>{{ "File should be PDF extention" | translate }}</p>
+      </div>
+      <input type="file" (change)="onUploadFile($event)" />
+      <div
+        class="upload-immitation d-flex align-items-center justify-content-center"
+      >
+        <button class="upload-button">
+          {{ "Browse the file" | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <div
+    class="candidate-info-block p-3 d-flex colDir align-items-center justify-content-between position-relative"
+  >
+    <ng-container *ngIf="candidateImg || !isCreation">
+      <img
+        class="candidate-img"
+        [src]="candidateImg?.data || candidateImg"
+        alt=""
+      />
+      <button
+        *ngIf="isCreation ? true : candidate_form.enabled"
+        class="short-info-edit d-flex align-items-center cursor-pointer mr-2 position-absolute top-20 right-15"
+        (click)="candidateImg = {}; candidate_form.get('icon').reset()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </ng-container>
+
+    <div
+      *ngIf="isCreation && !candidateImg"
+      class="candidate-img uploading-file d-flex colDir align-items-center justify-content-around mt-10"
+    >
+      <mat-icon class="cloud_upload">cloud_upload</mat-icon>
+      <div class="title">
+        <p>{{ "Candidate image or random" | translate }}</p>
+      </div>
+      <input type="file" (change)="onUploadCandidateImg($event)" />
+      <div
+        class="upload-immitation d-flex align-items-center justify-content-center"
+      >
+        <button class="upload-button">
+          {{ "Browse the file" | translate }}
+        </button>
+      </div>
+    </div>
+    <form class="candidate-form w-100" [formGroup]="candidate_form">
+      <div class="w-80 row justify-content-around nowrap">
+        <div class="default-formField col-6 p-0 mb-20 mr-2">
+          <input
+            class="default-input w-100"
+            [disabled]="candidate_form.disabled"
+            [formControlName]="'firstName'"
+            matInput
+          />
+          <label class="default-label"
+            >{{ "First name" | translate }}
+            <span
+              *ngIf="candidate_form.get('firstName').hasError('required')"
+              class="position-absolute"
+              >*</span
+            >
+          </label>
+          <div
+            class="default-input-error-message"
+            *ngIf="candidate_form.get('firstName').hasError('required')"
+          >
+            First name is <strong>required</strong>
+          </div>
+        </div>
+        <div class="default-formField col-6 p-0 mb-20 ml-2">
+          <input
+            class="default-input w-100"
+            [disabled]="candidate_form.disabled"
+            [formControlName]="'surName'"
+            matInput
+          />
+          <label class="default-label"
+            >{{ "Second name" | translate }}
+            <span
+              *ngIf="candidate_form.get('surName').hasError('required')"
+              class="position-absolute"
+              >*</span
+            >
+          </label>
+          <div
+            class="default-input-error-message"
+            *ngIf="candidate_form.get('surName').hasError('required')"
+          >
+            Second name is <strong>required</strong>
+          </div>
+        </div>
+      </div>
+      <div class="w-80 row justify-content-around nowrap">
+        <div class="default-formField col-6 p-0 mb-20 mr-2">
+          <input
+            class="default-input w-100"
+            [disabled]="candidate_form.disabled"
+            [formControlName]="'email'"
+          />
+          <label class="default-label"
+            >{{ "Email" | translate }}
+            <span
+              *ngIf="candidate_form.get('email').hasError('required')"
+              class="position-absolute"
+              >*</span
+            >
+          </label>
+          <div
+            class="default-input-error-message"
+            *ngIf="candidate_form.get('email').hasError('required')"
+          >
+            Email is <strong>required</strong>
+          </div>
+        </div>
+        <div class="default-formField col-6 p-0 mb-20 ml-2">
+          <input
+            class="default-input w-100"
+            [disabled]="candidate_form.disabled"
+            [formControlName]="'position'"
+            matInput
+          />
+          <label class="default-label"
+            >{{ "Position" | translate }}
+            <span
+              *ngIf="candidate_form.get('position').hasError('required')"
+              class="position-absolute"
+              >*</span
+            >
+          </label>
+          <div
+            class="default-input-error-message"
+            *ngIf="candidate_form.get('position').hasError('required')"
+          >
+            Position is <strong>required</strong>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #defaultScrean>
+    <div class="w-50 position-relative">
+      <pdf-viewer
+        [src]="getCvValue?.data"
+        [render-text]="true"
+        [original-size]="false"
+        style="
+          width: 100%;
+          height: calc(100vh - 240px);
+          box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+        "
+      >
+      </pdf-viewer>
+      <button
+        *ngIf="isCreation ? true : candidate_form.enabled"
+        class="short-info-edit d-flex align-items-center cursor-pointer mr-2 position-absolute top-0 right--65"
+        (click)="removeFile()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </ng-template>
+</div>

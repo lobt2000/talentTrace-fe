@@ -1,0 +1,15 @@
+<mat-accordion>
+  <mat-expansion-panel (opened)="(true)" (closed)="(false)">
+    <mat-expansion-panel-header class="position-relative">
+      <ng-content select="[expansion-header]"></ng-content>
+
+      <mat-icon
+        *ngIf="wihtClose"
+        class="position-absolute close-icon"
+        (click)="onClose()"
+        >close</mat-icon
+      >
+    </mat-expansion-panel-header>
+    <ng-content select="[expansion-body]"></ng-content>
+  </mat-expansion-panel>
+</mat-accordion>

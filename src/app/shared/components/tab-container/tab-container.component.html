@@ -9,7 +9,7 @@
       aria-controls="active"
       aria-expanded="true"
     >
-      <span class="nav-title"> User </span>
+      <span class="nav-title"> Manager </span>
     </a>
   </li>
   <li class="nav-item" (click)="changeTab('company')">
@@ -36,7 +36,11 @@
   >
     <ng-container *ngIf="activeTab == 'user'">
       <ng-container [ngSwitch]="typeOfAction">
-        <app-signIn [typeOfUser]="'user'" *ngSwitchCase="'login'"></app-signIn>
+        <app-signIn
+          [typeOfUser]="'user'"
+          *ngSwitchCase="'login'"
+          (formValue)="onGetFormValue($event)"
+        ></app-signIn>
         <app-signUp
           [typeOfUser]="'user'"
           *ngSwitchCase="'registration'"

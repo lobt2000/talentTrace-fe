@@ -1,0 +1,49 @@
+@import "]../../../../../../../assets/style/ui";
+
+.tab-container {
+  @include size(100%, 100%);
+  padding: 20px;
+  transition: all ease-in-out 0.3s;
+
+  .uploading-file {
+    height: calc(100vh - 240px) !important;
+    &.candidate-img {
+      @include size(70%, 60%!important);
+    }
+  }
+
+  .candidate-info-block {
+    background-color: #344c51;
+    @include size(35%, 530px);
+    border-radius: 5px;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+
+    .candidate-img {
+      @include size(70%, 60%);
+      border-radius: 5px;
+      object-fit: cover;
+    }
+  }
+}
+
+.short-info-edit {
+  @include size(45px, 35px);
+  color: #fdb75a;
+  justify-content: space-evenly;
+  background-color: transparent;
+  border: 1px solid #fdb75a;
+  border-radius: 10px;
+  animation: 0.5s ease-in-out;
+  transition: all ease-in-out 0.3s;
+}
+
+:host ::ng-deep {
+  .ng2-pdf-viewer-container {
+    overflow-x: hidden !important;
+  }
+}
+
+.default-input {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}

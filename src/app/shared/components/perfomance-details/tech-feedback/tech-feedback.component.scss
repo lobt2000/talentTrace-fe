@@ -1,0 +1,116 @@
+@import "../../../../../assets/style/ui";
+
+:host::ng-deep {
+  transition: all ease-in-out 0.3s;
+  .mat-mdc-form-field-subscript-wrapper {
+    transition: all ease-in-out 0.3s;
+    height: 0 !important;
+  }
+  .mat-mdc-form-field:has(.mdc-text-field--invalid) {
+    .mat-mdc-form-field-subscript-wrapper {
+      height: 24px !important;
+      .mat-mdc-form-field-error-wrapper {
+        padding: 0px !important;
+      }
+    }
+  }
+
+  dl,
+  ol,
+  ul {
+    margin-left: 20px;
+  }
+
+  .ck-editor__editable_inline {
+    min-height: 250px;
+    color: black;
+    padding: 20px;
+    background-color: #17a2b8;
+  }
+}
+
+:host {
+  @include size(100%, 100%);
+  @include flex-box(row, nowrap, space-between, start);
+}
+
+.add-score {
+  border-radius: 5px;
+  transition: all ease-in-out 0.3s;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+#video-tag {
+  height: 580px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+.header {
+  @include size(100%, 60px);
+  background-color: #fdb75a;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+.actions {
+  @include size(fit-content, auto);
+  button {
+    outline: unset;
+    border-radius: 5px;
+    transition: all 0.6s linear;
+    background-color: white;
+    border: 3px solid white;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  }
+  .add {
+    mat-icon {
+      color: #17a2b8;
+    }
+
+    &:focus {
+      border: 3px solid gray;
+    }
+
+    &:hover {
+      background-color: #17a2b8;
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+  .remove {
+    mat-icon {
+      color: red;
+    }
+
+    &:focus {
+      border: 3px solid gray;
+    }
+
+    &:hover {
+      background-color: red;
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+}
+
+.text-feedback {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.isEmpty {
+  border: 1px solid #f3f6f9;
+}
+
+.description {
+  display: block;
+  background-color: transparent;
+}

@@ -6,22 +6,26 @@
         [title]="'My position'"
         [itemsList]="vacancy_list"
         (goToItem)="onGoToItem($event)"
+        (addItem)="onAddItem()"
         [moreOptions]="vacanciesOptions"
+        (triggerOption)="triggerAction($event)"
       ></app-collapse-item-list>
     </div>
     <div class="d-flex colDir justify-content-between dashboard-two-lists">
       <div class="candidates-list">
         <app-collapse-item-list
           [title]="'My candidates'"
-          [itemsList]="vacancy_list"
+          [itemsList]="candidates_list"
           (goToItem)="onGoToItem($event)"
+          (addItem)="onAddCandidate()"
         ></app-collapse-item-list>
       </div>
       <div class="conversation-list">
         <app-collapse-item-list
           [title]="'My conversation'"
-          [itemsList]="vacancy_list"
+          [itemsList]="[]"
           (goToItem)="onGoToItem($event)"
+          [noItems]="'conversation'"
         ></app-collapse-item-list>
       </div>
     </div>

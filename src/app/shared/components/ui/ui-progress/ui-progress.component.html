@@ -1,4 +1,9 @@
-<p class="font-size-14 font-w-bold">{{ title }}</p>
+<div class="w-100 d-flex justify-content-between">
+  <p class="font-size-14 font-w-bold title">{{ title }}</p>
+  <p class="font-size-14 font-w-bold">
+    {{ culculatePercent | number: "1.0-0" }}%
+  </p>
+</div>
 <div
   class="progress-container d-flex align-items-start justify-content-start position-relative w-100"
 >

@@ -39,8 +39,19 @@
   font-size: 16px;
 }
 
+.default-input:disabled + .default-label {
+  transform: translate(0, -20px) scale(0.8);
+  color: white;
+  font-size: 16px;
+}
+
 .default-input:is(:focus, :valid) {
   outline-color: #d1c5fc;
+}
+
+.default-input:is(:disabled) {
+  outline: unset;
+  padding: 0 !important;
 }
 
 .default-input-error-message {

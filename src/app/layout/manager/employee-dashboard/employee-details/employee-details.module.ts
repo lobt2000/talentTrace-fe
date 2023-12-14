@@ -11,6 +11,8 @@ import { EmployeeDetailsComponent } from './employee-details.component';
 import { ManagersTeamComponent } from '../shared/components/managers-team/managers-team.component';
 import { PerfomanceComponent } from '../shared/components/perfomance/perfomance.component';
 import { GeneralInfoProfileComponent } from 'src/app/shared/components/general-info-profile/general-info-profile.component';
+import { PerfomanceCardComponent } from 'src/app/shared/components/perfomance-card/perfomance-card.component';
+import { PerfomanceDetailsComponent } from 'src/app/shared/components/perfomance-details/perfomance-details.component';
 
 @NgModule({
   declarations: [EmployeeDetailsComponent],
@@ -26,6 +28,8 @@ import { GeneralInfoProfileComponent } from 'src/app/shared/components/general-i
     ManagersTeamComponent,
     PerfomanceComponent,
     GeneralInfoProfileComponent,
+    PerfomanceCardComponent,
+    PerfomanceDetailsComponent,
   ],
 })
 export class EmployeeDetailsModule {}

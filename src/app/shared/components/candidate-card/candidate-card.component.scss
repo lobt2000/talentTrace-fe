@@ -6,7 +6,7 @@
 }
 .card {
   @include flex-box(column, nowrap, space-between, center);
-  @include size(100%, fit-content);
+  @include size(100%, 385px);
   background-color: #efeff1;
 
   border-radius: 5px;

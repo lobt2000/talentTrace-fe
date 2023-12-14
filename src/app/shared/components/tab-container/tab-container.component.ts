@@ -1,9 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SignUpComponent } from '../signUp/signUp.component';
+import { SignInComponent } from '../signIn/signIn.component';
 
 @Component({
   selector: 'app-tab-container',
   templateUrl: './tab-container.component.html',
   styleUrls: ['./tab-container.component.scss'],
+  standalone: true,
+  imports: [CommonModule, SignUpComponent, SignInComponent],
 })
 export class TabContainerComponent implements OnInit {
   activeTab: string = 'user';

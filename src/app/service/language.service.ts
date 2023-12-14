@@ -17,7 +17,7 @@ export class LanguageService {
     return this.translateService.currentLang
       ? this.translateService.currentLang
       : lang
-      ? 'ua'
-      : 'en';
+        ? 'ua'
+        : 'en';
   }
 }

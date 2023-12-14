@@ -7,6 +7,10 @@ export interface IPersonChange {
   type: OptionTypeKeys;
   title: string;
   member?: any;
+  members?: any[];
+  managers?: any[];
+  items?: any[];
+  itemTitle?: string;
 }
 
 export enum PersonEventTitle {

@@ -12,3 +12,9 @@
   background-color: #27373a;
   border-radius: 5px;
 }
+
+:host {
+  .notiffication-content {
+    overflow-y: auto;
+  }
+}

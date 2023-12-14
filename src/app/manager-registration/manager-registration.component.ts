@@ -81,7 +81,7 @@ export class ManagerRegistrationComponent implements OnInit {
       .updateManagerPass(body)
       .pipe(
         tap((res) => {
-          this.authService.setValueToLocalBase(res.data.role);
+          this.authService.setValueToLocalBase(res.data);
           this.loadingService.setLoading(false);
         }),
       )

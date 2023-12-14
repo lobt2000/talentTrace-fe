@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeMemberModalComponent } from '../../shared/components/change-member-modal/change-member-modal.component';
 import {
   IPersonChange,
   PersonEventTitle,
 } from '../../shared/models/person-change.interface';
-import { filter } from 'rxjs';
+import { Subject, filter, takeUntil } from 'rxjs';
 import {
   OptionType,
   OptionTypeKeys,
@@ -17,13 +23,15 @@ import { VacancyDashboardService } from '../../services/vacancy-dashboard.servic
   templateUrl: './hiring-team.component.html',
   styleUrls: ['./hiring-team.component.scss'],
 })
-export class HiringTeamComponent {
+export class HiringTeamComponent implements OnDestroy {
+  @Input() hiringTeam: Array<any> = [];
+  @Input() managers: Array<any> = [];
+  @Output() changeHiringTeam: EventEmitter<Array<any>> = new EventEmitter();
   isOpenOption: boolean = false;
 
-  constructor(
-    private dialog: MatDialog,
-    private vacancyDashboardService: VacancyDashboardService,
-  ) {}
+  destroy$ = new Subject();
+
+  constructor(private dialog: MatDialog) {}
 
   onTriggerEvent(value: IPersonChange) {
     // Should add BE Integration
@@ -34,6 +42,10 @@ export class HiringTeamComponent {
     ) {
       this.openChangeModal(value);
     } else if (value.type === OptionType[OptionType.DELETE]) {
+      this.hiringTeam = this.hiringTeam.filter(
+        (res) => res.id !== value.member.id,
+      );
+      this.changeHiringTeam.emit(this.hiringTeam);
     } else if (value.type === OptionType[OptionType.SEND_MESSAGE]) {
     }
   }
@@ -50,11 +62,32 @@ export class HiringTeamComponent {
         data: {
           title: value.title,
           type: value.type,
+          managers: this.managers,
+          members: this.hiringTeam,
         },
       })
       .afterClosed()
-      .pipe(filter((el) => el))
-      .subscribe((el: IPersonChange) => {});
+      .pipe(
+        filter((el) => el),
+        takeUntil(this.destroy$),
+      )
+      .subscribe((el: IPersonChange) => {
+        if (value.type === OptionType[OptionType.CHANGE]) {
+          this.hiringTeam.push(el.member);
+          this.hiringTeam = this.hiringTeam.filter(
+            (res) => res.id !== value.member.id,
+          );
+          this.changeHiringTeam.emit(this.hiringTeam);
+        } else if (el.type === OptionType[OptionType.ADD]) {
+          this.hiringTeam.push(el.member);
+          this.changeHiringTeam.emit(this.hiringTeam);
+        } else if (el.type === OptionType[OptionType.DELETE]) {
+          this.hiringTeam = this.hiringTeam.filter(
+            (res) => res.id !== el.member.id,
+          );
+          this.changeHiringTeam.emit(this.hiringTeam);
+        }
+      });
   }
 
   onAddMember() {
@@ -63,5 +96,10 @@ export class HiringTeamComponent {
       title: PersonEventTitle['ADD'],
     };
     this.onTriggerEvent(body);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

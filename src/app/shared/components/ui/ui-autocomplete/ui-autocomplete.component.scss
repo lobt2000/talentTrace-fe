@@ -1,0 +1,15 @@
+:host ::ng-deep {
+  transition: all ease-in-out 0.3s;
+  .mat-mdc-form-field-subscript-wrapper {
+    transition: all ease-in-out 0.3s;
+    height: 0 !important;
+  }
+  .mat-mdc-form-field:has(.mdc-text-field--invalid) {
+    .mat-mdc-form-field-subscript-wrapper {
+      height: 24px !important;
+      .mat-mdc-form-field-error-wrapper {
+        padding: 0px !important;
+      }
+    }
+  }
+}

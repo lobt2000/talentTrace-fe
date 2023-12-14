@@ -1,0 +1,16 @@
+@import "../../../../../assets/style/ui";
+
+:host {
+  margin-bottom: 10px;
+  @include size(100%, auto);
+  display: block;
+}
+
+.close-icon {
+  top: 19px;
+  right: 45px;
+  color: rgb(0, 0, 0, 0.45);
+  font-size: 18px;
+  @include size(20px, 20px);
+  font-weight: bold;
+}

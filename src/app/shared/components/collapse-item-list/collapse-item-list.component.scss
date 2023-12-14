@@ -5,11 +5,14 @@
   background-color: #e7e7e7;
   border-radius: 5px;
   padding-bottom: 20px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
 
   .header {
     @include size(100%, 70px);
     border-bottom: 1px solid;
     padding: 20px;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+
     .title {
       font-size: 18px;
       font-weight: bold;
@@ -28,6 +31,11 @@
     padding: 20px;
     @include size(100%, calc(100% - 70px));
     overflow-y: auto;
+
+    &:has(.noItems) {
+      @include flex-box(row, nowrap, center, center);
+    }
+
     .item {
       @include size(100%, initial);
       min-height: 95px;
@@ -36,7 +44,7 @@
       border-radius: 5px;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
-      padding: 10px;
+      padding: 10px 25px;
       margin-bottom: 10px;
 
       &:hover {
@@ -50,6 +58,8 @@
       .item-icon {
         @include size(50px, 50px);
         border-radius: 30px;
+        outline: 3px solid #17a2b8 !important;
+        object-fit: cover;
       }
 
       .text-info {
@@ -67,6 +77,7 @@
             border-radius: 25px;
             border: 1px solid;
             margin-left: -10px;
+            outline: unset !important;
           }
         }
       }

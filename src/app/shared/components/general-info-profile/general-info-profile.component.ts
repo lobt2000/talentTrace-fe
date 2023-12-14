@@ -7,6 +7,7 @@ import {
   Output,
   EventEmitter,
   OnChanges,
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -32,6 +33,8 @@ import {
 } from '../../constansts/personal-info-constants/personal-info.model';
 import { ICommon } from '../../interfaces/common/common.interface';
 import { debounceTime } from 'rxjs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-general-info-profile',
@@ -47,6 +50,8 @@ import { debounceTime } from 'rxjs';
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -57,7 +62,10 @@ export class GeneralInfoProfileComponent implements OnInit, OnChanges {
   @Output() updateFormValue: EventEmitter<any> = new EventEmitter();
   employeeFrom: UntypedFormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+  ) {}
   ngOnInit(): void {
     this.buildForm();
   }
@@ -98,7 +106,35 @@ export class GeneralInfoProfileComponent implements OnInit, OnChanges {
   }
 
   updateForm() {
-    this.employeeFrom.patchValue({ ...this.person });
+    if (this.employeeFrom) {
+      console.log(this.person);
+
+      this.employeeFrom.patchValue({
+        ...this.person,
+        unit: this.units.find((el) => el.id === this.person.unit.id),
+        status: this.status.find((el) => el.id === this.person.status.id),
+        employmentType: this.employmentType.find(
+          (el) => el.id === this.person.employmentType.id,
+        ),
+
+        subDepartment: this.subDepartments.find(
+          (el) => el.id === this.person.subDepartment.id,
+        ),
+        department: this.departments.find(
+          (el) => el.id === this.person.department.id,
+        ),
+        country: this.countries.find((el) => el.id === this.person.country.id),
+      });
+
+      this.cdr.detectChanges();
+
+      this.employeeFrom.patchValue({
+        position: this.positions.find(
+          (el) => el.id === this.person.position.id,
+        ),
+        level: this.levels.find((el) => el.id === this.person.level.id),
+      });
+    }
   }
 
   triggerAnimation(type: boolean, editType: string) {

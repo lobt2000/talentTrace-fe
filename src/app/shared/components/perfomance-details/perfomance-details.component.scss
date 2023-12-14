@@ -1,0 +1,185 @@
+@import "../../../../assets/style/ui";
+
+:host {
+  transition: all 0.3s ease-in-out;
+
+  .tab-container {
+    @include size(100%, 100%);
+    transition: all ease-in-out 0.3s;
+  }
+
+  .perfomance-title {
+    left: calc(50% + 70px);
+    @include size(230px, 40px);
+
+    &-input {
+      border-radius: 5px;
+      background-color: #f3f6f9;
+      border: unset;
+      @include size(100%, 30px);
+      // padding-left: 10px;
+
+      &:focus {
+        outline: 3px solid #fdb75a;
+      }
+
+      &:disabled {
+        border: unset !important;
+        outline: unset;
+        color: white !important;
+        background-color: transparent !important;
+        padding-left: 2px;
+        border-bottom: 1px dotted black;
+      }
+      &:disabled::placeholder {
+        color: transparent;
+      }
+    }
+  }
+}
+
+:host::ng-deep {
+  .feedback-stage-select {
+    .mdc-text-field {
+      border-radius: 5px !important;
+
+      .mat-mdc-form-field-infix {
+        min-height: 35px;
+        height: 35px;
+        padding: 0 !important;
+
+        .mat-mdc-select-trigger {
+          height: 100%;
+
+          .mat-mdc-select-value {
+            @include flex-box(row, nowrap, center, center);
+          }
+        }
+      }
+    }
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+
+  transition: all ease-in-out 0.3s;
+  .mat-mdc-form-field-subscript-wrapper {
+    transition: all ease-in-out 0.3s;
+    height: 0 !important;
+  }
+  .mat-mdc-form-field:has(.mdc-text-field--invalid) {
+    .mat-mdc-form-field-subscript-wrapper {
+      height: 24px !important;
+      .mat-mdc-form-field-error-wrapper {
+        padding: 0px !important;
+      }
+    }
+  }
+}
+
+.add {
+  outline: unset;
+  border-radius: 5px;
+  transition: all 0.6s linear;
+  background-color: white;
+  border: 3px solid white;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  padding: 2.5px;
+  mat-icon {
+    color: #17a2b8;
+  }
+
+  &:focus {
+    border: 3px solid gray;
+  }
+
+  &:hover {
+    background-color: #17a2b8;
+    mat-icon {
+      color: white;
+    }
+  }
+}
+
+.short-info-edit {
+  @include size(30px, 30px);
+  color: #fdb75a;
+  justify-content: space-evenly;
+  background-color: transparent;
+  border: 1px solid #fdb75a;
+  border-radius: 10px;
+  animation: 0.5s ease-in-out;
+  transition: all ease-in-out 0.3s;
+  mat-icon {
+    font-size: 16px;
+    @include size(16px, 16px);
+  }
+}
+
+.add-score {
+  border-radius: 5px;
+  transition: all ease-in-out 0.3s;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+#video-tag {
+  height: 580px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+.header {
+  @include size(100%, 60px);
+  background-color: #fdb75a;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+}
+
+.actions {
+  @include size(fit-content, auto);
+  button {
+    outline: unset;
+    border-radius: 5px;
+    transition: all 0.6s linear;
+    background-color: white;
+    border: 3px solid white;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.27);
+  }
+  .add {
+    mat-icon {
+      color: #17a2b8;
+    }
+
+    &:focus {
+      border: 3px solid gray;
+    }
+
+    &:hover {
+      background-color: #17a2b8;
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+  .remove {
+    mat-icon {
+      color: red;
+    }
+
+    &:focus {
+      border: 3px solid gray;
+    }
+
+    &:hover {
+      background-color: red;
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+}
+
+.invalid {
+  border: 2px solid red !important;
+}

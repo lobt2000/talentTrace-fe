@@ -76,6 +76,7 @@ export class ManuallAdditionComponent implements OnInit {
     this.managerDepartmentService.getManager(id).subscribe((res: IRequest) => {
       this.currManager = res.data;
       this.loadingService.setLoading(false);
+      this.openGenerationUrl(this.currManager.id);
     });
   }
 
@@ -90,12 +91,12 @@ export class ManuallAdditionComponent implements OnInit {
     };
 
     this.loadingService.setLoading(true);
-    const apiRequest = this.currManager?._id
-      ? this.managerDepartmentService.updateManager(this.currManager._id, body)
+    const apiRequest = this.currManager?.id
+      ? this.managerDepartmentService.updateManager(this.currManager.id, body)
       : this.managerDepartmentService.createManager(body);
 
     apiRequest.subscribe((res: { status: string; data: any }) => {
-      this.currManager = res.data;
+      this.currManager = 'id' in res.data ? this.currManager : res.data;
       const notifficationId =
         this.route.snapshot.queryParams['notifficationId'];
 
@@ -109,7 +110,9 @@ export class ManuallAdditionComponent implements OnInit {
         { queryParams: { actionType: 'editing', id: res.data.id } },
       );
 
-      if (this.openUrlModal) this.openGenerationUrl();
+      console.log(this.currManager);
+
+      if (this.openUrlModal) this.openGenerationUrl(res.data?.id);
       this.loadingService.setLoading(false);
       this.initPage();
     });
@@ -168,7 +171,17 @@ export class ManuallAdditionComponent implements OnInit {
   //     });
   // }
 
-  openGenerationUrl() {
+  onCancel() {
+    this.router.navigate(
+      [CommonUrls.Company, 'manager-department', 'add-manually'],
+      {
+        queryParams: { actionType: 'editing', id: this.defaultQueryParams.id },
+      },
+    );
+    this.initPage();
+  }
+
+  openGenerationUrl(id: string) {
     this.dialogRef.closeAll();
     this._dialog
       .open(GenerationUrlComponent, {
@@ -178,7 +191,7 @@ export class ManuallAdditionComponent implements OnInit {
           left: 'calc(50% - 15vw)',
         },
         data: {
-          id: this.currManager._id,
+          id: id,
         },
       })
       .afterClosed()

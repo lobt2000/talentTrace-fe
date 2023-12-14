@@ -50,8 +50,8 @@ export class FadeAniimationDirective implements OnChanges, OnDestroy {
           this.animationProperty.isFirstInit && i == 0
             ? 'flex'
             : !classList.includes(this.animationProperty.childClassName)
-            ? 'none'
-            : 'flex',
+              ? 'none'
+              : 'flex',
         );
       });
   }

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     };
     this.loadingService.setLoading(true);
     this.authService.loginByCompany(body).subscribe((res) => {
-      this.authService.setValueToLocalBase(res.data.role);
+      this.authService.setValueToLocalBase(res.data);
       this.loadingService.setLoading(false);
     });
   }
@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
       companyEmail: data.companyEmail,
     };
     this.loadingService.setLoading(true);
-    this.authService.loginByCompany(body).subscribe((res) => {
-      this.authService.setValueToLocalBase(res.data.role);
+    this.authService.loginUser(body).subscribe((res) => {
+      this.authService.setValueToLocalBase(res.data);
       this.loadingService.setLoading(false);
     });
   }

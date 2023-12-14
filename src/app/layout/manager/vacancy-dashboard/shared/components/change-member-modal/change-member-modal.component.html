@@ -9,10 +9,24 @@
     <mat-icon class="font-size-25 font-w-bold">close</mat-icon>
   </div>
 </header>
-<main class="mt-20">
-  <app-person-card
-    class="d-flex"
-    (triggerEvent)="onTriggerEvent($event)"
-    [isChangingMember]="true"
-  ></app-person-card>
+<main class="mt-20 d-flex align-items-start justify-content-between">
+  <ng-container *ngIf="filteredManagers.length; else noPerson">
+    <app-person-card
+      *ngFor="let manager of filteredManagers"
+      class="d-flex"
+      [isChangingMember]="true"
+      [person]="manager"
+      (triggerEvent)="onTriggerEvent($event)"
+    ></app-person-card>
+  </ng-container>
+  <ng-template #noPerson>
+    <h3
+      [ngStyle]="{
+        'align-self': 'center',
+        margin: '0 auto'
+      }"
+    >
+      No managers for adding
+    </h3>
+  </ng-template>
 </main>

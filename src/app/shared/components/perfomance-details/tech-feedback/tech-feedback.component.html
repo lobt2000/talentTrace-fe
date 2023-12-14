@@ -1,0 +1,158 @@
+<div class="w-60 position-relative">
+  <ng-container *ngIf="feedback?.file?.data">
+    <video controls class="w-100" id="video-tag" #videoPlayer>
+      <source id="video-source" [src]="feedback?.file?.data" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <div
+      class="actions d-flex align-items-center justify-content-between position-absolute top-20 right-17"
+      *ngIf="isAllowToChange"
+    >
+      <button
+        class="remove d-flex align-items-center justify-content-center p-1 cursor-pointer"
+        (click)="removeFile()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!feedback?.file?.data">
+    <div
+      class="uploading-file d-flex colDir align-items-center justify-content-around w-100"
+    >
+      <mat-icon class="cloud_upload"> movie </mat-icon>
+
+      <div class="title">
+        <p>{{ "Please upload the video with interviews" | translate }}</p>
+      </div>
+      <input type="file" (change)="onGetInterviewFile($event, feedback)" />
+      <div
+        class="upload-immitation d-flex align-items-center justify-content-center"
+      >
+        <button class="upload-button">
+          {{ "Browse the file" | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="w-100">
+    <div class="header d-flex align-items-center justify-content-between mt-20">
+      <h3>Skill assessment</h3>
+
+      <div
+        class="actions d-flex align-items-center justify-content-between"
+        *ngIf="isAllowToChange"
+      >
+        <button
+          class="add d-flex align-items-center justify-content-center p-1 cursor-pointer position-relative"
+          (click)="isAddScoreAvailable = true"
+        >
+          <mat-icon> add </mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="add-score w-100 d-flex align-items-center justify-content-between bg-white p-3 mb-20"
+      *ngIf="isAddScoreAvailable"
+      [formGroup]="addScoreForm"
+    >
+      <app-ui-autocomplete
+        class="w-50"
+        [formControlName]="'type'"
+        [options]="addScoreOptions"
+        [title]="'Add score'"
+      >
+      </app-ui-autocomplete>
+
+      <mat-form-field class="">
+        <mat-label>Your score from 0 to 100</mat-label>
+        <input
+          type="text"
+          [formControlName]="'value'"
+          min="0"
+          max="100"
+          placeholder="Write score for this skill"
+          matInput
+        />
+        <mat-error *ngIf="addScoreForm.get('value').hasError('required')">
+          Please choose an option
+        </mat-error>
+        <mat-error
+          *ngIf="
+            addScoreForm.get('value').hasError('min') &&
+            !addScoreForm.get('value').hasError('required')
+          "
+        >
+          Min value = 0
+        </mat-error>
+        <mat-error
+          *ngIf="
+            addScoreForm.get('value').hasError('max') &&
+            !addScoreForm.get('value').hasError('required')
+          "
+        >
+          Max value = 100
+        </mat-error>
+      </mat-form-field>
+
+      <div class="actions d-flex align-items-center justify-content-between">
+        <button
+          class="add d-flex align-items-center justify-content-center p-2 cursor-pointer position-relative ml-1 mr-1 bg-orange"
+          (click)="onAddScore(feedback)"
+        >
+          <mat-icon> add </mat-icon>
+        </button>
+        <button
+          class="remove d-flex align-items-center justify-content-center p-2 cursor-pointer position-relative ml-1 mr-1 bg-orange"
+          (click)="isAddScoreAvailable = false"
+        >
+          <mat-icon> close </mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="w-100 d-flex colDir align-items-center">
+      <div
+        class="add-score w-100 d-flex align-items-center justify-content-between bg-white pl-3 pr-3 pb-3 mb-20"
+        *ngFor="let score of feedback?.scores"
+      >
+        <app-ui-progress
+          class="w-99"
+          [title]="score?.name"
+          [totalValue]="100"
+          [progressValue]="score?.value"
+        ></app-ui-progress>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="w-30 h-80 bg-lightmain border-radius-5 box-shadow">
+  <div class="header d-flex align-items-center">
+    <h3 class="white">Text feedback</h3>
+  </div>
+  <ng-container *ngIf="!feedback?.textFeedback">
+    <ckeditor
+      class="w-100 description p-4"
+      [editor]="editor"
+      [data]="feedback?.textFeedback"
+      (change)="onChange($event)"
+    >
+    </ckeditor>
+  </ng-container>
+  <div
+    class="text-feedback cursor-pointer mt-20 white"
+    [ngClass]="{
+      visible: feedback?.textFeedback,
+      isEmpty: false
+    }"
+    [matTooltip]="'Click here for edit the Text Feedback' | translate"
+    [matTooltipPosition]="'above'"
+    matTooltipClass="mat-custom-tooltip"
+    matTooltipClass="mat-custom-tooltip"
+    [innerHTML]="feedback?.textFeedback"
+  ></div>
+</div>

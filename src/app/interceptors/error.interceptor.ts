@@ -7,12 +7,15 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { LoadingService } from '../service/loading.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private loadingService: LoadingService,
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -21,6 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         this.tempCheckAuthError(error);
+        this.loadingService.setLoading(false);
         return throwError(error);
       }),
     );

@@ -31,6 +31,9 @@
               <td *ngSwitchCase="'name'">
                 {{ row.name }}
               </td>
+              <td *ngSwitchCase="'startDate'">
+                {{ row.startDate | date: "dd.MM.yyyy" }}
+              </td>
               <td *ngSwitchCase="'createDate'">
                 {{ row.createDate | date: "dd.MM.yyyy" }}
               </td>

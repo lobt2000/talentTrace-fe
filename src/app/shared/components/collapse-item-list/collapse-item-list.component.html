@@ -6,11 +6,12 @@
       <app-more-options
         *ngIf="moreOptions && moreOptions.length"
         [optionsList]="moreOptions"
+        (onTriggerAction)="onTriggerOption($event)"
       ></app-more-options>
     </div>
   </div>
-  <div class="items-list">
-    <ng-container *ngIf="itemsList.length; else noItems">
+  <div class="items-list position-relative">
+    <ng-container *ngIf="itemsList.length; else noItem">
       <div
         class="item d-flex align-items-center justify-content-between"
         *ngFor="let item of itemsList"
@@ -18,7 +19,15 @@
       >
         <img
           *ngIf="showContent(item, 'icon')"
-          [src]="item.icon"
+          [src]="item.icon.hasOwnProperty('data') ? item.icon.data : item.icon"
+          class="item-icon"
+          alt=""
+        />
+        <img
+          *ngIf="showContent(item, 'bgIcon')"
+          [src]="
+            item.bgIcon.hasOwnProperty('data') ? item.bgIcon.data : item.bgIcon
+          "
           class="item-icon"
           alt=""
         />
@@ -51,7 +60,7 @@
             <img
               *ngFor="let candidate of item.candidates"
               class="item-icon"
-              [src]="candidate"
+              [src]="candidate?.icon?.data"
               alt=""
             />
           </div>
@@ -63,9 +72,19 @@
     </ng-container>
   </div>
 
-  <ng-template #noItems>
-    <div class="item d-flex align-items-center justify-content-center">
-      {{ 'You have no {{noItems}} yet' | translate }}
+  <ng-template #noItem>
+    <div class="noItems item d-flex align-items-center justify-content-center">
+      You have no {{ noItems }} yet
+    </div>
+    <div
+      class="position-absolute bottom-20 w-93 d-flex align-items-center justify-content-center"
+    >
+      <button
+        class="btn-default-blue default-stepper-button btn-primary"
+        (click)="onAddItem()"
+      >
+        Add {{ noItems }}
+      </button>
     </div>
   </ng-template>
 </div>

@@ -1,13 +1,9 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
-  OnInit,
   Output,
-  Renderer2,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -69,43 +65,16 @@ export class PersonCardComponent implements OnDestroy {
     isFirstInit: true,
   };
   @Input() isChangingMember: boolean = false;
-  @Input() manager: boolean = false;
+  @Input() person;
+  @Input() itemTitle: string = 'team';
+  @Input() isAvailableUpdate: boolean = true;
   @Output() triggerEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private renderer: Renderer2,
-    private el: ElementRef,
-  ) {}
+  constructor() {}
 
   onTriggerChangeSide(value?) {
     this.isOpenOption = value || !this.isOpenOption;
-    // this.setPosition();
   }
-
-  setPosition() {
-    // if (this.isFirstInit) {
-    //   this.onChangeDisplayStyle();
-    //   this.isFirstInit = false;
-    //   return;
-    // }
-    // this.timeOut = setTimeout(() => {
-    //   this.onChangeDisplayStyle();
-    // }, 500);
-  }
-
-  // onChangeDisplayStyle() {
-  //   this.el.nativeElement
-  //     .querySelectorAll('.card-side-block')
-  //     .forEach((element) => {
-  //       const classList = [...element.classList];
-
-  //       this.renderer.setStyle(
-  //         element,
-  //         'display',
-  //         !classList.includes('rotate-side') ? 'none' : 'flex'
-  //       );
-  //     });
-  // }
 
   onTriggerEvent(value: string) {
     let body: Partial<IPersonChange>;
@@ -114,12 +83,14 @@ export class PersonCardComponent implements OnDestroy {
       body = {
         type: value as OptionTypeKeys,
         title: PersonEventTitle[value],
-        ...(OptionType[value] !== 'CHANGE' && {
-          member: this.manager,
-        }),
+        member: this.person,
       };
     }
     this.triggerEvent.emit(body);
+  }
+
+  get currUserId() {
+    return JSON.parse(localStorage.getItem('userData')).id;
   }
 
   ngOnDestroy(): void {}

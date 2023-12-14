@@ -12,7 +12,7 @@ import { getColorPlate } from '../../../constansts/progress-color-plate';
 export class UiProgressComponent implements OnInit {
   @Input({ required: true }) progressValue: number;
   @Input({ required: true }) totalValue: number;
-  @Input() title: string = 'Seo skills';
+  @Input() title: string = '';
 
   ngOnInit(): void {}
 

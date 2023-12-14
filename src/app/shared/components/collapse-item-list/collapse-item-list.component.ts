@@ -11,6 +11,8 @@ export class CollapseItemListComponent implements OnInit {
   @Input() itemsList: any[] = [];
   @Input() moreOptions: Array<any> = [];
   @Output() goToItem: EventEmitter<any> = new EventEmitter();
+  @Output() addItem: EventEmitter<any> = new EventEmitter();
+  @Output() triggerOption: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
@@ -18,9 +20,19 @@ export class CollapseItemListComponent implements OnInit {
     return item.hasOwnProperty(property);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.itemsList);
+  }
 
   onGoToItem(item) {
     this.goToItem.emit(item);
+  }
+
+  onAddItem() {
+    this.addItem.emit(true);
+  }
+
+  onTriggerOption(event) {
+    this.triggerOption.emit(event);
   }
 }
